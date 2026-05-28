@@ -1435,4 +1435,345 @@ function cancelNoteEdit() { window._editingNoteId=null; renderNotes(); }
 function saveNoteEdit(id) {
   const el=document.getElementById('note-edit-'+id);
   if (!el) return;
-  const n=state.notes.find(n=>n.id===id); if(n) n.text=el.value.trim()
+  const n=state.notes.find(n=>n.id===id); if(n) n.text=el.value.trim();
+  saveState(); window._editingNoteId=null; renderNotes();
+}
+function deleteNote(id) {
+  state.notes=state.notes.filter(n=>n.id!==id);
+  saveState(); renderNotes();
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ACTIONS — LOG
+// ══════════════════════════════════════════════════════════════════════════════
+
+function saveLog() {
+  const text=document.getElementById('log-input').value.trim();
+  if (!text) return;
+  state.logs.push({date:todayStr,text});
+  saveState(); document.getElementById('log-input').value=''; renderLog();
+}
+function startLogEdit(i) { window._editingLogIdx=i; renderLog(); }
+function cancelLogEdit() { window._editingLogIdx=null; renderLog(); }
+function saveLogEdit(i) {
+  const el=document.getElementById('log-edit-area');
+  if (!el) return;
+  state.logs[i].text=el.value.trim();
+  saveState(); window._editingLogIdx=null; renderLog();
+}
+function deleteLog(i) {
+  if (!confirm('Delete this log entry?')) return;
+  state.logs.splice(i,1);
+  saveState(); window._editingLogIdx=null; renderLog();
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// NOTIFICATIONS + REMINDERS + ICS EXPORT
+// ══════════════════════════════════════════════════════════════════════════════
+
+function getTodayReminders() {
+  return JSON.parse(localStorage.getItem('soma_reminders_' + todayStr) || '[]');
+}
+function saveTodayReminders(arr) {
+  localStorage.setItem('soma_reminders_' + todayStr, JSON.stringify(arr));
+}
+
+function renderNotifBanner() {
+  const banner = document.getElementById('notif-banner');
+  const text   = document.getElementById('notif-banner-text');
+  const btn    = document.getElementById('notif-action-btn');
+  if (!('Notification' in window)) { banner.style.display='none'; return; }
+  if (Notification.permission === 'granted') { banner.style.display='none'; return; }
+  banner.style.display = 'flex';
+  if (Notification.permission === 'denied') {
+    banner.className = 'notif-banner denied';
+    text.textContent = 'Notifications blocked. Enable in browser settings → Site Settings → Notifications.';
+    btn.style.display = 'none';
+  } else {
+    banner.className = 'notif-banner prompt';
+    text.textContent = '🔔 Enable notifications to get schedule reminders anywhere';
+    btn.style.display = '';
+    btn.textContent = 'Enable';
+  }
+}
+
+function requestNotifPermission() {
+  if (!('Notification' in window)) return;
+  Notification.requestPermission().then(() => renderNotifBanner());
+}
+
+function parseTimeToMinutes(timeStr) {
+  // Parse "6:00 AM", "11:30 PM" → total minutes from midnight
+  const m = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if (!m) return null;
+  let h = parseInt(m[1]), min = parseInt(m[2]), period = m[3].toUpperCase();
+  if (period === 'PM' && h !== 12) h += 12;
+  if (period === 'AM' && h === 12) h = 0;
+  return h * 60 + min;
+}
+
+function toggleReminder(idx, time, label) {
+  if (Notification.permission !== 'granted') {
+    requestNotifPermission();
+    return;
+  }
+  const reminders = getTodayReminders();
+  const existing  = reminders.findIndex(r => r.idx === idx);
+  if (existing >= 0) {
+    reminders.splice(existing, 1); // remove
+  } else {
+    reminders.push({ idx, time, label, notified: false });
+  }
+  saveTodayReminders(reminders);
+  renderSchedule();
+}
+
+function checkReminders() {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  const now     = new Date();
+  const nowMins = now.getHours() * 60 + now.getMinutes();
+  const reminders = getTodayReminders();
+  let changed = false;
+  reminders.forEach(r => {
+    if (r.notified) return;
+    const rMins = parseTimeToMinutes(r.time);
+    if (rMins === null) return;
+    // fire within same minute
+    if (nowMins === rMins) {
+      try {
+        new Notification('⚡ Soma Daily OS', {
+          body: r.time + ' — ' + r.label,
+          icon: '',
+          badge: '',
+          tag: 'soma-' + r.idx,
+        });
+      } catch(e) {}
+      r.notified = true;
+      changed = true;
+    }
+  });
+  if (changed) saveTodayReminders(reminders);
+}
+
+// ─── ICS EXPORT ──────────────────────────────────────────────────────────────
+
+function formatICSDate(dateObj) {
+  // Returns YYYYMMDDTHHMMSS (local time, no Z — local calendar entry)
+  const pad = n => String(n).padStart(2,'0');
+  return [
+    dateObj.getFullYear(),
+    pad(dateObj.getMonth()+1),
+    pad(dateObj.getDate()),
+    'T',
+    pad(dateObj.getHours()),
+    pad(dateObj.getMinutes()),
+    '00'
+  ].join('');
+}
+
+function exportToICS() {
+  const items    = getSchedule();
+  const today    = new Date();
+  const dateBase = today.toISOString().split('T')[0].replace(/-/g,'');
+
+  const events = items
+    .map((item, i) => {
+      const startMins = parseTimeToMinutes(item.time);
+      if (startMins === null) return null;
+      const startH = Math.floor(startMins / 60), startM = startMins % 60;
+      const start = new Date(today.getFullYear(), today.getMonth(), today.getDate(), startH, startM, 0);
+      // guess duration: next item's time, else +60min
+      let endMins = startMins + 60;
+      for (let j = i+1; j < items.length; j++) {
+        const nm = parseTimeToMinutes(items[j].time);
+        if (nm !== null && nm > startMins) { endMins = nm; break; }
+      }
+      const endH = Math.floor(endMins/60) % 24, endM = endMins % 60;
+      const end = new Date(today.getFullYear(), today.getMonth(), today.getDate(), endH, endM, 0);
+      const safeSummary = item.label.replace(/,/g,'\\,').replace(/;/g,'\\;').replace(/\n/g,'\\n');
+      return [
+        'BEGIN:VEVENT',
+        'UID:soma-' + dateBase + '-' + i + '@dailyos',
+        'DTSTART:' + formatICSDate(start),
+        'DTEND:'   + formatICSDate(end),
+        'SUMMARY:' + safeSummary,
+        'CATEGORIES:' + (item.type || 'WORK').toUpperCase(),
+        'END:VEVENT'
+      ].join('\r\n');
+    })
+    .filter(Boolean);
+
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Soma Daily OS//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:Soma Daily OS — ' + today.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}),
+    ...events,
+    'END:VCALENDAR'
+  ].join('\r\n');
+
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'soma-schedule-' + todayStr + '.ics';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function exportToPDF() {
+  const today    = new Date();
+  const dateStr  = today.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const items    = getSchedule();
+  const pendings = state.pendings.filter(p => !p.done);
+  const checks   = getTodayChecks();
+  const dayType  = state.dayType;
+  const banner   = BANNERS[dayType];
+
+  const typeColor = { ritual:'#a78bfa',work:'#ef4444',break:'#94a3b8',habit:'#f59e0b',
+    health:'#22c55e',review:'#3b82f6',plan:'#8b5cf6',wind:'#cbd5e1',sleep:'#1e293b',
+    interrupt:'#ec4899',relaxation:'#06b6d4',screening:'#f97316' };
+
+  const sectionStyle = 'background:#f8f9ff;border-radius:10px;margin-bottom:14px;overflow:hidden;border:1px solid #e8ebf5;';
+  const titleStyle   = 'background:#1a1d2e;color:white;padding:8px 14px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;';
+  const tableStyle   = 'width:100%;border-collapse:collapse;';
+
+  const scheduleRows = items.map((item,i) => {
+    const col = typeColor[item.type] || '#94a3b8';
+    const bg  = i%2===0 ? 'white' : '#f0f2f8';
+    return `<tr style="background:${bg}">
+      <td style="padding:7px 10px;font-size:11px;font-weight:700;color:#8892b0;white-space:nowrap;width:80px">${item.time}</td>
+      <td style="padding:7px 4px;width:14px"><div style="width:8px;height:8px;border-radius:50%;background:${col};margin-top:2px"></div></td>
+      <td style="padding:7px 8px;font-size:13px;color:#1a1d2e;line-height:1.4">${item.label}</td>
+      <td style="padding:7px 10px;width:26px;font-size:17px;color:#d0d4e8">☐</td>
+    </tr>`;
+  }).join('');
+
+  const pendingRows = pendings.length
+    ? pendings.map((p,i) => `<tr style="background:${i%2===0?'white':'#f0f2f8'}">
+        <td style="padding:7px 10px;font-size:17px;color:#f59e0b;width:26px">☐</td>
+        <td style="padding:7px 10px;font-size:13px;color:#1a1d2e" colspan="3">
+          ${p.text}
+          ${p.date!==todayStr?`<span style="font-size:10px;color:#f97316;margin-left:8px">↩ From ${p.date}</span>`:''}
+        </td>
+      </tr>`).join('')
+    : `<tr><td colspan="4" style="padding:10px 14px;font-size:12px;color:#8892b0;font-style:italic">No pending items — clean slate!</td></tr>`;
+
+  const nnRows = [
+    {id:'github',   label:'Push to GitHub (even 1 commit)'},
+    {id:'linkedin', label:'LinkedIn: 1 post OR 3 comments'},
+    {id:'plan',     label:'Plan tomorrow (5 min)'},
+  ].map((n,i) => {
+    const done = checks[n.id];
+    return `<tr style="background:${i%2===0?'white':'#f0f2f8'}">
+      <td style="padding:7px 10px;font-size:17px;color:${done?'#22c55e':'#d0d4e8'};width:26px">${done?'☑':'☐'}</td>
+      <td style="padding:7px 10px;font-size:13px;color:${done?'#aab0cc':'#1a1d2e'};${done?'text-decoration:line-through':''}" colspan="3">${n.label}</td>
+    </tr>`;
+  }).join('');
+
+  const docHTML = `
+    <div style="background:linear-gradient(135deg,#6c47ff,#4834d4);color:white;border-radius:12px;padding:16px 20px;margin-bottom:16px">
+      <div style="font-size:18px;font-weight:800">⚡ Soma's Daily Schedule</div>
+      <div style="font-size:12px;opacity:.8;margin-top:4px">${dateStr}</div>
+      <div style="display:inline-block;padding:3px 12px;border-radius:12px;font-size:12px;font-weight:700;margin-top:8px;background:rgba(255,255,255,.2)">${banner.icon} ${dayType.charAt(0).toUpperCase()+dayType.slice(1)} Day</div>
+    </div>
+    <div style="${sectionStyle}">
+      <div style="${titleStyle}">📅 Today's Schedule</div>
+      <table style="${tableStyle}">${scheduleRows}</table>
+    </div>
+    <div style="${sectionStyle}">
+      <div style="${titleStyle}">⏳ Pendings (${pendings.length} undone)</div>
+      <table style="${tableStyle}">${pendingRows}</table>
+    </div>
+    <div style="${sectionStyle}">
+      <div style="${titleStyle}">⚡ Non-Negotiables</div>
+      <table style="${tableStyle}">${nnRows}</table>
+    </div>
+    <div style="text-align:center;font-size:11px;color:#8892b0;margin-top:14px">Soma's Daily OS · ${dateStr}</div>`;
+
+  document.getElementById('pdf-doc-body').innerHTML = docHTML;
+  document.getElementById('pdf-modal').classList.add('open');
+  document.getElementById('pdf-modal').scrollTop = 0;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ACTIONS — PENDINGS
+// ══════════════════════════════════════════════════════════════════════════════
+
+function addPending() {
+  const input = document.getElementById('pending-input');
+  const text = input.value.trim();
+  if (!text) return;
+  state.pendings.push({ id: uid(), text, date: todayStr, done: false });
+  saveState();
+  input.value = '';
+  renderPendings();
+}
+
+function togglePendingDone(id) {
+  const p = state.pendings.find(p => p.id === id);
+  if (p) p.done = !p.done;
+  saveState();
+  renderPendings();
+}
+
+function deletePending(id) {
+  state.pendings = state.pendings.filter(p => p.id !== id);
+  saveState();
+  renderPendings();
+}
+
+function startPendingEdit(id) {
+  window._editingPendingId = id;
+  renderPendings();
+  setTimeout(() => { const el = document.getElementById('pedit-' + id); if (el) el.focus(); }, 50);
+}
+function cancelPendingEdit() { window._editingPendingId = null; renderPendings(); }
+function savePendingEdit(id) {
+  const el = document.getElementById('pedit-' + id);
+  if (!el) return;
+  const p = state.pendings.find(p => p.id === id);
+  if (p && el.value.trim()) p.text = el.value.trim();
+  saveState();
+  window._editingPendingId = null;
+  renderPendings();
+}
+
+function clearDonePendings() {
+  state.pendings = state.pendings.filter(p => !p.done);
+  saveState();
+  renderPendings();
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════════════════════════
+
+updateStreak();
+initAppName();
+renderHeader();
+renderDayTypeBtns();
+renderBanner();
+renderNonNeg();
+renderPendings();
+renderQuickWins();
+renderFocus();
+renderSchedule();
+renderStats();
+renderSkills();
+renderWeekly();
+renderNoteTypeRow();
+renderNoteFilters();
+renderNotes();
+renderLog();
+
+renderNotifBanner();
+checkReminders();
+setInterval(()=>{ updateStreak(); renderHeader(); checkReminders(); }, 60000);
+</script>
+</body>
+</html>
