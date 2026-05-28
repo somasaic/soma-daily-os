@@ -2,7 +2,7 @@
 
 > A self-contained personal productivity system built for SDET job hunters — no app, no backend, no subscription. One HTML file. Works offline.
 
-**[🔴 Live Demo →](https://YOUR-USERNAME.github.io/soma-daily-os)**
+**[🔴 Live Demo →](https://somasaic.github.io/soma-daily-os)**
 
 ---
 
@@ -129,9 +129,14 @@ open index.html
 
 > *(Add screenshots here after deploying)*
 
-| Today Tab | Skills Tab | Notes Tab |
-|-----------|------------|-----------|
-| ![today]() | ![skills]() | ![notes]() |
+| Today Tab | Skills Tab | Weekly Tab || Notes Tab || Logs Tab |
+|-----------|------------|-----------||-----------||-----------|
+| ![today](<img width="1898" height="639" alt="image" src="https://github.com/user-attachments/assets/ad109716-83c0-496b-8a39-95361f415861" />)(<img width="1892" height="829" alt="image" src="https://github.com/user-attachments/assets/12a59f3e-0bd0-4bb8-9f40-f5017e8ff825" />
+) | ![skills](<img width="1900" height="826" alt="image" src="https://github.com/user-attachments/assets/64774152-3735-47db-8b29-3009f788106d" />
+) | ![Weekly](<img width="1919" height="590" alt="image" src="https://github.com/user-attachments/assets/339fe120-b040-4a9f-abd3-800f87f1d95a" />
+) | ![notes](<img width="1919" height="655" alt="image" src="https://github.com/user-attachments/assets/c7aae367-ab85-49d0-afcb-bd3abbe77327" />
+) | ![log](<img width="1919" height="392" alt="image" src="https://github.com/user-attachments/assets/f2ffbcc6-0798-4f57-8902-cd033a8f4069" />
+) |
 
 ---
 
@@ -146,7 +151,7 @@ open index.html
 
 ## 📬 Share & Connect
 
-If this helps you — drop a ⭐ on the repo and connect on [LinkedIn](https://linkedin.com/in/YOUR-PROFILE).
+If this helps you — drop a ⭐ on the repo and connect on [LinkedIn](https://www.linkedin.com/in/somasaidinesh/).
 
 **Want to use it?** Just fork or download `index.html` — it's self-contained. Your data stays in your browser, never leaves your device.
 
