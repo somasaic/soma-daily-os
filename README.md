@@ -1,166 +1,203 @@
-# ⚡ Soma's Daily OS
+# ⚡ Daily OS — Your Personal Productivity System
 
-> A self-contained personal productivity system built for SDET job hunters — no app, no backend, no subscription. One HTML file. Works offline.
+<div align="center">
 
-**[🔴 Live Demo →](https://somasaic.github.io/soma-daily-os)**
+**A self-contained daily planner built for SDET job hunters.**  
+No app. No backend. No subscription. One HTML file. Works offline.
 
----
+[![🔴 Live Demo](https://img.shields.io/badge/🔴_Live_Demo-somasaic.github.io-6c47ff?style=for-the-badge)](https://somasaic.github.io/soma-daily-os)
+[![GitHub Stars](https://img.shields.io/github/stars/somasaic/soma-daily-os?style=for-the-badge&color=f59e0b)](https://github.com/somasaic/soma-daily-os/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
 
-## 🎯 Why I Built This
+**[🔴 Try it live →](https://somasaic.github.io/soma-daily-os)**  &nbsp;|&nbsp;  **[⭐ Star on GitHub →](https://github.com/somasaic/soma-daily-os)**  &nbsp;|&nbsp;  **[📥 Download index.html →](https://github.com/somasaic/soma-daily-os/raw/main/index.html)**
 
-Job hunting + active skill building + life interruptions = chaos.
-
-I kept losing track of what to work on, burning out from random task switching, skipping GitHub pushes, forgetting recruiter follow-ups. No productivity app fit my exact situation as an SDET learning Playwright, TypeScript, CI/CD, and preparing for interviews simultaneously.
-
-So I built my own **Daily Operating System**.
-
----
-
-## ✨ Features
-
-### 🗓️ Day Type Engine
-Five modes that auto-adapt your entire schedule:
-- ⚡ **Full Day** — 3 deep work blocks, 5AM–11PM
-- 😮‍💨 **Exhausted** — lighter load, passive learning
-- ✈️ **Gap/Travel** — micro tasks, stay connected
-- 🎯 **Interview** — calm prep, behavioral practice, debrief
-- 🌿 **Rest** — non-negotiables only, recovery
-
-### 📅 Editable Schedule
-- Custom schedule per day type
-- Add/edit/delete items with types: Work, Ritual, Break, Habit, Health, Review, Plan, **Interrupt**, **Screening**, **Relaxation**, Sleep
-- 🔔 Bell reminders (browser notifications) per schedule item
-- 📅 ICS export → import to Google Calendar / Apple Calendar / phone
-- 📄 PDF export → save & share to WhatsApp for offline reference
-
-### ⚡ Non-Negotiables (Every Day)
-Three fixed daily habits tracked with checkboxes:
-- Push to GitHub (even 1 commit)
-- LinkedIn: 1 post OR 3 comments
-- Plan tomorrow (5 min)
-
-### ⏳ Pendings — Rolling Backlog
-- Add tasks that didn't get done
-- Undone items carry forward with **↩ From [date]** tag
-- Edit, mark done, delete
-- Collapsible "done" section
-
-### 🎯 Skills Tracker
-18 built-in skills across 5 tiers + add your own custom skills:
-
-| Tier | Skills |
-|------|--------|
-| Tier 1 — Critical | Playwright, TypeScript |
-| Tier 2 — High Value | API Testing (Playwright, Postman, Contract, Strategy) |
-| Tier 3 — Employability | CI/CD GitHub Actions, SQL, Docker, Jenkins |
-| Tier 4 — Differentiators | AI Agents, Prompt Engineering, LLM Testing, Selenium→Playwright |
-| Tier 5 — Edge | Claude Code, Agile/Scrum/SAFe, GitHub Actions Advanced |
-
-- Status: 🔥 Active / ✅ Done / ⏸ Pause
-- Manual ±10% progress adjust
-- **Quick Wins** — tap skill chip on Today tab → instant +5% (tracks per day)
-- Add custom skills with tier, starting %, note
-
-### 📌 Notes Board
-7 note types: 📞 Recruiter · 🎯 Interview · 📚 Learning · 💡 Idea · ⚠️ Follow-up · ⚡ Interrupt · 📝 General
-- Pin important notes
-- Search + filter by type
-- Edit + delete
-
-### 📆 Weekly Planner
-- Visual week grid — tap day to cycle type
-- Week skill plan per day
-
-### 📝 Daily Log
-- Write end-of-day diary entries
-- Full edit history (last 15 entries)
-
-### 📊 Stats Dashboard
-- Skill average %, Non-Negotiables count, Active skills count
-- 🔥 Streak counter + Journey Day
-
----
-
-## 🚀 Tech Stack
-
-| What | How |
-|------|-----|
-| Language | Vanilla HTML + CSS + JavaScript |
-| Storage | `localStorage` (100% offline, no server) |
-| Dependencies | Zero — single self-contained file |
-| Deployment | Any static host (GitHub Pages, Netlify, etc.) |
-
----
-
-## 🛠️ Setup (30 seconds)
-
-### Option A — Run locally
-```bash
-# Clone repo
-git clone https://github.com/YOUR-USERNAME/soma-daily-os.git
-
-# Open in browser
-open index.html
-# or just double-click index.html
-```
-
-### Option B — Live via GitHub Pages
-1. Fork this repo
-2. Go to repo **Settings → Pages**
-3. Source: **Deploy from branch → main → / (root)**
-4. Your live URL: `https://YOUR-USERNAME.github.io/soma-daily-os`
-
-### Option C — Netlify Drop (instant, no account needed)
-1. Go to [app.netlify.com/drop](https://app.netlify.com/drop)
-2. Drag `index.html` onto the page
-3. Get live URL instantly
-
----
-
-## 📱 Sharing the Schedule
-
-**WhatsApp:** Tap 📄 PDF → save file → share to WhatsApp Saved Messages → reference throughout day
-
-**Phone Calendar:** Tap 📅 Export → download `.ics` file → open on phone → import into Google Calendar / Apple Calendar (one-time setup)
+</div>
 
 ---
 
 ## 📸 Screenshots
 
-> *(Add screenshots here after deploying)*
+| Today Tab | Skills Tab |
+|:---------:|:----------:|
+| ![Today Tab](https://github.com/user-attachments/assets/ad109716-83c0-496b-8a39-95361f415861) | ![Skills Tab](https://github.com/user-attachments/assets/64774152-3735-47db-8b29-3009f788106d) |
 
-| Today Tab | Skills Tab | Weekly Tab || Notes Tab || Logs Tab |
-|-----------|------------|-----------||-----------||-----------|
-| ![today](<img width="1898" height="639" alt="image" src="https://github.com/user-attachments/assets/ad109716-83c0-496b-8a39-95361f415861" />)(<img width="1892" height="829" alt="image" src="https://github.com/user-attachments/assets/12a59f3e-0bd0-4bb8-9f40-f5017e8ff825" />
-) | ![skills](<img width="1900" height="826" alt="image" src="https://github.com/user-attachments/assets/64774152-3735-47db-8b29-3009f788106d" />
-) | ![Weekly](<img width="1919" height="590" alt="image" src="https://github.com/user-attachments/assets/339fe120-b040-4a9f-abd3-800f87f1d95a" />
-) | ![notes](<img width="1919" height="655" alt="image" src="https://github.com/user-attachments/assets/c7aae367-ab85-49d0-afcb-bd3abbe77327" />
-) | ![log](<img width="1919" height="392" alt="image" src="https://github.com/user-attachments/assets/f2ffbcc6-0798-4f57-8902-cd033a8f4069" />
-) |
+| Weekly Tab | Notes Tab |
+|:----------:|:---------:|
+| ![Weekly Tab](https://github.com/user-attachments/assets/339fe120-b040-4a9f-abd3-800f87f1d95a) | ![Notes Tab](https://github.com/user-attachments/assets/c7aae367-ab85-49d0-afcb-bd3abbe77327) |
+
+---
+
+## 🎯 Why I Built This
+
+Job hunting + active skill building + constant life interruptions = **chaos**.
+
+I kept losing track of what to study, skipping GitHub pushes, forgetting recruiter follow-ups, and burning out from random task switching. No existing app fit my exact situation as an SDET learning Playwright, TypeScript, CI/CD, and preparing for interviews simultaneously.
+
+So I built my own **Daily Operating System** — in a single HTML file.
+
+---
+
+## ✨ Everything It Does
+
+### 🗓️ Day Type Engine — 5 Modes
+Your entire schedule adapts based on what kind of day it is:
+
+| Mode | When to use | What changes |
+|------|-------------|--------------|
+| ⚡ Full Day | Normal productive day | 3 deep work blocks, 5AM–11PM |
+| 😮‍💨 Exhausted | Low energy, rough day | Lighter load, passive learning only |
+| ✈️ Gap / Travel | City trips, commutes | Micro tasks, podcasts, stay connected |
+| 🎯 Interview | Interview day | Calm prep, behavioral practice, post-debrief |
+| 🌿 Rest | Rest day | Non-negotiables only, recovery focus |
+
+### 📅 Editable Schedule
+- Full schedule per day type — add, edit, delete any item
+- 12 item types: Work · Ritual · Break · Habit · Health · Review · Plan · **Interrupt** · **Screening** · **Relaxation** · Wind · Sleep
+- 🔔 Bell reminder per schedule item (browser notifications)
+- 📅 ICS export → import to Google / Apple Calendar → phone alerts
+- 📄 PDF export → save + share to WhatsApp for offline reference
+
+### ⚡ Non-Negotiables — Fully Editable
+Daily habit tracker — add your own, delete any, reset to defaults:
+- 📤 Push to GitHub (even 1 commit)
+- 💼 LinkedIn: 1 post OR 3 comments
+- 🗓️ Plan tomorrow (5 min)
+
+### ⏳ Pendings — Rolling Backlog
+- Add tasks you didn't finish
+- Undone items carry forward automatically with **↩ From [date]** tag
+- Edit · mark done · delete · collapsible done section
+
+### 🎯 Skills Tracker — 18 Built-in + Custom
+Progress tracker across 5 tiers built for SDET job hunting:
+
+| Tier | Skills |
+|------|--------|
+| 🔴 Tier 1 — Critical | Playwright, TypeScript |
+| 🟠 Tier 2 — High Value | API Testing (Playwright, Postman, Contract, Strategy) |
+| 🟡 Tier 3 — Employability | CI/CD GitHub Actions, SQL, Docker, Jenkins |
+| 🟣 Tier 4 — Differentiators | AI Agents, Prompt Engineering, LLM Testing, Selenium→Playwright |
+| 🟢 Tier 5 — Edge | Claude Code, Agile/Scrum/SAFe, GitHub Actions Advanced |
+
+**Quick Wins** — tap skill chip on Today tab → instant **+5%** progress  
+**↩0% reset** — reset any skill back to 0% with one tap  
+**Custom skills** — add your own with tier, starting %, and note  
+
+### 📌 Notes Board
+7 note types with color coding:
+📞 Recruiter · 🎯 Interview · 📚 Learning · 💡 Idea · ⚠️ Follow-up · ⚡ Interrupt · 📝 General
+
+- Pin important notes to top
+- Search across all notes
+- Filter by type
+- Edit + delete
+
+### 📆 Weekly Planner
+- Visual week grid — tap any day to cycle its type
+- Set skill focus per day — fully editable
+
+### 🔥 Streak + Target Plans
+- Tracks daily streak automatically
+- Set a target plan: **7 Day Sprint** · **21 Day Control** · **60 Day Journey** · or Custom
+- Progress bar shows % complete + days remaining
+- Edit streak manually or reset to 0
+
+### 📝 Daily Log
+- End-of-day journal entries
+- Full edit + delete history (last 15 entries)
+
+### 📊 Live Stats Dashboard
+- Skill average % · Non-Negotiables count · Active skills count
+- Streak counter · Journey Day
+
+---
+
+## 🚀 Tech Stack
+
+| | |
+|---|---|
+| Language | Vanilla HTML + CSS + JavaScript |
+| Storage | `localStorage` — 100% offline, no server |
+| Dependencies | **Zero** — single self-contained file |
+| Works on | Any browser — Chrome, Safari, Firefox, Edge |
+
+---
+
+## ⚡ How to Use It — Pick Your Option
+
+### Option 1 — Use Live (Instant, No Setup)
+**[→ Open Live App](https://somasaic.github.io/soma-daily-os)**  
+Just open the link. Tap the title to enter your name. Your data saves in your browser.
+
+---
+
+### Option 2 — Fork & Host Your Own (Free, 2 min)
+Run your own copy with your name on it:
+
+1. Click **Fork** on this repo (top-right)
+2. In your forked repo → **Settings → Pages**
+3. Source: **Deploy from branch → main → / (root)** → Save
+4. Your live URL: `https://YOUR-USERNAME.github.io/soma-daily-os`
+5. Open it → tap the title → type your name → done ✅
+
+---
+
+### Option 3 — Download & Run Locally (Offline)
+```bash
+# Download just the one file
+curl -O https://github.com/somasaic/soma-daily-os/raw/main/index.html
+
+# Open in any browser
+open index.html
+# or double-click the file
+```
+No install. No Node. No npm. Just open.
+
+---
+
+### Option 4 — Netlify Drop (Instant Live Link, No Account)
+1. Go to **[app.netlify.com/drop](https://app.netlify.com/drop)**
+2. Drag `index.html` onto the page
+3. Get a live URL instantly — share it with anyone
+
+---
+
+## 📱 Mobile Tips
+
+**WhatsApp reference:** Tap 📄 PDF → save file → share to WhatsApp Saved Messages → check throughout the day → note undone items → add to Pendings
+
+**Phone calendar alerts:** Tap 📅 Export → download `.ics` file → open on phone → import into Google Calendar or Apple Calendar → get reminders at each scheduled time (one-time setup)
+
+**Notifications:** Tap 🔔 bell on any schedule item → browser will ask permission → get notified at that exact time
 
 ---
 
 ## 🙋 Who Is This For?
 
-- SDET / QA Engineers actively job hunting
-- Anyone learning multiple tech skills simultaneously
-- People who get interrupted often and lose track of priorities
-- Anyone who wants a personal OS without paying for Notion / Monday / etc.
+- **SDET / QA Engineers** actively job hunting with multiple skills to track
+- **Anyone** learning 3+ things simultaneously who keeps losing focus
+- People who get constantly interrupted and need a rolling backlog
+- Anyone who wants Notion-style power without the subscription
 
 ---
 
-## 📬 Share & Connect
+## 📬 Connect & Share
 
-If this helps you — drop a ⭐ on the repo and connect on [LinkedIn](https://www.linkedin.com/in/somasaidinesh/).
+If this helped you — drop a **⭐ star** on the repo. It helps others find it.
 
-**Want to use it?** Just fork or download `index.html` — it's self-contained. Your data stays in your browser, never leaves your device.
+**Built by Somasai Cheviti**  
+🔗 [LinkedIn](https://www.linkedin.com/in/somasaidinesh/) · 💻 [GitHub](https://github.com/somasaic)
+
+> **Want to use it as your own?**  
+> Fork it → host it → tap the title → type your name. Done.  
+> Your data never leaves your device.
 
 ---
 
 ## 📄 License
 
-MIT — free to use, fork, customize. Credit appreciated but not required.
+MIT — free to use, fork, and customize. Credit appreciated but not required.
 
 ---
 
-*Built by Somasai Cheviti — SDET | Playwright | AI Testing | Job Hunting in Progress 🔥*
+*SDET | Playwright | TypeScript | AI Testing | Job Hunting in Progress 🔥*
