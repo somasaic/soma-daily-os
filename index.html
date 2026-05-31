@@ -273,6 +273,164 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
 .sched-bell { border: none; background: none; cursor: pointer; font-size: 13px; opacity: .28; padding: 2px; transition: all .15s; }
 .sched-bell:hover { opacity: .8; }
 .sched-bell.bell-on { opacity: 1; filter: none; }
+
+/* DAY TABS inside schedule */
+.day-tab-row { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:10px; padding-bottom:10px; border-bottom:1px dashed #e0e4f0; }
+.day-tab-btn { padding:4px 10px; border-radius:12px; border:1.5px solid #e0e4f0; background:white; font-size:11px; font-weight:700; cursor:pointer; color:#5a6080; transition:all .15s; }
+.day-tab-btn:hover { background:#f0ebff; border-color:#c4b5fd; color:#6c47ff; }
+.day-tab-btn.dtab-active { background:#6c47ff; color:white; border-color:#6c47ff; }
+.day-tab-btn.dtab-today { border-color:#6c47ff; color:#6c47ff; }
+.day-tab-btn.dtab-mode-active { background:#22c55e; color:white; border-color:#22c55e; }
+
+/* ── DARK MODE ──────────────────────────── */
+[data-theme=dark] body{background:#0a0b12;color:#c0c4d8}
+[data-theme=dark] .header{background:linear-gradient(135deg,#3726b3,#2a1d8f)}
+[data-theme=dark] .day-type-section,[data-theme=dark] .tabs{background:#12131e;border-color:#2a2d3e}
+[data-theme=dark] .tab{color:#5a6080}
+[data-theme=dark] .tab.active{color:#8b6fff;border-color:#8b6fff}
+[data-theme=dark] .card{background:#14162a;border-color:#2a2d3e;box-shadow:0 1px 8px rgba(0,0,0,.3)}
+[data-theme=dark] .card-title{color:#6870a0}
+[data-theme=dark] .card-action{background:#14162a;border-color:#2a2d3e;color:#8b6fff}
+[data-theme=dark] .card-action:hover{background:#1e2035}
+[data-theme=dark] .nn-item,[data-theme=dark] .schedule-item,[data-theme=dark] .skill-item,[data-theme=dark] .pending-item,[data-theme=dark] .log-entry,[data-theme=dark] .week-plan-row{border-color:#2a2d3e}
+[data-theme=dark] .nn-text,[data-theme=dark] .schedule-label,[data-theme=dark] .skill-name,[data-theme=dark] .pending-text,[data-theme=dark] .log-text{color:#c0c4d8}
+[data-theme=dark] .nn-checkbox{border-color:#3a3d52}
+[data-theme=dark] .schedule-time,[data-theme=dark] .skill-note,[data-theme=dark] .week-plan-skill,[data-theme=dark] .log-date,[data-theme=dark] .week-hint,[data-theme=dark] .qw-note{color:#5a6080}
+[data-theme=dark] .stat-card{background:#14162a;border-color:#2a2d3e}
+[data-theme=dark] .stat-val{color:#8b6fff}
+[data-theme=dark] .stat-label{color:#5a6080}
+[data-theme=dark] .progress-bar{background:#2a2d3e}
+[data-theme=dark] .week-day{background:#14162a;border-color:#2a2d3e}
+[data-theme=dark] .week-day-name{color:#5a6080}
+[data-theme=dark] .note-card{background:#14162a;border-color:#2a2d3e}
+[data-theme=dark] .note-text{color:#c0c4d8}
+[data-theme=dark] .qw-chip{background:#14162a;border-color:#2a2d3e;color:#8892b0}
+[data-theme=dark] .day-tab-btn{background:#14162a;border-color:#2a2d3e;color:#5a6080}
+[data-theme=dark] .day-tab-btn:hover{background:#1e2035;color:#8b6fff}
+[data-theme=dark] .sched-input,[data-theme=dark] .form-input,[data-theme=dark] .form-select,[data-theme=dark] .pending-input,[data-theme=dark] .note-search,[data-theme=dark] textarea,[data-theme=dark] select{background:#0f1019;color:#c0c4d8;border-color:#3a3d52}
+[data-theme=dark] .btn-sm-ghost{background:#2a2d3e;color:#c0c4d8;border-color:#3a3d52}
+[data-theme=dark] .add-skill-section{background:#0f1019;border-color:#3a3d52}
+[data-theme=dark] .mode-banner.banner-full{background:#1e1a35;color:#a78bfa}
+[data-theme=dark] .mode-banner.banner-exhausted{background:#1f1a00;color:#fbbf24}
+[data-theme=dark] .mode-banner.banner-gap{background:#001a2e;color:#60a5fa}
+[data-theme=dark] .mode-banner.banner-interview{background:#2e0000;color:#f87171}
+[data-theme=dark] .mode-banner.banner-rest{background:#001a06;color:#4ade80}
+[data-theme=dark] .note-add-form,[data-theme=dark] .skill-edit-form,[data-theme=dark] .add-skill-section{background:#0f1019;border-color:#2a2d3e}
+[data-theme=dark] .note-type-opt{background:#14162a;border-color:#2a2d3e}
+[data-theme=dark] .empty-msg{color:#3a3d52}
+[data-theme=dark] .pending-check{border-color:#4a3d00}
+[data-theme=dark] .focus-card{box-shadow:0 4px 20px rgba(72,52,212,.4)}
+[data-theme=dark] .skill-btn{background:#14162a;border-color:#2a2d3e;color:#8892b0}
+[data-theme=dark] .skill-btn:hover{background:#1e2035}
+[data-theme=dark] .week-chip.chip-full{background:#1e1a35;color:#8b6fff}
+[data-theme=dark] .week-chip.chip-exhausted{background:#1f1a00;color:#fbbf24}
+[data-theme=dark] .week-chip.chip-gap{background:#001a2e;color:#60a5fa}
+[data-theme=dark] .week-chip.chip-interview{background:#2e0000;color:#f87171}
+[data-theme=dark] .week-chip.chip-rest{background:#001a06;color:#4ade80}
+
+/* ── MOOD ────────────────────────────────── */
+.mood-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mood-btn{font-size:22px;background:none;border:2px solid transparent;border-radius:50%;width:38px;height:38px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;padding:0}
+.mood-btn:hover{transform:scale(1.2)}
+.mood-btn.mood-sel{border-color:#6c47ff;background:#f0ebff;transform:scale(1.15)}
+[data-theme=dark] .mood-btn.mood-sel{background:#2a2035}
+
+/* ── COMPLETION BAR ──────────────────────── */
+.comp-bar-wrap{margin-bottom:10px}
+.comp-bar{height:5px;background:#f0f2f8;border-radius:3px;overflow:hidden}
+.comp-fill{height:100%;background:linear-gradient(90deg,#6c47ff,#22c55e);border-radius:3px;transition:width .4s}
+[data-theme=dark] .comp-bar{background:#2a2d3e}
+.comp-label{font-size:10px;color:#8892b0;margin-top:3px}
+.sched-done-cb{border:none;background:none;cursor:pointer;font-size:13px;opacity:.25;padding:2px;transition:all .15s;flex-shrink:0}
+.sched-done-cb:hover{opacity:.8}
+.sched-done-cb.is-done{opacity:1}
+.schedule-item.sched-item-done .schedule-label{text-decoration:line-through;color:#aab0cc}
+
+/* ── JOB TRACKER ─────────────────────────── */
+.job-pipeline{display:flex;gap:5px;overflow-x:auto;padding-bottom:5px;margin-bottom:10px}
+.jp-btn{padding:5px 12px;border-radius:14px;border:1.5px solid #e0e4f0;background:white;font-size:11px;font-weight:700;cursor:pointer;color:#5a6080;white-space:nowrap;transition:all .15s}
+.jp-btn.jp-active{background:#6c47ff;color:white;border-color:#6c47ff}
+[data-theme=dark] .jp-btn{background:#14162a;border-color:#2a2d3e;color:#5a6080}
+[data-theme=dark] .jp-btn.jp-active{background:#6c47ff;color:white;border-color:#6c47ff}
+.job-card{background:#f8f9ff;border-radius:10px;padding:12px;margin-bottom:8px;border:1px solid #e8ebf5}
+[data-theme=dark] .job-card{background:#0f1019;border-color:#2a2d3e}
+.job-company{font-size:14px;font-weight:700;color:#1a1d2e}
+[data-theme=dark] .job-company{color:#c0c4d8}
+.job-role-line{font-size:12px;color:#5a6080;margin-bottom:5px}
+.job-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.jchip{padding:2px 9px;border-radius:10px;font-size:10px;font-weight:700}
+.jc-applied{background:#dbeafe;color:#1d4ed8}
+.jc-screened{background:#fef3c7;color:#d97706}
+.jc-round1{background:#ede9ff;color:#6c47ff}
+.jc-round2{background:#fce7f3;color:#be185d}
+.jc-offer{background:#dcfce7;color:#16a34a}
+.jc-rejected{background:#fee2e2;color:#dc2626}
+.jc-withdrawn{background:#f1f5f9;color:#64748b}
+.job-date-txt{font-size:10px;color:#8892b0}
+.job-note-txt{font-size:12px;color:#5a6080;margin-top:5px;line-height:1.4}
+[data-theme=dark] .job-note-txt{color:#8892b0}
+.job-add-form{background:#f8f9ff;border-radius:10px;padding:12px;margin-bottom:10px;border:1px solid #e0e4f0}
+[data-theme=dark] .job-add-form{background:#0f1019;border-color:#2a2d3e}
+
+/* ── SKILL TIMER ─────────────────────────── */
+.timer-row{display:flex;align-items:center;gap:6px;margin-top:5px;flex-wrap:wrap}
+.tbtn{padding:3px 9px;border-radius:10px;border:1px solid #e0e4f0;background:white;font-size:11px;font-weight:700;cursor:pointer;color:#5a6080;transition:all .15s}
+.tbtn.trun{background:#ef4444;color:white;border-color:#ef4444}
+[data-theme=dark] .tbtn{background:#14162a;border-color:#2a2d3e}
+[data-theme=dark] .tbtn.trun{background:#ef4444;color:white}
+.tdisp{font-size:11px;font-weight:700;color:#6c47ff;min-width:52px}
+
+/* ── FOCUS MUSIC ─────────────────────────── */
+.music-btn{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,#1db954,#17a349);color:white;border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;width:100%;justify-content:center;transition:all .2s;margin-bottom:6px}
+.music-btn:hover{opacity:.9;transform:translateY(-1px)}
+.music-url-row{display:flex;gap:6px;align-items:center;margin-top:6px}
+
+/* ── BACKUP ──────────────────────────────── */
+.backup-row{display:flex;gap:7px;flex-wrap:wrap}
+
+/* ── WEEKLY REVIEW ───────────────────────── */
+.wrev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+.wrev-stat{text-align:center;padding:8px 4px}
+.wrev-val{font-size:20px;font-weight:800;color:#6c47ff}
+.wrev-lbl{font-size:9px;color:#8892b0;text-transform:uppercase;font-weight:700;margin-top:2px}
+.wrev-hi{background:#f0ebff;border-radius:8px;padding:8px 12px;font-size:12px;color:#5b21b6;font-weight:600}
+[data-theme=dark] .wrev-hi{background:#1e1a35;color:#a78bfa}
+
+/* ── RECRUITER FOLLOWUP BANNER ───────────── */
+.followup-banner{background:#fef3c7;border-radius:10px;padding:10px 13px;margin-bottom:11px;font-size:12px;font-weight:600;color:#92400e;display:none;align-items:flex-start;gap:8px}
+.followup-banner.show{display:flex}
+[data-theme=dark] .followup-banner{background:#1f1a00;color:#fbbf24}
+
+
+/* ── MIC BUTTON ──────────────────────────── */
+.mic-btn{border:none;background:none;cursor:pointer;font-size:16px;padding:3px 6px;border-radius:50%;transition:all .2s;opacity:.5;flex-shrink:0}
+.mic-btn:hover{opacity:1;background:#f0ebff}
+.mic-btn.mic-active{opacity:1;background:#fee2e2;animation:mic-pulse 1s infinite}
+.mic-wrap{display:flex;align-items:flex-end;gap:4px;position:relative}
+.mic-wrap textarea{flex:1}
+@keyframes mic-pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)}50%{box-shadow:0 0 0 6px rgba(239,68,68,0)}}
+
+/* ── SLOT TIMERS ─────────────────────────── */
+.slot-timer-row{display:flex;align-items:center;gap:5px;padding:5px 0 3px;flex-wrap:wrap;border-top:1px dashed #f0f2f8;margin-top:4px}
+.slot-timer-display{font-size:13px;font-weight:800;color:#6c47ff;min-width:58px;font-family:monospace;letter-spacing:1px}
+.slot-timer-display.st-running{color:#22c55e;animation:st-blink 1s step-end infinite}
+.slot-timer-display.st-done{color:#ef4444}
+@keyframes st-blink{0%,100%{opacity:1}50%{opacity:.4}}
+.slot-timer-btn{padding:3px 9px;border-radius:9px;border:1px solid #e0e4f0;background:white;font-size:11px;font-weight:700;cursor:pointer;color:#5a6080;transition:all .15s;white-space:nowrap}
+.slot-timer-btn:hover{background:#f0ebff;border-color:#c4b5fd;color:#6c47ff}
+.slot-timer-btn.st-start{background:#6c47ff;color:white;border-color:#6c47ff}
+.slot-timer-btn.st-start:hover{background:#5835e0}
+.slot-timer-btn.st-stop{background:#ef4444;color:white;border-color:#ef4444}
+.slot-timer-btn.st-stop:hover{background:#dc2626}
+.slot-timer-btn.st-reset{background:#f4f5fb;color:#8892b0}
+.st-dur-input{width:52px;border:1px solid #e0e4f0;border-radius:6px;padding:3px 5px;font-size:11px;font-weight:700;text-align:center;background:#f8f9ff;color:#1a1d2e}
+.st-dur-input:focus{outline:none;border-color:#6c47ff}
+.st-dur-label{font-size:10px;color:#8892b0;font-weight:600}
+[data-theme=dark] .slot-timer-row{border-color:#2a2d3e}
+[data-theme=dark] .slot-timer-btn{background:#14162a;border-color:#2a2d3e;color:#5a6080}
+[data-theme=dark] .slot-timer-btn.st-start{background:#6c47ff;color:white;border-color:#6c47ff}
+[data-theme=dark] .slot-timer-btn.st-stop{background:#ef4444;color:white}
+[data-theme=dark] .st-dur-input{background:#0f1019;color:#c0c4d8;border-color:#3a3d52}
 </style>
 </head>
 <body>
@@ -288,6 +446,7 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
     <div class="streak-badge" id="streak-badge" onclick="toggleStreakPanel()" title="Tap to manage streak & plan">🔥 <span id="streak-count">0</span> day streak</div>
     <div class="streak-target-sub" id="streak-target-sub" style="display:none"></div>
     <div class="journey-day">Journey Day <span id="journey-day">1</span></div>
+    <button onclick="toggleDark()" id="dark-toggle" title="Toggle dark/light mode" style="background:rgba(255,255,255,.15);border:none;border-radius:8px;padding:3px 8px;font-size:15px;cursor:pointer;color:white;margin-top:3px">🌙</button>
   </div>
 </div>
 
@@ -338,6 +497,7 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
   <button class="tab"        id="tab-btn-weekly"  onclick="showTab('weekly')">📆 Weekly</button>
   <button class="tab"        id="tab-btn-notes"   onclick="showTab('notes')">📌 Notes</button>
   <button class="tab"        id="tab-btn-log"     onclick="showTab('log')">📝 Log</button>
+  <button class="tab"        id="tab-btn-jobs"    onclick="showTab('jobs')">💼 Jobs</button>
 </div>
 
 <!-- TODAY TAB -->
@@ -349,7 +509,37 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
     <button class="notif-btn" id="notif-action-btn" onclick="requestNotifPermission()">Enable</button>
   </div>
 
+  <!-- RECRUITER FOLLOW-UP BANNER -->
+  <div id="followup-banner" class="followup-banner">
+    <span>📞</span><div id="followup-text"></div>
+  </div>
+
   <div id="mode-banner" class="mode-banner banner-full"></div>
+
+  <!-- MOOD TRACKER -->
+  <div class="card" style="padding:12px 14px 10px">
+    <div class="card-header" style="margin-bottom:8px">
+      <div class="card-title">😊 TODAY'S MOOD</div>
+      <div id="mood-trend" style="font-size:10px;color:#8892b0"></div>
+    </div>
+    <div class="mood-row">
+      <button class="mood-btn" id="mood-1" onclick="setMood(1)" title="Rough day">😞</button>
+      <button class="mood-btn" id="mood-2" onclick="setMood(2)" title="Low energy">😕</button>
+      <button class="mood-btn" id="mood-3" onclick="setMood(3)" title="Okay">😐</button>
+      <button class="mood-btn" id="mood-4" onclick="setMood(4)" title="Good">🙂</button>
+      <button class="mood-btn" id="mood-5" onclick="setMood(5)" title="Great day!">😄</button>
+    </div>
+  </div>
+
+  <!-- RECRUITER FOLLOWUP SECTION -->
+  <div class="card" id="recruiter-followup-card" style="margin-bottom:11px">
+    <div class="card-header" style="margin-bottom:8px">
+      <div class="card-title">📞 RECRUITER FOLLOW-UPS</div>
+      <button class="card-action" onclick="showTab('notes');selectNoteType('recruiter')">+ Add Note</button>
+    </div>
+    <div id="recruiter-list-today" style="font-size:12px;color:#8892b0">Loading…</div>
+  </div>
+
   <div class="stats-row">
     <div class="stat-card"><div class="stat-val" id="skills-avg">0%</div><div class="stat-label">Skill Avg</div></div>
     <div class="stat-card"><div class="stat-val" id="nn-complete">0/3</div><div class="stat-label">Non-Neg</div></div>
@@ -406,6 +596,7 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
 
   <!-- SCHEDULE CARD -->
   <div class="card" id="schedule-card">
+    <div id="schedule-day-tabs"></div>
     <div class="card-header">
       <div class="card-title" id="schedule-title"></div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -437,6 +628,32 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
       </div>
     </div>
   </div>
+
+  <!-- FOCUS MUSIC -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">🎵 FOCUS MUSIC</div>
+      <button class="card-action" onclick="toggleMusicEdit()">✏️ Set URL</button>
+    </div>
+    <div id="music-open-wrap"></div>
+    <div id="music-url-display" style="text-align:center;font-size:11px;color:#8892b0;margin-bottom:4px"></div>
+    <div id="music-edit-row" style="display:none" class="music-url-row">
+      <input class="sched-input" id="music-url-input" placeholder="Paste Spotify / YouTube playlist URL…" style="flex:1" />
+      <button class="btn-sm" onclick="saveMusicUrl()">Save</button>
+    </div>
+  </div>
+
+  <!-- BACKUP & RESTORE -->
+  <div class="card">
+    <div class="card-header"><div class="card-title">💾 BACKUP &amp; RESTORE</div></div>
+    <div class="backup-row">
+      <button class="btn-sm" onclick="exportData()" style="background:#22c55e">💾 Export All Data</button>
+      <label class="btn-sm" style="background:#3b82f6;cursor:pointer">📂 Import Data<input type="file" accept=".json" style="display:none" onchange="importData(event)"/></label>
+      <button class="btn-sm" onclick="exportJobsCSV()" style="background:#f59e0b">📊 Jobs CSV</button>
+    </div>
+    <div style="font-size:10px;color:#8892b0;margin-top:8px;line-height:1.5">Export saves ALL data as JSON. Import restores it. Use before clearing browser cache. ⚠️ Import replaces all current data.</div>
+  </div>
+
 </div>
 
 <!-- SKILLS TAB -->
@@ -486,6 +703,9 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
     <div class="card-title">WEEK SKILL PLAN</div>
     <div id="week-plan-content"></div>
   </div>
+
+  <div class="card" id="weekly-review-card"></div>
+  <div class="card" id="github-widget-card"></div>
 </div>
 
 <!-- NOTES TAB -->
@@ -494,7 +714,11 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
   <div class="note-add-form">
     <div class="note-form-title">📌 Capture a note (recruiter, idea, follow-up, interrupt…)</div>
     <div class="note-type-select-row" id="note-type-row"></div>
-    <textarea class="note-area" id="note-input" placeholder="Write anything — recruiter name, concept to recall, action to retake, interrupt that happened…"></textarea>
+    <div class="mic-wrap"><textarea class="note-area" id="note-input" placeholder="Write anything — recruiter name, concept to recall, action to retake, interrupt that happened…"></textarea><button class="mic-btn" id="mic-btn-note-input" onclick="startMic('note-input')" title="Voice input">🎙️</button></div>
+    <div id="followup-date-row" style="display:none;margin-top:6px;align-items:center;gap:8px" class="music-url-row">
+      <span style="font-size:11px;color:#8892b0;white-space:nowrap">Follow-up date:</span>
+      <input type="date" id="note-followup-date" class="sched-input" style="flex:1" />
+    </div>
     <div class="form-btns" style="margin-top:8px">
       <button class="btn-sm" onclick="saveNote()">📌 Save Note</button>
       <button class="btn-sm-ghost" onclick="document.getElementById('note-input').value=''">Clear</button>
@@ -512,12 +736,74 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
 <div class="tab-content" id="tab-log">
   <div class="card">
     <div class="card-title">TODAY'S LOG ENTRY</div>
-    <textarea class="log-input" id="log-input" placeholder="What did you work on? Concepts covered? Blockers? Wins? Interviews?"></textarea>
+    <div class="mic-wrap"><textarea class="log-input" id="log-input" placeholder="What did you work on? Concepts covered? Blockers? Wins? Interviews?"></textarea><button class="mic-btn" id="mic-btn-log-input" onclick="startMic('log-input')" title="Voice input">🎙️</button></div>
     <div style="margin-top:8px"><button class="btn-primary" onclick="saveLog()">💾 Save Entry</button></div>
   </div>
   <div class="card">
     <div class="card-title">LOG HISTORY (EDITABLE)</div>
     <div id="log-history"></div>
+  </div>
+</div>
+
+<!-- JOBS TAB -->
+<div class="tab-content" id="tab-jobs">
+  <div class="job-add-form">
+    <div style="font-size:11px;font-weight:700;color:#8892b0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">➕ Track New Application</div>
+    <div style="display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap">
+      <input class="sched-input" id="job-company" placeholder="Company name" style="flex:1;min-width:120px" />
+      <input class="sched-input" id="job-role" placeholder="Role / Position" style="flex:1;min-width:120px" />
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap">
+      <select class="sched-input" id="job-status-sel" style="flex:1">
+        <option value="applied">Applied</option>
+        <option value="screened">Phone Screened</option>
+        <option value="round1">Technical Round 1</option>
+        <option value="round2">Technical Round 2</option>
+        <option value="offer">Offer ✅</option>
+        <option value="rejected">Rejected</option>
+        <option value="withdrawn">Withdrawn</option>
+      </select>
+      <input class="sched-input" id="job-source" placeholder="Source (LinkedIn/Naukri/Referral)" style="flex:1;min-width:120px" />
+    </div>
+    <div class="mic-wrap"><textarea class="sched-input" id="job-notes-input" placeholder="Notes — salary, tech stack, interviewer, follow-up…" style="width:100%;min-height:55px;resize:vertical"></textarea><button class="mic-btn" id="mic-btn-job-notes-input" onclick="startMic('job-notes-input')" title="Voice input">🎙️</button></div>
+    <div style="margin-top:8px"><button class="btn-sm" onclick="addJob()">➕ Add Application</button></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📊 JOB PIPELINE</div>
+      <div id="job-stats-mini" style="font-size:10px;color:#8892b0"></div>
+    </div>
+    <div class="job-pipeline" id="job-stage-filters"></div>
+    <div id="job-list"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">⭐ STAR PREP BANK</div>
+      <button class="card-action" onclick="toggleStarForm()">➕ Add Answer</button>
+    </div>
+    <div id="star-add-form" style="display:none;margin-bottom:10px;border:1px dashed #e0e4f0;border-radius:10px;padding:12px">
+      <div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap">
+        <input class="sched-input" id="star-q" placeholder="Question / Scenario e.g. Tell me about a time you…" style="flex:1;min-width:200px" />
+        <select class="sched-input" id="star-cat" style="width:130px">
+          <option value="behavioral">Behavioral</option>
+          <option value="technical">Technical</option>
+          <option value="leadership">Leadership</option>
+          <option value="conflict">Conflict</option>
+          <option value="achievement">Achievement</option>
+        </select>
+      </div>
+      <div class="mic-wrap"><textarea class="sched-input" id="star-sit" placeholder="S+T: Situation + Task (context)" style="width:100%;min-height:50px;margin-bottom:5px;resize:vertical"></textarea><button class="mic-btn" id="mic-btn-star-sit" onclick="startMic('star-sit')" title="Voice input">🎙️</button></div>
+      <div class="mic-wrap"><textarea class="sched-input" id="star-act" placeholder="A: Action — exactly what YOU did" style="width:100%;min-height:50px;margin-bottom:5px;resize:vertical"></textarea><button class="mic-btn" id="mic-btn-star-act" onclick="startMic('star-act')" title="Voice input">🎙️</button></div>
+      <div class="mic-wrap"><textarea class="sched-input" id="star-res" placeholder="R: Result (quantify — improved by X%, reduced by Y hrs)" style="width:100%;min-height:45px;margin-bottom:7px;resize:vertical"></textarea><button class="mic-btn" id="mic-btn-star-res" onclick="startMic('star-res')" title="Voice input">🎙️</button></div>
+      <div style="display:flex;gap:6px">
+        <button class="btn-sm" onclick="addStarAnswer()">💾 Save Answer</button>
+        <button class="btn-sm-ghost" onclick="toggleStarForm()">Cancel</button>
+      </div>
+    </div>
+    <input class="note-search" id="star-search" placeholder="🔍 Search STAR answers…" oninput="renderStarBank()" style="margin-bottom:8px" />
+    <div id="star-list"></div>
   </div>
 </div>
 
@@ -600,6 +886,105 @@ const DEFAULT_SCHEDULES = {
     { time:"Anytime",     label:"✅ LinkedIn: 1 comment",                      type:"habit"   },
     { time:"Anytime",     label:"✅ Plan tomorrow (5 min only)",               type:"plan"    },
     { time:"By 11 PM",    label:"😴 8 hrs sleep — brain consolidates here",   type:"sleep"   },
+  ],
+};
+
+const DEFAULT_DAY_SCHEDULES = {
+  Mon: [
+    { time:"5:00 AM",  label:"Shower + Shiva Mantra (108 times)",                   type:"ritual"     },
+    { time:"6:00 AM",  label:"Gym & Workout (1 hour)",                               type:"health"     },
+    { time:"7:00 AM",  label:"Freshen Up",                                           type:"ritual"     },
+    { time:"8:00 AM",  label:"Job Hunting & Apply",                                  type:"work"       },
+    { time:"10:00 AM", label:"Breakfast + Rest",                                     type:"break"      },
+    { time:"11:00 AM", label:"🔥 PRIMARY LEARNING — Session + Practice + Q&A Notes", type:"work"       },
+    { time:"1:30 PM",  label:"STAR Recording (record answers)",                      type:"review"     },
+    { time:"3:00 PM",  label:"Secondary Skill study",                                type:"work"       },
+    { time:"4:30 PM",  label:"Go Out (walk / fresh air)",                            type:"health"     },
+    { time:"5:30 PM",  label:"Family / Friends / Personal",                          type:"relaxation" },
+    { time:"7:00 PM",  label:"Review + Pending Notes",                               type:"review"     },
+    { time:"9:00 PM",  label:"Dinner → Wind down",                                   type:"wind"       },
+    { time:"11:00 PM", label:"😴 Sleep",                                             type:"sleep"      },
+  ],
+  Tue: [
+    { time:"5:00 AM",  label:"Shower + Shiva Mantra (108 times)",                   type:"ritual"     },
+    { time:"6:00 AM",  label:"Gym & Workout (1 hour)",                               type:"health"     },
+    { time:"7:00 AM",  label:"Freshen Up",                                           type:"ritual"     },
+    { time:"8:00 AM",  label:"Pramod Demo Session",                                  type:"work"       },
+    { time:"9:30 AM",  label:"Temple",                                               type:"ritual"     },
+    { time:"11:00 AM", label:"Breakfast",                                            type:"break"      },
+    { time:"12:00 PM", label:"Job Hunting & Apply",                                  type:"work"       },
+    { time:"2:00 PM",  label:"Quick Learning (tutorial / concept)",                  type:"review"     },
+    { time:"4:00 PM",  label:"Go Out",                                               type:"health"     },
+    { time:"6:00 PM",  label:"Review + Pending Notes",                               type:"review"     },
+    { time:"9:00 PM",  label:"Dinner → Wind down",                                   type:"wind"       },
+    { time:"11:00 PM", label:"😴 Sleep",                                             type:"sleep"      },
+  ],
+  Wed: [
+    { time:"5:00 AM",  label:"Shower + Shiva Mantra (108 times)",                   type:"ritual"     },
+    { time:"6:00 AM",  label:"Gym & Workout (1 hour)",                               type:"health"     },
+    { time:"7:00 AM",  label:"Freshen Up",                                           type:"ritual"     },
+    { time:"8:00 AM",  label:"Job Hunting & Apply",                                  type:"work"       },
+    { time:"10:00 AM", label:"Breakfast + Rest",                                     type:"break"      },
+    { time:"11:00 AM", label:"🔥 PRIMARY LEARNING — Session + Practice + Q&A Notes", type:"work"       },
+    { time:"1:30 PM",  label:"STAR Recording (record answers)",                      type:"review"     },
+    { time:"3:00 PM",  label:"Secondary Skill study",                                type:"work"       },
+    { time:"4:30 PM",  label:"Go Out",                                               type:"health"     },
+    { time:"5:30 PM",  label:"Family / Friends / Personal",                          type:"relaxation" },
+    { time:"7:00 PM",  label:"Review + Pending Notes",                               type:"review"     },
+    { time:"9:00 PM",  label:"Dinner → Wind down",                                   type:"wind"       },
+    { time:"11:00 PM", label:"😴 Sleep",                                             type:"sleep"      },
+  ],
+  Thu: [
+    { time:"5:00 AM",  label:"Shower + Shiva Mantra (108 times)",                   type:"ritual"     },
+    { time:"6:00 AM",  label:"Gym & Workout (1 hour)",                               type:"health"     },
+    { time:"7:00 AM",  label:"Freshen Up",                                           type:"ritual"     },
+    { time:"8:00 AM",  label:"Pramod Demo Session",                                  type:"work"       },
+    { time:"10:00 AM", label:"Job Hunting & Apply",                                  type:"work"       },
+    { time:"12:00 PM", label:"Quick Learning (tutorial / concept)",                  type:"review"     },
+    { time:"2:00 PM",  label:"Go Out",                                               type:"health"     },
+    { time:"4:00 PM",  label:"Family / Friends / Personal",                          type:"relaxation" },
+    { time:"6:00 PM",  label:"Review + Pending Notes",                               type:"review"     },
+    { time:"9:00 PM",  label:"Dinner → Wind down",                                   type:"wind"       },
+    { time:"11:00 PM", label:"😴 Sleep",                                             type:"sleep"      },
+  ],
+  Fri: [
+    { time:"5:00 AM",  label:"Shower + Shiva Mantra (108 times)",                   type:"ritual"     },
+    { time:"6:00 AM",  label:"Gym & Workout (1 hour)",                               type:"health"     },
+    { time:"7:00 AM",  label:"Freshen Up",                                           type:"ritual"     },
+    { time:"8:00 AM",  label:"Job Hunting & Apply",                                  type:"work"       },
+    { time:"10:00 AM", label:"Breakfast + Rest",                                     type:"break"      },
+    { time:"11:00 AM", label:"🔥 PRIMARY LEARNING — Session + Practice + Q&A Notes", type:"work"       },
+    { time:"1:30 PM",  label:"STAR Recording (record answers)",                      type:"review"     },
+    { time:"3:00 PM",  label:"Secondary Skill study",                                type:"work"       },
+    { time:"4:30 PM",  label:"Go Out",                                               type:"health"     },
+    { time:"5:30 PM",  label:"Family / Friends / Personal",                          type:"relaxation" },
+    { time:"7:00 PM",  label:"Review + Pending Notes",                               type:"review"     },
+    { time:"9:00 PM",  label:"Dinner → Wind down",                                   type:"wind"       },
+    { time:"11:00 PM", label:"😴 Sleep",                                             type:"sleep"      },
+  ],
+  Sat: [
+    { time:"5:00 AM",  label:"Shower + Shiva Mantra (108 times)",                   type:"ritual"     },
+    { time:"6:00 AM",  label:"Gym & Workout (1 hour)",                               type:"health"     },
+    { time:"7:00 AM",  label:"Freshen Up",                                           type:"ritual"     },
+    { time:"8:00 AM",  label:"Pramod Demo Session",                                  type:"work"       },
+    { time:"9:30 AM",  label:"Temple",                                               type:"ritual"     },
+    { time:"11:00 AM", label:"Job Hunting & Apply",                                  type:"work"       },
+    { time:"1:00 PM",  label:"3× AI BLUEPRINT SESSION",                              type:"work"       },
+    { time:"4:00 PM",  label:"Learning Part (new concept / tutorial)",               type:"review"     },
+    { time:"6:00 PM",  label:"Stop & Go Out",                                        type:"health"     },
+    { time:"7:00 PM",  label:"Review + Pending Notes",                               type:"review"     },
+    { time:"9:00 PM",  label:"Dinner → Wind down",                                   type:"wind"       },
+    { time:"11:00 PM", label:"😴 Sleep",                                             type:"sleep"      },
+  ],
+  Sun: [
+    { time:"5:00 AM",  label:"Shower + Shiva Mantra (108 times)",                   type:"ritual"     },
+    { time:"6:00 AM",  label:"Rest / Light Walk — No Gym, Recovery Day",             type:"health"     },
+    { time:"8:00 AM",  label:"Personal Time",                                        type:"relaxation" },
+    { time:"10:00 AM", label:"Job Hunting (Light)",                                  type:"work"       },
+    { time:"12:00 PM", label:"3× AI BLUEPRINT SESSION",                              type:"work"       },
+    { time:"3:00 PM",  label:"FREE FORM — anything you feel like doing",             type:"relaxation" },
+    { time:"7:00 PM",  label:"Dinner → Wind down",                                   type:"wind"       },
+    { time:"11:00 PM", label:"😴 Sleep",                                             type:"sleep"      },
   ],
 };
 
@@ -700,11 +1085,16 @@ function loadState() {
     weekPlan:       JSON.parse(localStorage.getItem('soma_week_plan')      || JSON.stringify(DEFAULT_WEEK_PLAN)),
     logs:           JSON.parse(localStorage.getItem('soma_logs')           || '[]'),
     notes:          JSON.parse(localStorage.getItem('soma_notes')          || '[]'),
-    customSchedule: JSON.parse(localStorage.getItem('soma_custom_schedule')|| '{}'),
-    pendings:       JSON.parse(localStorage.getItem('soma_pendings')        || '[]'),
+    customSchedule:    JSON.parse(localStorage.getItem('soma_custom_schedule')    || '{}'),
+    customDaySchedule: JSON.parse(localStorage.getItem('soma_custom_day_sched') || '{}'),
+    pendings:          JSON.parse(localStorage.getItem('soma_pendings')           || '[]'),
     nonNeg:             JSON.parse(localStorage.getItem('soma_nonneg')          || 'null') || JSON.parse(JSON.stringify(NON_NEGOTIABLES)),
     streakTarget:       parseInt(localStorage.getItem('soma_streak_target')    || '0'),
     streakTargetLabel:  localStorage.getItem('soma_streak_target_label')       || '',
+    jobs:              JSON.parse(localStorage.getItem('soma_jobs')              || '[]'),
+    starBank:          JSON.parse(localStorage.getItem('soma_star_bank')         || '[]'),
+    moods:             JSON.parse(localStorage.getItem('soma_moods')             || '{}'),
+    schedDone:         JSON.parse(localStorage.getItem('soma_sched_done')        || '{}'),
   };
 }
 
@@ -722,11 +1112,16 @@ function saveState() {
   localStorage.setItem('soma_week_plan',      JSON.stringify(s.weekPlan));
   localStorage.setItem('soma_logs',           JSON.stringify(s.logs));
   localStorage.setItem('soma_notes',          JSON.stringify(s.notes));
-  localStorage.setItem('soma_custom_schedule',JSON.stringify(s.customSchedule));
-  localStorage.setItem('soma_pendings',       JSON.stringify(s.pendings));
+  localStorage.setItem('soma_custom_schedule',   JSON.stringify(s.customSchedule));
+  localStorage.setItem('soma_custom_day_sched',  JSON.stringify(s.customDaySchedule));
+  localStorage.setItem('soma_pendings',          JSON.stringify(s.pendings));
   localStorage.setItem('soma_nonneg',               JSON.stringify(s.nonNeg));
   localStorage.setItem('soma_streak_target',         s.streakTarget);
   localStorage.setItem('soma_streak_target_label',   s.streakTargetLabel);
+  localStorage.setItem('soma_jobs',                  JSON.stringify(s.jobs));
+  localStorage.setItem('soma_star_bank',             JSON.stringify(s.starBank));
+  localStorage.setItem('soma_moods',                 JSON.stringify(s.moods));
+  localStorage.setItem('soma_sched_done',            JSON.stringify(s.schedDone));
 }
 
 let state = loadState();
@@ -734,6 +1129,10 @@ const todayStr = new Date().toISOString().split('T')[0];
 let scheduleEditMode = false;
 let activeNoteFilter = 'all';
 let selectedNoteType = 'general';
+function getTodayDayName() { return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date().getDay()]; }
+let activeDayTab = getTodayDayName();
+let activeJobFilter = 'all';
+let skillTimers = {};
 
 // ══════════════════════════════════════════════════════════════════════════════
 // STREAK PANEL ACTIONS
@@ -838,6 +1237,9 @@ function getActiveSkillsCount() { return Object.values(state.skillStatus).filter
 function getTodayChecks() { return state.checks[todayStr]||{}; }
 function getChecksCount() { const c=getTodayChecks(); return state.nonNeg.filter(n=>c[n.id]).length; }
 function getSchedule() {
+  if (activeDayTab) {
+    return state.customDaySchedule[activeDayTab] || DEFAULT_DAY_SCHEDULES[activeDayTab];
+  }
   return state.customSchedule[state.dayType] || DEFAULT_SCHEDULES[state.dayType];
 }
 function getTypeColor(type) {
@@ -918,11 +1320,42 @@ function renderFocus() {
 }
 
 function renderSchedule() {
-  document.getElementById('schedule-title').textContent=SCHED_TITLES[state.dayType];
-  const items=getSchedule();
-  const hasCustom=!!state.customSchedule[state.dayType];
-  document.getElementById('sched-reset-btn').style.display=hasCustom?'':'none';
+  // render day tabs
+  const todayDay = getTodayDayName();
+  const DAY_ICONS = { Mon:'⚡', Tue:'📋', Wed:'⚡', Thu:'📋', Fri:'⚡', Sat:'🧠', Sun:'🌿' };
+  document.getElementById('schedule-day-tabs').innerHTML = `<div class="day-tab-row">
+    ${WEEK_DAYS.map(d=>`<button class="day-tab-btn${activeDayTab===d?' dtab-active':''}${d===todayDay&&activeDayTab!==d?' dtab-today':''}" onclick="selectDayTab('${d}')" title="${d} template">${DAY_ICONS[d]||''} ${d}</button>`).join('')}
+    <button class="day-tab-btn${!activeDayTab?' dtab-mode-active':''}" onclick="clearDayTab()" title="Use day-type mode (Full/Exhausted/etc)" style="margin-left:auto">⚙️ Mode</button>
+  </div>`;
 
+  // title + reset btn
+  let hasCustom;
+  if (activeDayTab) {
+    hasCustom = !!state.customDaySchedule[activeDayTab];
+    const dayFull = {Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday',Sat:'Saturday',Sun:'Sunday'}[activeDayTab]||activeDayTab;
+    document.getElementById('schedule-title').textContent = '📅 '+dayFull.toUpperCase()+' SCHEDULE'+(hasCustom?' ✏️':'');
+  } else {
+    hasCustom = !!state.customSchedule[state.dayType];
+    document.getElementById('schedule-title').textContent = SCHED_TITLES[state.dayType];
+  }
+  document.getElementById('sched-reset-btn').style.display=hasCustom?'':'none';
+  const items=getSchedule();
+  // completion bar
+  const schedDoneToday = state.schedDone[todayStr]||{};
+  const doneCount = items.filter((_,i)=>schedDoneToday[i]).length;
+  const compPct = items.length ? Math.round((doneCount/items.length)*100) : 0;
+  const compBarEl = document.createElement('div');
+  compBarEl.className='comp-bar-wrap';
+  compBarEl.innerHTML=`<div class="comp-bar"><div class="comp-fill" style="width:${compPct}%"></div></div><div class="comp-label">${doneCount}/${items.length} done today (${compPct}%)</div>`;
+
+  // insert completion bar
+  const slContainer = document.getElementById('schedule-list');
+  if (slContainer && slContainer.parentNode) {
+    const existing = document.getElementById('comp-bar-wrap');
+    if (existing) existing.remove();
+    compBarEl.id = 'comp-bar-wrap';
+    slContainer.parentNode.insertBefore(compBarEl, slContainer);
+  }
   if (scheduleEditMode) {
     document.getElementById('sched-edit-btn').textContent='✅ Done';
     document.getElementById('add-sched-row').style.display='block';
@@ -944,7 +1377,9 @@ function renderSchedule() {
     document.getElementById('schedule-list').innerHTML=items.map((item,i)=>{
       const hasReminder = todayReminders.some(r=>r.idx===i);
       const hasTime = /\d+:\d+/.test(item.time);
-      return `<div class="schedule-item">
+      const isDone = !!(state.schedDone[todayStr]||{})[i];
+      return `<div class="schedule-item${isDone?' sched-item-done':''}">
+        <button class="sched-done-cb${isDone?' is-done':''}" onclick="toggleSchedDone(${i})" title="Mark done">${isDone?'✅':'⬜'}</button>
         <div class="schedule-time">${item.time}</div>
         <div class="schedule-dot" style="background:${getTypeColor(item.type)}"></div>
         <div class="schedule-label">${item.label}</div>
@@ -953,6 +1388,7 @@ function renderSchedule() {
           <button class="sched-btn" onclick="quickEditItem(${i})" title="Edit">✏️</button>
           <button class="sched-btn" onclick="deleteScheduleItem(${i})" title="Delete">🗑</button>
         </div>
+        ${_slotTimerHTML(i)}
       </div>`;
     }).join('');
   }
@@ -1049,6 +1485,10 @@ function renderSkills() {
               <button class="skill-btn" onclick="adjustProgress('${id}',-10)">−10%</button>
               <button class="skill-btn" onclick="adjustProgress('${id}',+10)">+10%</button>
             </div>
+            <div class="timer-row">
+              <button class="tbtn ${skillTimers[id]?'trun':''}" onclick="${skillTimers[id]?'stopTimer(\''+id+'\')':`startTimer('${id}')`}">${skillTimers[id]?'⏹ Stop':'⏱ Study'}</button>
+              <span class="tdisp" id="timer-disp-${id}">${formatSeconds(getTotalStudyTime('${id}'))}</span>
+            </div>
           `}
         </div>`;
       }).join('')}
@@ -1088,6 +1528,135 @@ function renderWeekly() {
       <button class="icon-btn" onclick="startWeekSkillEdit('${day}')" title="Edit skill focus" style="opacity:.35">✏️</button>
     </div>`;
   }).join('');
+  renderWeeklyReview();
+  renderGitHubWidget();
+}
+
+function renderWeeklyReview() {
+  const el = document.getElementById('weekly-review-card');
+  if (!el) return;
+
+  // ── last 7 days stats ──
+  const days7 = [];
+  for (let d = 6; d >= 0; d--) {
+    const dt = new Date(); dt.setDate(dt.getDate() - d);
+    const k = dt.toISOString().slice(0,10);
+    const dayName = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][dt.getDay()];
+    const sched = state.customDaySchedule[dayName] || DEFAULT_DAY_SCHEDULES[dayName] || [];
+    const done = state.schedDone[k] || {};
+    const doneCount = sched.filter((_,i)=>done[i]).length;
+    const nnChecks = (state.nonNeg||[]).map(n=>{
+      const c=JSON.parse(localStorage.getItem('soma_nn_'+k)||'{}'); return c[n.id]||false;
+    });
+    const nnDone = nnChecks.filter(Boolean).length;
+    const moodVal = state.moods[k] || 0;
+    days7.push({ k, dayName, schedTotal:sched.length, doneCount, nnDone, nnTotal:nnChecks.length, moodVal });
+  }
+
+  const nnRate = calcNNRate7();
+  const skillAvg = getOverallProgress();
+  const activeSkills = getActiveSkillsCount();
+  const activeJobs = (state.jobs||[]).filter(j=>!['rejected','withdrawn'].includes(j.status)).length;
+
+  // schedule completion avg
+  const schedAvg = days7.length
+    ? Math.round(days7.filter(d=>d.schedTotal>0).reduce((sum,d)=>sum+(d.doneCount/d.schedTotal)*100,0) / Math.max(1,days7.filter(d=>d.schedTotal>0).length))
+    : 0;
+
+  // mood avg
+  const moodDays = days7.filter(d=>d.moodVal>0);
+  const moodAvg = moodDays.length ? (moodDays.reduce((s,d)=>s+d.moodVal,0)/moodDays.length).toFixed(1) : '—';
+  const moodEmoji = moodAvg>=4.5?'😄':moodAvg>=3.5?'🙂':moodAvg>=2.5?'😐':moodAvg>=1.5?'😕':moodAvg==='—'?'—':'😞';
+
+  // best day
+  const bestDay = [...days7].sort((a,b)=>(b.doneCount/Math.max(1,b.schedTotal))-(a.doneCount/Math.max(1,a.schedTotal)))[0];
+
+  const hi = nnRate>=80?'🔥 Strong week — non-negotiables crushing it'
+           : nnRate>=50?'⚡ Decent week — push non-neg consistency more'
+           : schedAvg>=60?'💪 Schedule completion solid — keep NN focus'
+           : '⚠️ Rough week — focus on non-negotiables + schedule first';
+
+  // 7-day mini schedule bar
+  const dayBars = days7.map(d => {
+    const pct = d.schedTotal > 0 ? Math.round((d.doneCount/d.schedTotal)*100) : 0;
+    const col = pct>=80?'#22c55e':pct>=50?'#f59e0b':pct>0?'#ef4444':'#e0e4f0';
+    const isToday = d.k === todayStr;
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1">
+      <div style="font-size:9px;font-weight:700;color:${isToday?'#6c47ff':'#8892b0'}">${d.dayName}</div>
+      <div style="width:100%;height:36px;background:#f0f2f8;border-radius:4px;overflow:hidden;display:flex;align-items:flex-end">
+        <div style="width:100%;height:${pct||2}%;background:${col};border-radius:4px;transition:height .3s;min-height:2px"></div>
+      </div>
+      <div style="font-size:9px;color:#8892b0">${pct}%</div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="card-header"><div class="card-title">📊 WEEKLY REVIEW — LIVE</div></div>
+    <div class="wrev-grid" style="grid-template-columns:repeat(5,1fr)">
+      <div class="wrev-stat"><div class="wrev-val">${state.streak}</div><div class="wrev-lbl">🔥 Streak</div></div>
+      <div class="wrev-stat"><div class="wrev-val">${nnRate}%</div><div class="wrev-lbl">NN Hit</div></div>
+      <div class="wrev-stat"><div class="wrev-val">${skillAvg}%</div><div class="wrev-lbl">Skill Avg</div></div>
+      <div class="wrev-stat"><div class="wrev-val">${schedAvg}%</div><div class="wrev-lbl">Sched Done</div></div>
+      <div class="wrev-stat"><div class="wrev-val">${moodEmoji}</div><div class="wrev-lbl">Mood ${moodAvg!=='—'?moodAvg:''}</div></div>
+    </div>
+    <div style="display:flex;gap:4px;align-items:flex-end;margin:10px 0 4px;padding:0 2px">${dayBars}</div>
+    <div style="font-size:9px;color:#8892b0;text-align:center;margin-bottom:8px">Schedule completion per day (last 7 days)</div>
+    <div class="wrev-hi">${hi}</div>
+    <div style="font-size:11px;color:#8892b0;margin-top:8px;display:flex;flex-wrap:wrap;gap:8px">
+      <span>${activeSkills} skill${activeSkills!==1?'s':''} active</span>
+      <span>·</span>
+      <span>${activeJobs} job${activeJobs!==1?'s':''} in pipeline</span>
+      <span>·</span>
+      <span>Day ${getJourneyDay()}</span>
+      ${bestDay&&bestDay.schedTotal>0?`<span>· Best day: <strong>${bestDay.dayName}</strong> (${Math.round(bestDay.doneCount/bestDay.schedTotal*100)}%)</span>`:''}
+    </div>`;
+}
+
+function calcNNRate7() {
+  const today=new Date(); let hit=0;
+  for(let i=0;i<7;i++){
+    const d=new Date(today); d.setDate(d.getDate()-i);
+    const ds=d.toISOString().split('T')[0];
+    const c=state.checks[ds]||{};
+    if(state.nonNeg.every(n=>c[n.id])) hit++;
+  }
+  return Math.round((hit/7)*100);
+}
+
+function gitHubChartError(imgEl, user) {
+  imgEl.parentElement.innerHTML = '<div style="padding:14px;color:#8892b0;font-size:12px;text-align:center">📡 Chart loads when online<br><a href="https://github.com/'+user+'" target="_blank" style="color:#6c47ff">View on GitHub →</a></div>';
+}
+function renderGitHubWidget() {
+  const el = document.getElementById('github-widget-card');
+  if (!el) return;
+  const user = localStorage.getItem('soma_github_user') || 'somasaic';
+  const editing = window._ghEditing;
+  el.innerHTML = `
+    <div class="card-header">
+      <div class="card-title">🐙 GITHUB CONTRIBUTIONS</div>
+      <button class="card-action" onclick="window._ghEditing=!window._ghEditing;renderGitHubWidget()">✏️ ${editing?'Cancel':'Username'}</button>
+    </div>
+    ${editing ? `
+    <div style="display:flex;gap:7px;align-items:center;margin-bottom:10px">
+      <input class="sched-input" id="gh-user-input" value="${user}" placeholder="GitHub username" style="flex:1" />
+      <button class="btn-sm" onclick="setGitHubUser()">Save</button>
+    </div>` : ''}
+    <div id="gh-chart-wrap" style="overflow-x:auto;background:#0d1117;border-radius:8px;padding:8px;min-height:60px">
+      <img src="https://ghchart.rshah.org/${user}" alt="GitHub contributions chart"
+        style="width:100%;display:block;min-height:40px"
+        onerror="gitHubChartError(this,'${user}')" />
+    </div>
+    <div style="font-size:11px;color:#8892b0;margin-top:6px;text-align:center">
+      <a href="https://github.com/${user}" target="_blank" style="color:#6c47ff">github.com/${user}</a>
+    </div>`;
+  if (editing) setTimeout(()=>{ const inp=document.getElementById('gh-user-input'); if(inp)inp.focus(); },50);
+}
+function setGitHubUser() {
+  const inp = document.getElementById('gh-user-input');
+  if (!inp || !inp.value.trim()) return;
+  localStorage.setItem('soma_github_user', inp.value.trim());
+  window._ghEditing = false;
+  renderGitHubWidget();
 }
 
 function renderNoteTypeRow() {
@@ -1132,7 +1701,7 @@ function renderNotes() {
         </div>
       </div>
       ${isEditing?`
-        <textarea class="note-edit-area" id="note-edit-${n.id}">${n.text}</textarea>
+        <div class="mic-wrap"><textarea class="note-edit-area" id="note-edit-${n.id}">${n.text}</textarea><button class="mic-btn" onclick="startMic('note-edit-'+n.id)" title="Voice input">🎙️</button></div>
         <div class="form-btns">
           <button class="btn-sm" onclick="saveNoteEdit('${n.id}')">Save</button>
           <button class="btn-sm-ghost" onclick="cancelNoteEdit()">Cancel</button>
@@ -1218,7 +1787,7 @@ function renderLog() {
         </div>
       </div>
       ${isEditing?`
-        <textarea class="log-edit-area" id="log-edit-area">${l.text}</textarea>
+        <div class="mic-wrap"><textarea class="log-edit-area" id="log-edit-area">${l.text}</textarea>
         <div class="form-btns" style="margin-top:6px">
           <button class="btn-sm" onclick="saveLogEdit(${i})">Save</button>
           <button class="btn-sm-ghost" onclick="cancelLogEdit()">Cancel</button>
@@ -1270,8 +1839,13 @@ function showTab(name) {
 // ══════════════════════════════════════════════════════════════════════════════
 
 function ensureCustomSchedule() {
-  if (!state.customSchedule[state.dayType])
-    state.customSchedule[state.dayType]=JSON.parse(JSON.stringify(DEFAULT_SCHEDULES[state.dayType]));
+  if (activeDayTab) {
+    if (!state.customDaySchedule[activeDayTab])
+      state.customDaySchedule[activeDayTab] = JSON.parse(JSON.stringify(DEFAULT_DAY_SCHEDULES[activeDayTab]));
+  } else {
+    if (!state.customSchedule[state.dayType])
+      state.customSchedule[state.dayType] = JSON.parse(JSON.stringify(DEFAULT_SCHEDULES[state.dayType]));
+  }
 }
 function toggleScheduleEdit() {
   scheduleEditMode=!scheduleEditMode; renderSchedule();
@@ -1282,12 +1856,14 @@ function quickEditItem(i) {
 }
 function updateScheduleItem(i, field, val) {
   ensureCustomSchedule();
-  state.customSchedule[state.dayType][i][field]=val;
+  if (activeDayTab) state.customDaySchedule[activeDayTab][i][field] = val;
+  else state.customSchedule[state.dayType][i][field] = val;
   saveState();
 }
 function deleteScheduleItem(i) {
   ensureCustomSchedule();
-  state.customSchedule[state.dayType].splice(i,1);
+  if (activeDayTab) state.customDaySchedule[activeDayTab].splice(i,1);
+  else state.customSchedule[state.dayType].splice(i,1);
   saveState(); renderSchedule();
 }
 function addScheduleItem() {
@@ -1296,16 +1872,29 @@ function addScheduleItem() {
   const label=document.getElementById('new-sched-label').value.trim();
   if (!label) return;
   ensureCustomSchedule();
-  state.customSchedule[state.dayType].push({time,type,label});
+  if (activeDayTab) state.customDaySchedule[activeDayTab].push({time,type,label});
+  else state.customSchedule[state.dayType].push({time,type,label});
   saveState();
   document.getElementById('new-sched-time').value='';
   document.getElementById('new-sched-label').value='';
   renderSchedule();
 }
 function resetSchedule() {
-  if (!confirm('Reset to default schedule? Your customizations will be removed.')) return;
-  delete state.customSchedule[state.dayType];
+  const what = activeDayTab ? activeDayTab+' template' : 'this mode schedule';
+  if (!confirm('Reset '+what+' to default? Your edits will be removed.')) return;
+  if (activeDayTab) delete state.customDaySchedule[activeDayTab];
+  else delete state.customSchedule[state.dayType];
   saveState(); scheduleEditMode=false; renderSchedule();
+}
+function selectDayTab(day) {
+  activeDayTab = day;
+  scheduleEditMode = false;
+  renderSchedule();
+}
+function clearDayTab() {
+  activeDayTab = null;
+  scheduleEditMode = false;
+  renderSchedule();
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -1416,14 +2005,22 @@ function saveWeekSkill(day) {
 // ACTIONS — NOTES
 // ══════════════════════════════════════════════════════════════════════════════
 
-function selectNoteType(type) { selectedNoteType=type; renderNoteTypeRow(); }
+function selectNoteType(type) {
+  selectedNoteType=type;
+  renderNoteTypeRow();
+  const row=document.getElementById('followup-date-row');
+  if(row) row.style.display=(type==='recruiter')?'flex':'none';
+}
 function setNoteFilter(type) { activeNoteFilter=type; renderNoteFilters(); renderNotes(); }
 function saveNote() {
   const text=document.getElementById('note-input').value.trim();
   if (!text) return;
-  state.notes.push({id:uid(), text, type:selectedNoteType, date:todayStr, pinned:false});
+  const followupInput=document.getElementById('note-followup-date');
+  const followup=followupInput?followupInput.value:'';
+  state.notes.push({id:uid(), text, type:selectedNoteType, date:todayStr, pinned:false, followup:followup||null});
   saveState();
   document.getElementById('note-input').value='';
+  if(followupInput) followupInput.value='';
   renderNotes();
 }
 function toggleNotePin(id) {
@@ -1749,10 +2346,648 @@ function clearDonePendings() {
   renderPendings();
 }
 
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// VOICE INPUT (Web Speech API)
+// ══════════════════════════════════════════════════════════════════════════════
+let _micRecognition = null;
+let _micActiveBtn = null;
+let _micInterim = '';
+
+function _startMicRecognition(targetId) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const btn = document.getElementById('mic-btn-' + targetId);
+  const textarea = document.getElementById(targetId);
+  if (!textarea) return;
+
+  // stop any previous
+  if (_micRecognition) { try { _micRecognition.stop(); } catch(e){} }
+  if (_micActiveBtn && _micActiveBtn !== targetId) {
+    const prev = document.getElementById('mic-btn-' + _micActiveBtn);
+    if (prev) { prev.classList.remove('mic-active'); prev.textContent = '🎙️'; }
+  }
+
+  const recog = new SpeechRecognition();
+  recog.lang = 'en-IN';          // Indian English — better accent match
+  recog.interimResults = true;
+  recog.continuous = true;       // keep listening until manually stopped
+  recog.maxAlternatives = 1;
+  _micRecognition = recog;
+  _micActiveBtn = targetId;
+  _micInterim = '';
+  const baseVal = textarea.value;
+  if (btn) { btn.classList.add('mic-active'); btn.textContent = '⏹️'; }
+
+  recog.onresult = e => {
+    let interim = '';
+    let final = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) final += t + ' ';
+      else interim += t;
+    }
+    _micInterim += final;
+    const ta = document.getElementById(targetId);
+    if (ta) ta.value = (baseVal ? baseVal + ' ' : '') + _micInterim + interim;
+  };
+
+  recog.onerror = e => {
+    const msgs = {
+      'not-allowed': '🚫 Mic blocked — click the 🔒 icon in browser address bar → allow microphone → retry',
+      'no-speech':   '🔇 No speech detected — tap mic and speak clearly',
+      'network':     '🌐 Network error — voice needs internet connection',
+      'aborted':     '',
+    };
+    if (msgs[e.error]) alert(msgs[e.error]);
+    if (btn) { btn.classList.remove('mic-active'); btn.textContent = '🎙️'; }
+    _micActiveBtn = null; _micRecognition = null;
+  };
+
+  recog.onend = () => {
+    // auto-restart if still active (continuous mode can stop on silence)
+    if (_micActiveBtn === targetId && _micRecognition === recog) {
+      try { recog.start(); } catch(e) {
+        if (btn) { btn.classList.remove('mic-active'); btn.textContent = '🎙️'; }
+        _micActiveBtn = null; _micRecognition = null;
+      }
+    }
+  };
+
+  recog.start();
+}
+
+function startMic(targetId) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert('Voice input needs Chrome browser. Firefox/Safari not supported.');
+    return;
+  }
+
+  const btn = document.getElementById('mic-btn-' + targetId);
+
+  // if already recording this target — STOP
+  if (_micRecognition && _micActiveBtn === targetId) {
+    _micRecognition.stop();
+    _micRecognition = null;
+    _micActiveBtn = null;
+    if (btn) { btn.classList.remove('mic-active'); btn.textContent = '🎙️'; }
+    return;
+  }
+
+  // request mic permission explicitly first (triggers browser prompt)
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
+        stream.getTracks().forEach(t => t.stop()); // release stream — SpeechRecognition manages its own
+        _startMicRecognition(targetId);
+      })
+      .catch(err => {
+        alert('🚫 Mic access denied. Click the 🔒 lock icon in browser address bar → Site settings → Microphone → Allow, then refresh.');
+      });
+  } else {
+    // fallback — try directly (some contexts don't have mediaDevices but have SpeechRecognition)
+    _startMicRecognition(targetId);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SLOT TIMERS  (per-schedule-item countdown with alarm)
+// ══════════════════════════════════════════════════════════════════════════════
+window._slotTimers = {};   // key → {remaining(s), intervalId}
+
+function _slotKey(i) {
+  return (activeDayTab || state.dayType) + '_' + i;
+}
+
+function getSlotDuration(i) {
+  // stored in minutes; default = try to auto-calc from slot times, else 30
+  const saved = localStorage.getItem('soma_slot_dur_' + _slotKey(i));
+  if (saved) return parseInt(saved);
+  // try auto-calc: next slot time minus this slot time
+  const items = getSchedule();
+  if (items[i] && items[i+1]) {
+    const parse = t => {
+      const m = t.match(/(\d+):(\d+)\s*(AM|PM)/i);
+      if (!m) return null;
+      let h = parseInt(m[1]), min = parseInt(m[2]);
+      if (m[3].toUpperCase()==='PM' && h!==12) h+=12;
+      if (m[3].toUpperCase()==='AM' && h===12) h=0;
+      return h*60+min;
+    };
+    const a = parse(items[i].time), b = parse(items[i+1].time);
+    if (a!==null && b!==null && b>a) return Math.min(b-a, 180);
+  }
+  return 30;
+}
+
+function saveSlotDuration(i, mins) {
+  localStorage.setItem('soma_slot_dur_' + _slotKey(i), mins);
+}
+
+function _playAlarm() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const beep = (freq, start, dur) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = freq;
+      o.type = 'sine';
+      g.gain.setValueAtTime(0, ctx.currentTime+start);
+      g.gain.linearRampToValueAtTime(0.4, ctx.currentTime+start+0.02);
+      g.gain.linearRampToValueAtTime(0, ctx.currentTime+start+dur);
+      o.start(ctx.currentTime+start);
+      o.stop(ctx.currentTime+start+dur+0.05);
+    };
+    beep(880, 0, 0.18); beep(1100, 0.22, 0.18); beep(880, 0.44, 0.18); beep(1320, 0.66, 0.35);
+  } catch(e){}
+}
+
+function _slotTimerDone(i, label) {
+  const key = _slotKey(i);
+  if (window._slotTimers[key]) {
+    clearInterval(window._slotTimers[key].intervalId);
+    delete window._slotTimers[key];
+  }
+  _playAlarm();
+  if (Notification && Notification.permission === 'granted') {
+    new Notification('⏰ Time up! ' + label, { body: 'Slot timer finished. Move to next task.', icon: '' });
+  }
+  renderSchedule();
+}
+
+function startSlotTimer(i) {
+  const key = _slotKey(i);
+  if (window._slotTimers[key]) return; // already running
+  const durEl = document.getElementById('st-dur-' + i);
+  const mins = durEl ? (parseInt(durEl.value) || getSlotDuration(i)) : getSlotDuration(i);
+  saveSlotDuration(i, mins);
+  const items = getSchedule();
+  const label = items[i] ? items[i].label : 'Slot ' + i;
+  let remaining = mins * 60;
+  const intervalId = setInterval(() => {
+    remaining--;
+    window._slotTimers[key].remaining = remaining;
+    const dispEl = document.getElementById('st-disp-' + i);
+    if (dispEl) {
+      dispEl.textContent = _fmtSlot(remaining);
+      dispEl.className = 'slot-timer-display st-running';
+    }
+    if (remaining <= 0) _slotTimerDone(i, label);
+  }, 1000);
+  window._slotTimers[key] = { remaining, intervalId };
+  renderSchedule();
+}
+
+function stopSlotTimer(i) {
+  const key = _slotKey(i);
+  if (window._slotTimers[key]) {
+    clearInterval(window._slotTimers[key].intervalId);
+    delete window._slotTimers[key];
+  }
+  renderSchedule();
+}
+
+function resetSlotTimer(i) {
+  stopSlotTimer(i);
+  // remove saved duration so it recalcs, or keep it — keep it
+  renderSchedule();
+}
+
+function updateSlotDuration(i) {
+  const el = document.getElementById('st-dur-' + i);
+  if (el) saveSlotDuration(i, parseInt(el.value) || 30);
+}
+
+function _fmtSlot(secs) {
+  if (secs < 0) secs = 0;
+  const h = Math.floor(secs/3600);
+  const m = Math.floor((secs%3600)/60);
+  const s = secs % 60;
+  if (h) return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+function _slotTimerHTML(i) {
+  const key = _slotKey(i);
+  const running = window._slotTimers[key];
+  const dur = getSlotDuration(i);
+  const remaining = running ? running.remaining : dur * 60;
+  const displayClass = running ? 'slot-timer-display st-running' : (remaining===0?'slot-timer-display st-done':'slot-timer-display');
+  if (running) {
+    return `<div class="slot-timer-row">
+      <span class="${displayClass}" id="st-disp-${i}">${_fmtSlot(remaining)}</span>
+      <button class="slot-timer-btn st-stop" onclick="stopSlotTimer(${i})">⏹ Stop</button>
+      <button class="slot-timer-btn st-reset" onclick="resetSlotTimer(${i})" title="Reset timer">↺ Reset</button>
+    </div>`;
+  } else {
+    return `<div class="slot-timer-row">
+      <span class="${displayClass}" id="st-disp-${i}">${_fmtSlot(remaining)}</span>
+      <input class="st-dur-input" id="st-dur-${i}" type="number" min="1" max="480" value="${dur}" title="Duration in minutes" onchange="updateSlotDuration(${i})" />
+      <span class="st-dur-label">min</span>
+      <button class="slot-timer-btn st-start" onclick="startSlotTimer(${i})">▶ Start</button>
+      <button class="slot-timer-btn st-reset" onclick="resetSlotTimer(${i})" title="Reset to full">↺</button>
+    </div>`;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// DARK MODE
+// ══════════════════════════════════════════════════════════════════════════════
+function initDark() {
+  const d = localStorage.getItem('soma_dark');
+  if (d === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const btn = document.getElementById('dark-toggle');
+    if (btn) btn.textContent = '☀️';
+  }
+}
+function toggleDark() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
+  localStorage.setItem('soma_dark', isDark ? '' : 'dark');
+  const btn = document.getElementById('dark-toggle');
+  if (btn) btn.textContent = isDark ? '🌙' : '☀️';
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// MOOD TRACKER
+// ══════════════════════════════════════════════════════════════════════════════
+function setMood(val) {
+  state.moods[todayStr] = val;
+  saveState();
+  renderMood();
+}
+function renderMood() {
+  // highlight selected
+  for (let i = 1; i <= 5; i++) {
+    const btn = document.getElementById('mood-' + i);
+    if (btn) btn.classList.toggle('mood-sel', state.moods[todayStr] === i);
+  }
+  // 7-day avg trend
+  const trend = document.getElementById('mood-trend');
+  if (!trend) return;
+  const last7 = [];
+  for (let d = 6; d >= 0; d--) {
+    const dt = new Date(); dt.setDate(dt.getDate() - d);
+    const k = dt.toISOString().slice(0,10);
+    if (state.moods[k]) last7.push(state.moods[k]);
+  }
+  if (last7.length) {
+    const avg = (last7.reduce((a,b)=>a+b,0)/last7.length).toFixed(1);
+    const emoji = avg>=4.5?'😄':avg>=3.5?'🙂':avg>=2.5?'😐':avg>=1.5?'😕':'😞';
+    trend.textContent = `7-day avg ${emoji} ${avg}`;
+  } else {
+    trend.textContent = '';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SCHEDULE COMPLETION
+// ══════════════════════════════════════════════════════════════════════════════
+function toggleSchedDone(i) {
+  if (!state.schedDone[todayStr]) state.schedDone[todayStr] = {};
+  state.schedDone[todayStr][i] = !state.schedDone[todayStr][i];
+  saveState();
+  renderSchedule();
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SKILL TIMERS
+// ══════════════════════════════════════════════════════════════════════════════
+function getTimers() {
+  return JSON.parse(localStorage.getItem('soma_timers_' + todayStr) || '{}');
+}
+function saveTimers(t) {
+  localStorage.setItem('soma_timers_' + todayStr, JSON.stringify(t));
+}
+function formatSeconds(s) {
+  const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sec = s%60;
+  if (h) return `${h}h ${m}m`;
+  if (m) return `${m}m ${sec}s`;
+  return `${sec}s`;
+}
+function getTotalStudyTime(id) {
+  const t = getTimers();
+  let total = (t[id] && t[id].total) || 0;
+  if (skillTimers[id]) total += Math.floor((Date.now() - skillTimers[id]) / 1000);
+  return total;
+}
+function startTimer(id) {
+  if (skillTimers[id]) return;
+  skillTimers[id] = Date.now();
+  updateTimerDisplays();
+  renderSkills();
+}
+function stopTimer(id) {
+  if (!skillTimers[id]) return;
+  const elapsed = Math.floor((Date.now() - skillTimers[id]) / 1000);
+  const t = getTimers();
+  if (!t[id]) t[id] = { total: 0 };
+  t[id].total = (t[id].total || 0) + elapsed;
+  saveTimers(t);
+  delete skillTimers[id];
+  updateTimerDisplays();
+  renderSkills();
+}
+function updateTimerDisplays() {
+  Object.keys(skillTimers).forEach(id => {
+    const el = document.getElementById('timer-disp-' + id);
+    if (el) el.textContent = formatSeconds(getTotalStudyTime(id));
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FOCUS MUSIC
+// ══════════════════════════════════════════════════════════════════════════════
+function renderMusicBtn() {
+  const wrap = document.getElementById('music-open-wrap');
+  const disp = document.getElementById('music-url-display');
+  const url = localStorage.getItem('soma_music_url') || '';
+  if (!wrap) return;
+  if (url) {
+    // Real <a> tag — user click goes direct, never blocked
+    wrap.innerHTML = `<a href="${url}" target="_blank" rel="noopener noreferrer" class="music-btn" style="display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none">▶ Open Focus Playlist</a>`;
+    if (disp) disp.textContent = '🎵 ' + url.replace(/^https?:\/\//, '').slice(0, 55) + (url.length > 60 ? '…' : '');
+  } else {
+    wrap.innerHTML = `<button class="music-btn" onclick="toggleMusicEdit()">▶ Open Focus Playlist — tap ✏️ Set URL first</button>`;
+    if (disp) disp.textContent = 'No playlist set — tap ✏️ Set URL to add Spotify/YouTube link';
+  }
+}
+function toggleMusicEdit() {
+  const row = document.getElementById('music-edit-row');
+  if (!row) return;
+  const open = row.style.display === 'none' || !row.style.display;
+  row.style.display = open ? 'flex' : 'none';
+  if (open) {
+    const inp = document.getElementById('music-url-input');
+    const saved = localStorage.getItem('soma_music_url') || '';
+    if (inp) { inp.value = saved; inp.focus(); }
+  }
+}
+function initMusic() {
+  const inp = document.getElementById('music-url-input');
+  const saved = localStorage.getItem('soma_music_url') || '';
+  if (inp) inp.value = saved;
+  renderMusicBtn();
+}
+function openMusic() {
+  // fallback — renderMusicBtn handles the real link
+  const url = localStorage.getItem('soma_music_url') || '';
+  if (!url) { toggleMusicEdit(); return; }
+  renderMusicBtn();
+}
+function saveMusicUrl() {
+  const inp = document.getElementById('music-url-input');
+  if (!inp) return;
+  const url = inp.value.trim();
+  localStorage.setItem('soma_music_url', url);
+  toggleMusicEdit();
+  renderMusicBtn();
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// BACKUP / RESTORE
+// ══════════════════════════════════════════════════════════════════════════════
+function exportData() {
+  const data = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('soma_')) data[k] = localStorage.getItem(k);
+  }
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'soma-daily-os-backup-' + todayStr + '.json';
+  a.click();
+}
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      Object.keys(data).forEach(k => localStorage.setItem(k, data[k]));
+      alert('✅ Data restored! Reloading…');
+      location.reload();
+    } catch { alert('❌ Invalid backup file'); }
+  };
+  reader.readAsText(file);
+}
+function exportJobsCSV() {
+  const jobs = state.jobs || [];
+  if (!jobs.length) { alert('No job applications to export'); return; }
+  const header = 'Company,Role,Status,Source,Date,Notes';
+  const rows = jobs.map(j =>
+    [j.company, j.role, j.status, j.source||'', j.date||'', (j.notes||'').replace(/,/g,' ')].map(v=>`"${v}"`).join(',')
+  );
+  const csv = [header, ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'soma-jobs-' + todayStr + '.csv';
+  a.click();
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// JOB TRACKER
+// ══════════════════════════════════════════════════════════════════════════════
+const JOB_STAGES = [
+  { id:'all',       label:'All' },
+  { id:'applied',   label:'Applied',    cls:'jc-applied'  },
+  { id:'screened',  label:'Screened',   cls:'jc-screened' },
+  { id:'round1',    label:'Round 1',    cls:'jc-round1'   },
+  { id:'round2',    label:'Round 2',    cls:'jc-round2'   },
+  { id:'offer',     label:'Offer ✅',   cls:'jc-offer'    },
+  { id:'rejected',  label:'Rejected',   cls:'jc-rejected' },
+  { id:'withdrawn', label:'Withdrawn',  cls:'jc-withdrawn'},
+];
+function addJob() {
+  const company = (document.getElementById('job-company')||{}).value?.trim();
+  const role    = (document.getElementById('job-role')||{}).value?.trim();
+  const status  = (document.getElementById('job-status-sel')||{}).value || 'applied';
+  const source  = (document.getElementById('job-source')||{}).value?.trim() || '';
+  const notes   = (document.getElementById('job-notes-input')||{}).value?.trim() || '';
+  if (!company) { alert('Company name required'); return; }
+  state.jobs.push({ id: uid(), company, role, status, source, notes, date: todayStr });
+  saveState();
+  ['job-company','job-role','job-source','job-notes-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  renderJobs();
+}
+function deleteJob(id) {
+  if (!confirm('Delete this application?')) return;
+  state.jobs = state.jobs.filter(j => j.id !== id);
+  saveState(); renderJobs();
+}
+function saveJobEdit(id) {
+  const statusEl = document.getElementById('job-status-edit-' + id);
+  const notesEl  = document.getElementById('job-notes-edit-' + id);
+  const job = (state.jobs || []).find(j => j.id === id);
+  if (!job) return;
+  if (statusEl) job.status = statusEl.value;
+  if (notesEl)  job.notes  = notesEl.value.trim();
+  saveState();
+  window['_jobEdit_' + id] = false;
+  renderJobs();
+}
+function renderJobs() {
+  const jobs = state.jobs || [];
+  // stage filter buttons
+  const filterEl = document.getElementById('job-stage-filters');
+  if (filterEl) {
+    filterEl.innerHTML = JOB_STAGES.map(s => {
+      const cnt = s.id === 'all' ? jobs.length : jobs.filter(j=>j.status===s.id).length;
+      return `<button class="jp-btn${activeJobFilter===s.id?' jp-active':''}" onclick="activeJobFilter='${s.id}';renderJobs()">${s.label} (${cnt})</button>`;
+    }).join('');
+  }
+  // stats mini
+  const statsEl = document.getElementById('job-stats-mini');
+  if (statsEl) {
+    const active = jobs.filter(j=>!['rejected','withdrawn'].includes(j.status)).length;
+    statsEl.textContent = `${active} active · ${jobs.length} total`;
+  }
+  // job list
+  const listEl = document.getElementById('job-list');
+  if (!listEl) return;
+  const filtered = activeJobFilter === 'all' ? jobs : jobs.filter(j => j.status === activeJobFilter);
+  if (!filtered.length) {
+    listEl.innerHTML = `<div class="empty-msg">${activeJobFilter==='all'?'No applications yet. Track your first one above!':'No applications in this stage.'}</div>`;
+    return;
+  }
+  const STAGE_MAP = Object.fromEntries(JOB_STAGES.filter(s=>s.id!=='all').map(s=>[s.id, s]));
+  listEl.innerHTML = filtered.map(j => {
+    const s = STAGE_MAP[j.status] || { label: j.status, cls: '' };
+    const editing = window['_jobEdit_' + j.id];
+    return `<div class="job-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="job-company">${j.company}</div>
+          <div class="job-role-line">${j.role||'—'} ${j.source?'· '+j.source:''}</div>
+        </div>
+        <div style="display:flex;gap:4px">
+          <button class="sched-btn" onclick="window['_jobEdit_${j.id}']=!window['_jobEdit_${j.id}'];renderJobs()" title="Edit">✏️</button>
+          <button class="sched-btn" onclick="deleteJob('${j.id}')" title="Delete">🗑</button>
+        </div>
+      </div>
+      <div class="job-meta" style="margin-top:5px">
+        <span class="jchip ${s.cls}">${s.label}</span>
+        <span class="job-date-txt">${j.date||''}</span>
+      </div>
+      ${editing ? `
+      <div style="margin-top:8px;display:flex;flex-direction:column;gap:5px">
+        <select class="sched-input" id="job-status-edit-${j.id}">
+          ${JOB_STAGES.filter(x=>x.id!=='all').map(x=>`<option value="${x.id}"${j.status===x.id?' selected':''}>${x.label}</option>`).join('')}
+        </select>
+        <div class="mic-wrap"><textarea class="sched-input" id="job-notes-edit-${j.id}" style="min-height:50px;resize:vertical">${j.notes||''}</textarea><button class="mic-btn" id="mic-btn-job-notes-edit-${j.id}" onclick="startMic('job-notes-edit-${j.id}')" title="Voice input">🎙️</button></div>
+        <button class="btn-sm" onclick="saveJobEdit('${j.id}')">💾 Save</button>
+      </div>` : j.notes ? `<div class="job-note-txt">${j.notes}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// STAR PREP BANK
+// ══════════════════════════════════════════════════════════════════════════════
+function toggleStarForm() {
+  const f = document.getElementById('star-add-form');
+  if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
+}
+function addStarAnswer() {
+  const q   = (document.getElementById('star-q')||{}).value?.trim();
+  const cat = (document.getElementById('star-cat')||{}).value || 'behavioral';
+  const sit = (document.getElementById('star-sit')||{}).value?.trim() || '';
+  const act = (document.getElementById('star-act')||{}).value?.trim() || '';
+  const res = (document.getElementById('star-res')||{}).value?.trim() || '';
+  if (!q) { alert('Question required'); return; }
+  state.starBank.push({ id: uid(), q, cat, sit, act, res, date: todayStr });
+  saveState();
+  ['star-q','star-sit','star-act','star-res'].forEach(id=>{ const el=document.getElementById(id); if(el)el.value=''; });
+  toggleStarForm();
+  renderStarBank();
+}
+function deleteStarAnswer(id) {
+  if (!confirm('Delete this STAR answer?')) return;
+  state.starBank = state.starBank.filter(s => s.id !== id);
+  saveState(); renderStarBank();
+}
+function renderStarBank() {
+  const el = document.getElementById('star-list');
+  if (!el) return;
+  const q = (document.getElementById('star-search')||{}).value?.toLowerCase() || '';
+  const items = (state.starBank || []).filter(s =>
+    !q || s.q.toLowerCase().includes(q) || (s.sit||'').toLowerCase().includes(q) || (s.act||'').toLowerCase().includes(q) || (s.res||'').toLowerCase().includes(q)
+  );
+  if (!items.length) {
+    el.innerHTML = `<div class="empty-msg">${q ? 'No matches.' : 'No STAR answers yet. Add your first one!'}</div>`;
+    return;
+  }
+  const CAT_COLORS = { behavioral:'#ede9ff', technical:'#dbeafe', leadership:'#dcfce7', conflict:'#fee2e2', achievement:'#fef3c7' };
+  el.innerHTML = items.map(s => `
+    <div class="note-card" style="margin-bottom:8px">
+      <div class="note-card-header">
+        <div class="note-meta">
+          <span class="note-type-chip" style="background:${CAT_COLORS[s.cat]||'#f4f5fb'};color:#1a1d2e">${s.cat}</span>
+          <span class="note-date">${s.date||''}</span>
+        </div>
+        <button class="icon-btn" onclick="deleteStarAnswer('${s.id}')" title="Delete">🗑</button>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:#1a1d2e;margin-bottom:7px">❓ ${s.q}</div>
+      ${s.sit?`<div style="font-size:12px;margin-bottom:4px"><span style="font-weight:700;color:#6c47ff">S+T:</span> ${s.sit}</div>`:''}
+      ${s.act?`<div style="font-size:12px;margin-bottom:4px"><span style="font-weight:700;color:#22c55e">A:</span> ${s.act}</div>`:''}
+      ${s.res?`<div style="font-size:12px"><span style="font-weight:700;color:#f59e0b">R:</span> ${s.res}</div>`:''}
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// RECRUITER FOLLOWUP CHECK
+// ══════════════════════════════════════════════════════════════════════════════
+function checkRecruiterFollowups() {
+  const banner = document.getElementById('followup-banner');
+  if (banner) {
+    const due = (state.notes || []).filter(n => n.type === 'recruiter' && n.followup && n.followup <= todayStr);
+    if (!due.length) { banner.classList.remove('show'); }
+    else {
+      banner.classList.add('show');
+      banner.innerHTML = `⏰ <strong>${due.length} recruiter follow-up${due.length>1?'s':''} due today!</strong>
+        <button onclick="showTab('notes')" style="margin-left:auto;padding:3px 10px;border-radius:8px;border:none;background:rgba(0,0,0,.12);cursor:pointer;font-size:11px;font-weight:700">View Notes →</button>`;
+    }
+  }
+  renderRecruiterSection();
+}
+function renderRecruiterSection() {
+  const el = document.getElementById('recruiter-list-today');
+  if (!el) return;
+  const recruiters = (state.notes || []).filter(n => n.type === 'recruiter').sort((a,b)=>(a.followup||'9999')>(b.followup||'9999')?1:-1);
+  if (!recruiters.length) {
+    el.innerHTML = `<div class="empty-msg">No recruiter notes yet. Go to Notes tab → select Recruiter type to add.</div>`;
+    return;
+  }
+  el.innerHTML = recruiters.map(n => {
+    const overdue = n.followup && n.followup < todayStr;
+    const dueToday = n.followup && n.followup === todayStr;
+    const upcoming = n.followup && n.followup > todayStr;
+    const badge = overdue ? `<span style="background:#fee2e2;color:#dc2626;padding:1px 7px;border-radius:8px;font-size:10px;font-weight:700">⚠️ Overdue ${n.followup}</span>`
+      : dueToday ? `<span style="background:#fef3c7;color:#d97706;padding:1px 7px;border-radius:8px;font-size:10px;font-weight:700">⏰ Due today</span>`
+      : upcoming ? `<span style="background:#dcfce7;color:#16a34a;padding:1px 7px;border-radius:8px;font-size:10px;font-weight:700">📅 ${n.followup}</span>`
+      : `<span style="background:#f4f5fb;color:#8892b0;padding:1px 7px;border-radius:8px;font-size:10px">No followup set</span>`;
+    return `<div style="display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #f4f5fb">
+      <div style="flex:1">
+        <div style="font-size:12px;color:#1a1d2e;line-height:1.4">${n.text.slice(0,80)}${n.text.length>80?'…':''}</div>
+        <div style="margin-top:4px;display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+          ${badge}
+          <span style="font-size:10px;color:#8892b0">${n.date}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 // ══════════════════════════════════════════════════════════════════════════════
 // INIT
-// ══════════════════════════════════════════════════════════════════════════════
 
+initDark();
 updateStreak();
 initAppName();
 renderHeader();
@@ -1766,14 +3001,22 @@ renderSchedule();
 renderStats();
 renderSkills();
 renderWeekly();
+renderWeeklyReview();
+renderGitHubWidget();
 renderNoteTypeRow();
 renderNoteFilters();
 renderNotes();
 renderLog();
-
+renderMood();
+renderJobs();
+renderStarBank();
+initMusic();
+checkRecruiterFollowups();
+renderRecruiterSection();
 renderNotifBanner();
 checkReminders();
-setInterval(()=>{ updateStreak(); renderHeader(); checkReminders(); }, 60000);
+setInterval(()=>{ updateStreak(); renderHeader(); checkReminders(); updateTimerDisplays(); }, 60000);
+setInterval(updateTimerDisplays, 1000);
 </script>
 </body>
 </html>
