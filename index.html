@@ -607,6 +607,9 @@ textarea.note-area:focus { outline: none; border-color: #6c47ff; }
       </div>
     </div>
     <div id="schedule-list"></div>
+    <div id="quick-add-slot-btn" style="display:none;align-items:center;justify-content:center;padding:8px 0 2px">
+      <button onclick="toggleQuickAddSlot()" class="btn-add" style="width:100%;max-width:320px">➕ Add Slot</button>
+    </div>
     <div id="add-sched-row" style="display:none">
       <div class="add-sched-row">
         <input class="sched-input sched-time-input" id="new-sched-time" placeholder="9:00 AM" />
@@ -1391,6 +1394,10 @@ function renderSchedule() {
         ${_slotTimerHTML(i)}
       </div>`;
     }).join('');
+
+    // quick-add button in view mode
+    const qa = document.getElementById('quick-add-slot-btn');
+    if (qa) qa.style.display = 'flex';
   }
 }
 
@@ -2984,6 +2991,19 @@ function renderRecruiterSection() {
   }).join('');
 }
 
+
+function toggleQuickAddSlot() {
+  const editMode = document.getElementById('add-sched-row');
+  if (!editMode) return;
+  const visible = editMode.style.display !== 'none';
+  if (visible) {
+    editMode.style.display = 'none';
+  } else {
+    editMode.style.display = 'block';
+    // scroll into view
+    setTimeout(() => { editMode.scrollIntoView({behavior:'smooth', block:'nearest'}); }, 50);
+  }
+}
 // ══════════════════════════════════════════════════════════════════════════════
 // INIT
 
