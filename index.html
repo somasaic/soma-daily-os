@@ -2383,20 +2383,35 @@ function _startMicRecognition(targetId) {
   _micRecognition = recog;
   _micActiveBtn = targetId;
   _micInterim = '';
+  // reset committed state for fresh start
+  window['_micCommit_' + targetId] = textarea.value || '';
   const baseVal = textarea.value;
   if (btn) { btn.classList.add('mic-active'); btn.textContent = '⏹️'; }
 
   recog.onresult = e => {
-    let interim = '';
-    let final = '';
+    let finalText = '';
+    let interimText = '';
     for (let i = e.resultIndex; i < e.results.length; i++) {
       const t = e.results[i][0].transcript;
-      if (e.results[i].isFinal) final += t + ' ';
-      else interim += t;
+      if (e.results[i].isFinal) finalText += t + ' ';
+      else interimText += t;
     }
-    _micInterim += final;
     const ta = document.getElementById(targetId);
-    if (ta) ta.value = (baseVal ? baseVal + ' ' : '') + _micInterim + interim;
+    if (!ta) return;
+    // commit key: separate committed (persisted) text from live interim display
+    const commitKey = '_micCommit_' + targetId;
+    if (finalText) {
+      // append final to committed state directly in textarea
+      const prev = window[commitKey] !== undefined ? window[commitKey] : ta.value.replace(/\s*$/, '');
+      const joined = prev ? prev.trimEnd() + ' ' + finalText.trim() : finalText.trim();
+      ta.value = joined;
+      window[commitKey] = joined;  // save committed state
+    }
+    // show interim appended to committed state (does NOT permanently alter committed)
+    if (interimText) {
+      const committed = window[commitKey] !== undefined ? window[commitKey] : ta.value;
+      ta.value = (committed ? committed.trimEnd() + ' ' : '') + interimText;
+    }
   };
 
   recog.onerror = e => {
