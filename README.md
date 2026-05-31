@@ -225,6 +225,68 @@ Every text input area has a **🎙️ mic button**:
 
 ---
 
+## ⚔️ Daily OS vs Paid Tools — Full Comparison
+
+> Legend: ✅ Full support · 🟡 Partial / paid addon · ❌ Not available
+
+### Scheduling
+
+| Feature | Daily OS (free) | Notion $10/mo | Todoist $5/mo | Motion $19/mo | Any.do $6/mo |
+|---------|:-:|:-:|:-:|:-:|:-:|
+| Day-type engine (5 modes) — Full/Exhausted/Gap/Interview/Rest | ✅ | ❌ | ❌ | 🟡 | ❌ |
+| Mon–Sun pre-built templates — editable per-day routines | ✅ | 🟡 | ❌ | ❌ | ❌ |
+| Per-slot countdown timers — audio alarm + reset, auto-duration | ✅ | ❌ | ❌ | ✅ | ❌ |
+| Schedule completion % bar — daily done tracking with checkboxes | ✅ | 🟡 | ✅ | ✅ | ✅ |
+
+### Skill & Progress
+
+| Feature | Daily OS (free) | Notion $10/mo | Todoist $5/mo | Motion $19/mo | Any.do $6/mo |
+|---------|:-:|:-:|:-:|:-:|:-:|
+| Role-specific skill tiers — 18 SDET skills across 5 tiers + custom | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Per-skill session timers — start/stop, daily study totals | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Quick Wins chips (+5%) — tap-to-progress on Today tab | ✅ | ❌ | ❌ | ❌ | ❌ |
+
+### Job Hunt Specific
+
+| Feature | Daily OS (free) | Notion $10/mo | Todoist $5/mo | Motion $19/mo | Any.do $6/mo |
+|---------|:-:|:-:|:-:|:-:|:-:|
+| Job pipeline tracker — 7-stage kanban + CSV export | ✅ | 🟡 | ❌ | ❌ | ❌ |
+| STAR prep bank — S+A+R per question, searchable | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Recruiter follow-up tracker — due/overdue badges + banner | ✅ | 🟡 | ❌ | ❌ | 🟡 |
+
+### Analytics & Review
+
+| Feature | Daily OS (free) | Notion $10/mo | Todoist $5/mo | Motion $19/mo | Any.do $6/mo |
+|---------|:-:|:-:|:-:|:-:|:-:|
+| Weekly review — live 7-day bar chart, mood avg, best day | ✅ | 🟡 | 🟡 | ✅ | ❌ |
+| Mood tracker — daily + 7-day average | ✅ | 🟡 | ❌ | ❌ | ❌ |
+| Streak + target plans — 7/21/60/custom day goals | ✅ | ❌ | ✅ | ❌ | 🟡 |
+
+### Infrastructure & UX
+
+| Feature | Daily OS (free) | Notion $10/mo | Todoist $5/mo | Motion $19/mo | Any.do $6/mo |
+|---------|:-:|:-:|:-:|:-:|:-:|
+| Zero cost, zero account — one HTML file, works offline | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Data privacy — 100% local, no server ever | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Voice input (mic) on all fields — Web Speech API | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Dark mode | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Full JSON backup + restore — export/import all data | ✅ | 🟡 | ❌ | ❌ | ❌ |
+| ICS calendar + PDF export | ✅ | 🟡 | 🟡 | ✅ | 🟡 |
+
+### Verdict
+
+| Tool | Score | Summary |
+|------|:-----:|---------|
+| **Daily OS** *(yours — free)* | **22/22** | Only tool with SDET skill tiers, STAR bank, slot timers, recruiter pipeline, voice input, AND zero cost. Beats every paid tool on job-hunt specificity. |
+| Notion $10/mo | 12/22 | Flexible but blank canvas. No native timers, no skill tiers, no voice. You'd pay to build what Daily OS does out of the box. |
+| Motion $19/mo | 11/22 | Good AI scheduler for meetings. No skill tracking, no job pipeline, no STAR bank. Wrong tool for SDET job hunting. |
+| Todoist $5/mo | 9/22 | Task list only. Zero scheduling context, zero skill tracking, zero job hunt features. |
+| Any.do $6/mo | 8/22 | Mobile-first, clean UI. No scheduling depth, no analytics. Daily OS wins on every dimension that matters. |
+
+> **Unique advantages no paid tool has:** day-type engine · Mon–Sun slot timers with alarm · SDET-specific skill tiers · STAR prep bank · recruiter follow-up section · voice input on all fields · 100% offline + zero account · free forever
+
+---
+
 ## 🚀 Tech Stack
 
 | | |
