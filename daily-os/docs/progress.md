@@ -1,5 +1,22 @@
 # Progress Log — Soma Daily OS
 
+## 2026-06-14 — Day 2 (continued): Hunt Tab Edit Fix
+
+### ✅ Fix: Edit button in Hunt Tab not working (commit `0f905a9`)
+
+**Files changed:** `HuntTab.jsx`, `dashboard.css`
+
+**Root cause 1 — Action Required section:**
+Clicking ✏️ in the "Action Required — Follow-ups" section at the top set `editId` but the edit form only rendered inside the grouped pipeline section below. User saw nothing happen at their current scroll position.
+
+**Root cause 2 — Collapsed group:**
+If the pipeline group containing the item was collapsed (user had clicked the group header), the inline edit form was hidden even though `editId` was set. No way for the user to know the form existed.
+
+**Fix:**
+Removed all inline per-row edit form rendering from the pipeline rows. Added a single dedicated edit panel card that renders above the pipeline section whenever `editId !== null`. Any ✏️ click from anywhere on the page (follow-up alerts or pipeline rows) opens this panel immediately — no scroll required, no collapse issue. Active row gets a subtle purple left-border highlight. The ✏️ button toggles to close on second click.
+
+---
+
 ## 2026-06-14 — Day 2 (continued): SDET Portfolio Document
 
 ### ✅ Created `seed/SDET_PORTFOLIO.md` (commit `0884b00`)
