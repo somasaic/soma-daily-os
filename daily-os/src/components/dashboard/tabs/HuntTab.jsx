@@ -215,6 +215,56 @@ export default function HuntTab() {
         )}
       </div>
 
+      {/* Edit Panel — renders once at top of pipeline, visible regardless of scroll or group collapse */}
+      {editId && (
+        <div className="card">
+          <div className="card-header">
+            <span className="card-title">✏️ Edit — {editData.company}</span>
+            <button className="card-action" onClick={() => setEditId(null)}>✕</button>
+          </div>
+          <div className="form-row-2">
+            <div className="form-row">
+              <label>Company</label>
+              <input value={editData.company || ''} onChange={e => setEditData(d => ({ ...d, company: e.target.value }))} />
+            </div>
+            <div className="form-row">
+              <label>Role</label>
+              <input value={editData.role || ''} onChange={e => setEditData(d => ({ ...d, role: e.target.value }))} />
+            </div>
+          </div>
+          <div className="form-row-2">
+            <div className="form-row">
+              <label>Status</label>
+              <select value={editData.status || 'applied'} onChange={e => setEditData(d => ({ ...d, status: e.target.value }))}>
+                {STATUSES.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
+              </select>
+            </div>
+            <div className="form-row">
+              <label>Follow-up Date</label>
+              <input type="date" value={editData.followupDate || ''} onChange={e => setEditData(d => ({ ...d, followupDate: e.target.value }))} />
+            </div>
+          </div>
+          <div className="form-row-2">
+            <div className="form-row">
+              <label>Contact</label>
+              <input value={editData.contact || ''} onChange={e => setEditData(d => ({ ...d, contact: e.target.value }))} />
+            </div>
+            <div className="form-row">
+              <label>Location</label>
+              <input value={editData.location || ''} onChange={e => setEditData(d => ({ ...d, location: e.target.value }))} />
+            </div>
+          </div>
+          <div className="form-row">
+            <label>Notes</label>
+            <textarea rows={2} value={editData.notes || ''} onChange={e => setEditData(d => ({ ...d, notes: e.target.value }))} />
+          </div>
+          <div style={{ display: 'flex', gap: 7, marginTop: 6 }}>
+            <button className="btn-sm" onClick={() => saveEdit(editId)}>Save Changes</button>
+            <button className="btn-sm-ghost" onClick={() => setEditId(null)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
       {/* Pipeline grouped */}
       {grouped.map(g => (
         <div key={g.key} className="card" style={{ padding: 0, overflow: 'hidden' }}>
@@ -231,70 +281,29 @@ export default function HuntTab() {
               : h.followupDate === today ? 'hunt-fu-td' : 'hunt-fu-up'
               : null
             return (
-              <div key={h.id} className="hunt-app-row">
-                {editId === h.id ? (
-                  <div style={{ padding: '6px 0' }}>
-                    <div className="form-row-2">
-                      <div className="form-row">
-                        <label>Company</label>
-                        <input value={editData.company || ''} onChange={e => setEditData(d => ({ ...d, company: e.target.value }))} />
-                      </div>
-                      <div className="form-row">
-                        <label>Role</label>
-                        <input value={editData.role || ''} onChange={e => setEditData(d => ({ ...d, role: e.target.value }))} />
-                      </div>
+              <div key={h.id} className={`hunt-app-row${editId === h.id ? ' hunt-app-editing' : ''}`}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+                      <span className="hunt-app-co">{h.company}</span>
+                      <span className={`hunt-stage-chip ${statusInfo.cls}`}>{statusInfo.label}</span>
+                      {fuBadge && h.followupDate && (
+                        <span className={`hunt-fu-badge ${fuBadge}`}>{h.followupDate}</span>
+                      )}
                     </div>
-                    <div className="form-row-2">
-                      <div className="form-row">
-                        <label>Status</label>
-                        <select value={editData.status || 'applied'} onChange={e => setEditData(d => ({ ...d, status: e.target.value }))}>
-                          {STATUSES.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
-                        </select>
-                      </div>
-                      <div className="form-row">
-                        <label>Follow-up</label>
-                        <input type="date" value={editData.followupDate || ''} onChange={e => setEditData(d => ({ ...d, followupDate: e.target.value }))} />
-                      </div>
-                    </div>
-                    <div className="form-row-2">
-                      <div className="form-row">
-                        <label>Contact</label>
-                        <input value={editData.contact || ''} onChange={e => setEditData(d => ({ ...d, contact: e.target.value }))} />
-                      </div>
-                      <div className="form-row">
-                        <label>Location</label>
-                        <input value={editData.location || ''} onChange={e => setEditData(d => ({ ...d, location: e.target.value }))} />
-                      </div>
-                    </div>
-                    <div className="form-row">
-                      <label>Notes</label>
-                      <textarea rows={2} value={editData.notes || ''} onChange={e => setEditData(d => ({ ...d, notes: e.target.value }))} />
-                    </div>
-                    <div style={{ display: 'flex', gap: 7, marginTop: 6 }}>
-                      <button className="btn-sm" onClick={() => saveEdit(editId)}>Save</button>
-                      <button className="btn-sm-ghost" onClick={() => setEditId(null)}>Cancel</button>
-                    </div>
+                    <div className="hunt-app-role">{h.role}{h.location ? ` · ${h.location}` : ''}</div>
+                    {h.contact && <div style={{ fontSize: 10, color: 'var(--sub)' }}>📞 {h.contact} · {h.channel}</div>}
+                    {h.notes && <div style={{ fontSize: 11, color: 'var(--text)', marginTop: 3, opacity: .8 }}>{h.notes}</div>}
                   </div>
-                ) : (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
-                        <span className="hunt-app-co">{h.company}</span>
-                        <span className={`hunt-stage-chip ${statusInfo.cls}`}>{statusInfo.label}</span>
-                        {fuBadge && h.followupDate && (
-                          <span className={`hunt-fu-badge ${fuBadge}`}>{h.followupDate}</span>
-                        )}
-                      </div>
-                      <div className="hunt-app-role">{h.role}{h.location ? ` · ${h.location}` : ''}</div>
-                      {h.contact && <div style={{ fontSize: 10, color: 'var(--sub)' }}>📞 {h.contact} · {h.channel}</div>}
-                      {h.notes && <div style={{ fontSize: 11, color: 'var(--text)', marginTop: 3, opacity: .8 }}>{h.notes}</div>}
-                    </div>
-                    <div style={{ display: 'flex', gap: 3 }}>
-                      <button className="icon-btn" onClick={() => { setEditId(h.id); setEditData({ ...h }) }}>✏️</button>
-                      <button className="icon-btn" onClick={() => dispatch({ type: 'DELETE_HUNT', id: h.id })}>🗑️</button>
-                    </div>
+                  <div style={{ display: 'flex', gap: 3 }}>
+                    <button
+                      className={`icon-btn${editId === h.id ? ' icon-btn-active' : ''}`}
+                      onClick={() => editId === h.id ? setEditId(null) : (setEditId(h.id), setEditData({ ...h }))}
+                      title={editId === h.id ? 'Close edit' : 'Edit'}
+                    >✏️</button>
+                    <button className="icon-btn" onClick={() => dispatch({ type: 'DELETE_HUNT', id: h.id })}>🗑️</button>
                   </div>
-                )}
+                </div>
               </div>
             )
           })}
