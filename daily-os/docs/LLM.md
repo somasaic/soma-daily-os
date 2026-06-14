@@ -58,6 +58,9 @@ Daily OS (React SPA)
   // Quick Wins excluded: [skillId]
   qwExcluded: array,
 
+  // Quick Wins custom chips: [{ id, label }]
+  qwCustomChips: array,
+
   // Schedule customizations: { [dayKey]: [{ time, label, type }] }
   schedule: object,
 
@@ -192,6 +195,10 @@ App.jsx (Router)
 
 ## T — Trigger (Deployment)
 - **Local**: `npm run dev` → localhost:5173
-- **Build**: `npm run build` → dist/
-- **Vercel**: Connect GitHub repo → auto-deploy on push
+- **Build**: `npm run build` → dist/ (80 modules, 3.45s, no errors)
+- **GitHub**: Pushed to `https://github.com/somasaic/soma-daily-os` (main branch)
+  - v1 history preserved (9 vanilla JS commits)
+  - v2 migration commit: `b62bc49`
+  - Bug fix commit: `827f513`
+- **Vercel**: Pending — connect GitHub repo → auto-deploy on push
 - **Base path**: `./` (relative) for Vercel compatibility
