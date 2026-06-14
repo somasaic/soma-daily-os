@@ -1,5 +1,22 @@
 # Progress Log — Soma Daily OS
 
+## 2026-06-14 — Day 2 (continued): SDET Portfolio Document
+
+### ✅ Created `seed/SDET_PORTFOLIO.md` (commit `0884b00`)
+
+High-level SDET portfolio README covering:
+- Full STLC phases applied (Requirement Analysis → Test Planning → Test Design → Environment Setup → Execution → Defect Reporting → Closure)
+- 9 exploratory testing charters with findings per session
+- Functional test cases for voice, Kanban, export/import (table format with pre/post fix columns)
+- Regression testing strategy per bug fix
+- UI/UX, data integrity, browser API, and build/performance testing
+- All 15 defects in a formal table with severity, root cause category, and status
+- Root cause classification (React misuse, library misuse, logic bug, UX, missing feature)
+- Upcoming roadmap: multi-user DB + login, LLM integration in Learn & Prep tab
+- Skills demonstrated mapped to SDET competencies
+
+---
+
 ## 2026-06-14 — Day 2 (continued): Voice Continuity Fix
 
 ### ✅ Fix: Mic replaces first sentence when user pauses before speaking second (commit `31f6657`)
