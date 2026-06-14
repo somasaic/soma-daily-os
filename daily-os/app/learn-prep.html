@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#6c47ff">
+  <title>Soma — Learn &amp; Prep</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/learn-prep.css">
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <h1>⚡ Soma — Learn &amp; Prep</h1>
+    <div class="hdr-sub" id="hdr-sub">Learning Dashboard · Interview Prep</div>
+  </div>
+  <div class="hdr-right">
+    <a href="index.html" style="background:rgba(255,255,255,.2);border:none;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700;cursor:pointer;color:white;text-decoration:none;display:inline-block;margin-right:4px">🏠 Dashboard</a>
+    <button onclick="toggleDark()" id="dark-btn" style="background:rgba(255,255,255,.15);border:none;border-radius:8px;padding:3px 8px;font-size:15px;cursor:pointer;color:#fff">🌙</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('sessions')">📚 Sessions</button>
+  <button class="tab" onclick="showTab('interview')">🎯 Interview Prep</button>
+  <button class="tab" onclick="showTab('qabank')">📋 Q&amp;A Bank</button>
+  <button class="tab" onclick="showTab('practice')">🎤 Practice</button>
+  <button class="tab" onclick="showTab('settings')">⚙️ Settings</button>
+</div>
+
+<!-- ═══════════════════════════════════════ SESSIONS TAB ══ -->
+<div class="tc active" id="tc-sessions">
+
+  <div class="sync-bar">
+    <span>📅 <strong id="sess-count">0</strong> sessions · <strong id="qa-total">0</strong> Q&amp;As</span>
+    <button class="btn-sm" onclick="toggleAddSession()" style="margin-left:auto">+ Add Session</button>
+  </div>
+
+  <!-- ADD SESSION FORM -->
+  <div class="form-panel" id="add-session-form" style="display:none">
+    <div class="form-title">📚 New Learning Session</div>
+    <div class="inp-row">
+      <div style="flex:1;min-width:130px"><label>Date</label><input type="date" id="s-date" /></div>
+      <div style="flex:2;min-width:200px"><label>Session Heading</label><input type="text" id="s-heading" placeholder="e.g. Playwright POM + Fixtures deep dive" /></div>
+    </div>
+    <div style="margin-bottom:8px"><label>Concepts Covered (comma separated)</label><input type="text" id="s-concepts" placeholder="e.g. Page Object Model, fixtures, test isolation" /></div>
+    <div style="margin-bottom:8px"><label>Topics Touched</label><input type="text" id="s-topics" placeholder="e.g. beforeEach, data-testid, expect.soft" /></div>
+    <div style="margin-bottom:8px"><label>Skills Involved (select all that apply)</label>
+      <div class="skill-pills" id="s-skills">
+        <div class="spill" data-skill="playwright">Playwright</div>
+        <div class="spill" data-skill="typescript">TypeScript</div>
+        <div class="spill" data-skill="javascript">JavaScript</div>
+        <div class="spill" data-skill="api">API Testing</div>
+        <div class="spill" data-skill="cicd">CI/CD</div>
+        <div class="spill" data-skill="selenium">Selenium</div>
+        <div class="spill" data-skill="python">Python</div>
+        <div class="spill" data-skill="docker">Docker</div>
+        <div class="spill" data-skill="sql">SQL</div>
+        <div class="spill" data-skill="jira">Jira</div>
+        <div class="spill" data-skill="azure">Azure</div>
+        <div class="spill" data-skill="git">Git/GitHub</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--sub);margin-bottom:10px">💡 Q&amp;As auto-generated per skill based on your topics. You can edit them after adding.</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap">
+      <button class="btn btn-p" onclick="addSession()">📌 Add Session</button>
+      <button class="btn btn-ghost" onclick="toggleAddSession()">Cancel</button>
+    </div>
+  </div>
+
+  <div id="sessions-list"><div class="empty">No sessions yet. Tap + Add Session to log your first learning session.</div></div>
+</div>
+
+<!-- ═══════════════════════════════════════ INTERVIEW PREP TAB ══ -->
+<div class="tc" id="tc-interview">
+
+  <div class="sync-bar">
+    <span>🏢 <strong id="co-count">0</strong> companies tracked</span>
+    <button class="btn-sm" onclick="toggleAddCompany()" style="margin-left:auto">+ Add Company</button>
+  </div>
+
+  <div class="form-panel" id="add-company-form" style="display:none">
+    <div class="form-title">🏢 Add Interview Company</div>
+    <div class="inp-row">
+      <div style="flex:2"><label>Company Name</label><input type="text" id="co-name" placeholder="e.g. HackerRank" /></div>
+      <div style="flex:2"><label>Role Applied</label><input type="text" id="co-role" placeholder="e.g. SDET I" /></div>
+    </div>
+    <div class="inp-row">
+      <div style="flex:1"><label>Interview Date (if scheduled)</label><input type="date" id="co-date" /></div>
+      <div style="flex:2"><label>Round / Stage</label><input type="text" id="co-stage" placeholder="e.g. HR Screening, Technical Round 1" /></div>
+    </div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:4px">
+      <button class="btn btn-p" onclick="addCompany()">Add Company</button>
+      <button class="btn btn-ghost" onclick="toggleAddCompany()">Cancel</button>
+    </div>
+  </div>
+
+  <div id="companies-list"><div class="empty">No companies added yet. Add a company to start interview prep.</div></div>
+</div>
+
+<!-- ═══════════════════════════════════════ Q&A BANK TAB ══ -->
+<div class="tc" id="tc-qabank">
+  <div class="card">
+    <div class="card-title">ALL Q&amp;A — SKILL FILTER</div>
+    <div class="qb-skill-filter" id="qb-filter">
+      <div class="qbf active" data-skill="all" onclick="filterQB(this,'all')">All</div>
+      <div class="qbf" data-skill="playwright" onclick="filterQB(this,'playwright')">Playwright</div>
+      <div class="qbf" data-skill="typescript" onclick="filterQB(this,'typescript')">TypeScript</div>
+      <div class="qbf" data-skill="javascript" onclick="filterQB(this,'javascript')">JavaScript</div>
+      <div class="qbf" data-skill="api" onclick="filterQB(this,'api')">API Testing</div>
+      <div class="qbf" data-skill="cicd" onclick="filterQB(this,'cicd')">CI/CD</div>
+      <div class="qbf" data-skill="selenium" onclick="filterQB(this,'selenium')">Selenium</div>
+      <div class="qbf" data-skill="python" onclick="filterQB(this,'python')">Python</div>
+      <div class="qbf" data-skill="docker" onclick="filterQB(this,'docker')">Docker</div>
+      <div class="qbf" data-skill="sql" onclick="filterQB(this,'sql')">SQL</div>
+      <div class="qbf" data-skill="jira" onclick="filterQB(this,'jira')">Jira</div>
+      <div class="qbf" data-skill="general" onclick="filterQB(this,'general')">General/HR</div>
+    </div>
+    <div id="qb-list"><div class="empty">No Q&amp;As yet. Add sessions with skills to populate the bank.</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ PRACTICE TAB ══ -->
+<div class="tc" id="tc-practice">
+  <div class="card" style="margin-bottom:11px">
+    <div class="card-title">🎤 FLASHCARD PRACTICE MODE</div>
+    <div class="inp-row" style="margin-bottom:8px">
+      <div>
+        <label>Skill / Category</label>
+        <select id="prac-skill" onchange="startPractice()">
+          <option value="all">All Skills</option>
+          <option value="playwright">Playwright</option>
+          <option value="typescript">TypeScript</option>
+          <option value="javascript">JavaScript</option>
+          <option value="api">API Testing</option>
+          <option value="cicd">CI/CD</option>
+          <option value="selenium">Selenium</option>
+          <option value="python">Python</option>
+          <option value="docker">Docker</option>
+          <option value="sql">SQL</option>
+          <option value="general">General/HR</option>
+        </select>
+      </div>
+      <div>
+        <label>Mode</label>
+        <select id="prac-mode" onchange="startPractice()">
+          <option value="all">All Questions</option>
+          <option value="technical">Technical Only</option>
+          <option value="behavioral">Behavioral Only</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-p" style="width:100%" onclick="startPractice()">▶ Start Practice Session</button>
+  </div>
+  <div id="practice-area"></div>
+</div>
+
+<!-- ═══════════════════════════════════════ SETTINGS TAB ══ -->
+<div class="tc" id="tc-settings">
+  <div class="card">
+    <div class="card-title">📱 MOBILE ACCESS GUIDE</div>
+    <div style="font-size:13px;line-height:1.7;color:#374151">
+      <p style="font-weight:700;color:var(--p);margin-bottom:8px">How to use on mobile:</p>
+      <ol style="padding-left:18px;margin-bottom:12px">
+        <li>Open this HTML file in <strong>Chrome</strong> on your phone</li>
+        <li>Tap ⋮ (3 dots menu) → <strong>"Add to Home Screen"</strong></li>
+        <li>It installs like an app — no Play Store needed</li>
+        <li>All data saved in browser storage (offline works!)</li>
+      </ol>
+      <p style="font-weight:700;color:var(--p);margin-bottom:8px">Cross-device sync (phone ↔ desktop):</p>
+      <p style="margin-bottom:12px">Export JSON below → send file to phone via WhatsApp/email → Import on phone browser. Done.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">💾 BACKUP &amp; SYNC</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px">
+      <button class="btn btn-g" onclick="exportAll()" style="flex:1">💾 Export All Data (JSON)</button>
+      <label class="btn btn-p" style="flex:1;text-align:center;cursor:pointer">📂 Import Data<input type="file" accept=".json" style="display:none" onchange="importAll(event)" /></label>
+    </div>
+    <div style="font-size:10px;color:var(--sub);line-height:1.5">Export = saves all sessions, Q&amp;As, interview preps. Import = restores everything. Use to sync between devices.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">📝 POST-INTERVIEW Q LOG</div>
+    <div style="font-size:12px;color:var(--sub);margin-bottom:10px;line-height:1.5">Paste questions from a real interview below. Save them here. Use "Interview Prep" tab to add answers later.</div>
+    <div style="margin-bottom:8px"><label>Company / Interview</label><input type="text" id="piq-co" placeholder="e.g. Experian SDET Round 1 — June 4" /></div>
+    <div style="margin-bottom:8px"><label>Questions (one per line)</label><textarea id="piq-qs" placeholder="1. Explain POM pattern you used&#10;2. How did you handle flaky tests?&#10;3. What is fixture in Playwright?" style="min-height:120px"></textarea></div>
+    <button class="btn btn-p" onclick="savePostInterviewQ()">Save Interview Questions</button>
+    <div id="piq-list" style="margin-top:12px"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">⚠️ DANGER ZONE</div>
+    <button class="btn btn-r" onclick="clearAll()" style="width:100%">🗑 Clear ALL Data</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script type="module" src="js/learn-prep/learn-prep.js"></script>
+</body>
+</html>

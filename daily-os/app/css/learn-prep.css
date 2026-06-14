@@ -1,0 +1,495 @@
+/* ── SYNC BAR ────────────────────────────── */
+.sync-bar {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12px;
+  color: var(--sub);
+}
+
+/* ── SKILL PILLS (FORM SELECTORS) ────────── */
+.skill-pills {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.spill {
+  padding: 5px 11px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--sub);
+  transition: all .15s;
+  user-select: none;
+}
+
+.spill.sel {
+  background: var(--p);
+  color: white;
+  border-color: var(--p);
+}
+
+.spill:hover {
+  border-color: var(--p);
+  color: var(--p);
+}
+
+/* ── SESSIONS CARD & Q&A PANELS ──────────── */
+.sess-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 8px var(--shadow);
+}
+
+.sess-hdr {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sess-hdr:hover {
+  background: var(--light);
+}
+
+.sess-date {
+  font-size: 10px;
+  color: var(--sub);
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.sess-heading {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.sess-concepts {
+  font-size: 11px;
+  color: var(--sub);
+  margin-top: 4px;
+}
+
+.sess-body {
+  padding: 14px;
+  display: none;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+}
+
+.sess-body.open {
+  display: block;
+}
+
+.sess-skill-tabs {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.sst {
+  padding: 5px 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--sub);
+  transition: all .15s;
+}
+
+.sst.active {
+  background: var(--p);
+  color: white;
+  border-color: var(--p);
+}
+
+.sst:hover:not(.active) {
+  background: var(--light);
+  border-color: var(--p);
+  color: var(--p);
+}
+
+.qa-panel {
+  display: none;
+}
+
+.qa-panel.active {
+  display: block;
+}
+
+.qa-item {
+  background: var(--light);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+
+.qa-q {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.qa-a {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.qa-a.hidden {
+  display: none;
+}
+
+.qa-toggle {
+  font-size: 11px;
+  color: var(--p);
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+/* ── SPEAK OUT LOUD (STUDENT ANSWERS) ────── */
+.sol-box {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 8px;
+}
+
+.sol-box textarea {
+  min-height: 55px;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.sol-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.saved-answers {
+  margin-top: 8px;
+}
+
+.saved-ans {
+  background: var(--light);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 5px;
+  font-size: 11px;
+  color: var(--text);
+  border-left: 3px solid var(--p);
+  line-height: 1.5;
+  position: relative;
+}
+
+.del-ans {
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 12px;
+  opacity: .4;
+  color: var(--text);
+}
+
+.del-ans:hover {
+  opacity: 1;
+}
+
+/* ── INTERVIEW PREP COMPANIES ────────────── */
+.co-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 8px var(--shadow);
+}
+
+.co-hdr {
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+}
+
+.co-hdr.open {
+  border-bottom-color: var(--border);
+}
+
+.co-hdr:hover {
+  background: var(--light);
+}
+
+.co-name {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.co-role {
+  font-size: 11px;
+  color: var(--sub);
+  margin-top: 2px;
+}
+
+.co-body {
+  padding: 14px;
+  display: none;
+  background: var(--card);
+}
+
+.co-body.open {
+  display: block;
+}
+
+.prep-type-tabs {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.ptt {
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--sub);
+  transition: all .15s;
+  background: var(--card);
+}
+
+.ptt.active {
+  background: var(--p);
+  color: white;
+  border-color: var(--p);
+}
+
+.ptt:hover:not(.active) {
+  border-color: var(--p);
+  color: var(--p);
+}
+
+.prep-panel {
+  display: none;
+}
+
+.prep-panel.active {
+  display: block;
+}
+
+.prep-qa-item {
+  background: var(--light);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+
+/* ── Q&A REGISTRY (BANK) ─────────────────── */
+.qb-skill-filter {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.qbf {
+  padding: 5px 11px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--sub);
+  transition: all .15s;
+}
+
+.qbf.active {
+  background: var(--p);
+  color: white;
+  border-color: var(--p);
+}
+
+.qb-item {
+  background: var(--light);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+}
+
+.qb-skill-tag {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--p);
+  margin-bottom: 5px;
+}
+
+/* ── FORM PANELS ─────────────────────────── */
+.form-panel {
+  background: var(--light);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+
+.form-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--sub);
+  margin-bottom: 10px;
+}
+
+/* ── SELF-EVALUATION SCORE BADGES ───────── */
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.score-1 { background: #fee2e2; color: var(--r); }
+.score-2 { background: #fef3c7; color: #d97706; }
+.score-3 { background: #dcfce7; color: #16a34a; }
+
+/* ── PRACTICE MODE (FLASHCARDS) ──────────── */
+.practice-card {
+  background: linear-gradient(135deg, var(--p), var(--p2));
+  color: white;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.practice-card .q-num {
+  font-size: 10px;
+  opacity: .7;
+  margin-bottom: 4px;
+}
+
+.practice-card .q-text {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.practice-card textarea {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 8px;
+  padding: 9px 11px;
+  font-size: 12px;
+  width: 100%;
+}
+
+.practice-card textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.practice-card textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── STICKY FLOATING ACTION BUTTON (FAB) ──── */
+.fab {
+  position: fixed;
+  bottom: 18px;
+  right: 16px;
+  background: var(--p);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(108, 71, 255, 0.4);
+  z-index: 200;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fab:hover {
+  background: var(--p2);
+  transform: scale(1.08);
+}
+
+/* ── MOBILE RESPONSIVENESS OVERRIDES ──────── */
+@media (max-width: 480px) {
+  .hdr h1 {
+    font-size: 14px;
+  }
+  .inp-row {
+    flex-direction: column;
+  }
+  .inp-row > div {
+    width: 100%;
+  }
+  .btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    width: 100%;
+  }
+  .prep-type-tabs, .sess-skill-tabs, .skill-pills, .qb-skill-filter {
+    gap: 4px;
+  }
+}

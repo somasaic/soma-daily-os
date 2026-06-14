@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soma's Daily OS</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+<div id="app">
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1 id="app-title" onclick="startNameEdit()" title="Tap to rename" style="cursor:pointer">⚡ Soma's Daily OS</h1>
+    <div class="header-sub" id="date-display">Loading...</div>
+  </div>
+  <div class="header-right">
+    <div class="streak-badge" id="streak-badge" onclick="toggleStreakPanel()" title="Tap to manage streak & plan">🔥 <span id="streak-count">0</span> day streak</div>
+    <div class="streak-target-sub" id="streak-target-sub" style="display:none"></div>
+    <div class="journey-day">Journey Day <span id="journey-day">1</span></div>
+    <div style="display:flex;gap:6px;align-items:center;margin-top:3px">
+      <a href="learn-prep.html" style="background:rgba(255,255,255,.2);border:none;border-radius:8px;padding:3px 9px;font-size:12px;font-weight:700;cursor:pointer;color:white;text-decoration:none;display:inline-block">📚 Learn &amp; Prep</a>
+      <button onclick="toggleDark()" id="dark-toggle" title="Toggle dark/light mode" style="background:rgba(255,255,255,.15);border:none;border-radius:8px;padding:3px 8px;font-size:15px;cursor:pointer;color:white">🌙</button>
+    </div>
+  </div>
+</div>
+
+<!-- STREAK PANEL -->
+<div id="streak-panel">
+  <div class="sp-label">🎯 Set Streak Target Plan</div>
+  <div class="sp-plan-row">
+    <button class="sp-plan-btn" id="sp-7"  onclick="setStreakPlan(7,'7 Day Sprint')">🚀 7 Days</button>
+    <button class="sp-plan-btn" id="sp-21" onclick="setStreakPlan(21,'21 Day Control')">🔥 21 Days</button>
+    <button class="sp-plan-btn" id="sp-60" onclick="setStreakPlan(60,'60 Day Journey')">💪 60 Days</button>
+    <button class="sp-plan-btn" id="sp-0"  onclick="setStreakPlan(0,'')">✕ No Target</button>
+  </div>
+  <div class="sp-input-row">
+    <input class="sp-input" id="sp-custom-days" type="number" min="1" placeholder="Custom days" style="width:110px" />
+    <input class="sp-input" id="sp-custom-name" placeholder="Plan name (optional)" style="flex:1;min-width:120px" />
+    <button class="sp-btn sp-btn-purple" onclick="setCustomStreakPlan()">Set Custom</button>
+  </div>
+  <div style="border-top:1px solid #2a2d3e;padding-top:10px;margin-top:2px">
+    <div class="sp-label">✏️ Edit Streak Count</div>
+    <div class="sp-input-row">
+      <input class="sp-input" id="sp-streak-val" type="number" min="0" placeholder="Current streak" style="width:110px" />
+      <button class="sp-btn sp-btn-purple" onclick="saveStreakEdit()">Save</button>
+      <button class="sp-btn sp-btn-red" onclick="resetStreakToZero()">↩ Reset to 0</button>
+    </div>
+  </div>
+  <div id="sp-progress-wrap" style="display:none" class="sp-progress">
+    <div class="sp-progress-bar"><div class="sp-progress-fill" id="sp-progress-fill" style="width:0%"></div></div>
+    <div class="sp-progress-label" id="sp-progress-label"></div>
+  </div>
+</div>
+
+<!-- DAY TYPE -->
+<div class="day-type-section">
+  <div class="day-type-label">What kind of day is today?</div>
+  <div class="day-type-buttons">
+    <div class="day-type-btn" id="btn-full"       onclick="selectDayType('full')">⚡ Full Day</div>
+    <div class="day-type-btn" id="btn-exhausted"  onclick="selectDayType('exhausted')">😮‍💨 Exhausted</div>
+    <div class="day-type-btn" id="btn-gap"        onclick="selectDayType('gap')">✈️ Gap/Travel</div>
+    <div class="day-type-btn" id="btn-interview"  onclick="selectDayType('interview')">🎯 Interview</div>
+    <div class="day-type-btn" id="btn-rest"       onclick="selectDayType('rest')">🌿 Rest</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" id="tab-btn-today"   onclick="showTab('today')">📅 Today</button>
+  <button class="tab"        id="tab-btn-skills"  onclick="showTab('skills')">🎯 Skills</button>
+  <button class="tab"        id="tab-btn-weekly"  onclick="showTab('weekly')">📆 Weekly</button>
+  <button class="tab"        id="tab-btn-notes"   onclick="showTab('notes')">📌 Notes</button>
+  <button class="tab"        id="tab-btn-log"     onclick="showTab('log')">📝 Log</button>
+  <button class="tab"        id="tab-btn-jobs"    onclick="showTab('jobs')">💼 Jobs</button>
+  <button class="tab"        id="tab-btn-hunt"    onclick="showTab('hunt');renderHunt()">🎯 Hunt</button>
+</div>
+
+<!-- TODAY TAB -->
+<div class="tab-content active" id="tab-today">
+  <!-- NOTIFICATION BANNER -->
+  <div id="notif-banner" class="notif-banner prompt" style="display:none">
+    <span>🔔</span>
+    <span id="notif-banner-text">Enable notifications to get schedule reminders</span>
+    <button class="notif-btn" id="notif-action-btn" onclick="requestNotifPermission()">Enable</button>
+  </div>
+
+  <!-- RECRUITER FOLLOW-UP BANNER -->
+  <div id="followup-banner" class="followup-banner">
+    <span>📞</span><div id="followup-text"></div>
+  </div>
+
+  <div id="mode-banner" class="mode-banner banner-full"></div>
+
+  <!-- MOOD TRACKER -->
+  <div class="card" style="padding:12px 14px 10px">
+    <div class="card-header" style="margin-bottom:8px">
+      <div class="card-title">😊 TODAY'S MOOD</div>
+      <div id="mood-trend" style="font-size:10px;color:#8892b0"></div>
+    </div>
+    <div class="mood-row">
+      <button class="mood-btn" id="mood-1" onclick="setMood(1)" title="Rough day">😞</button>
+      <button class="mood-btn" id="mood-2" onclick="setMood(2)" title="Low energy">😕</button>
+      <button class="mood-btn" id="mood-3" onclick="setMood(3)" title="Okay">😐</button>
+      <button class="mood-btn" id="mood-4" onclick="setMood(4)" title="Good">🙂</button>
+      <button class="mood-btn" id="mood-5" onclick="setMood(5)" title="Great day!">😄</button>
+    </div>
+  </div>
+
+  <!-- RECRUITER FOLLOWUP SECTION -->
+  <div class="card" id="recruiter-followup-card" style="margin-bottom:11px">
+    <div class="card-header" style="margin-bottom:8px">
+      <div class="card-title">📞 RECRUITER FOLLOW-UPS</div>
+      <button class="card-action" onclick="showTab('notes');selectNoteType('recruiter')">+ Add Note</button>
+    </div>
+    <div id="recruiter-list-today" style="font-size:12px;color:#8892b0">Loading…</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val" id="skills-avg">0%</div><div class="stat-label">Skill Avg</div></div>
+    <div class="stat-card"><div class="stat-val" id="nn-complete">0/3</div><div class="stat-label">Non-Neg</div></div>
+    <div class="stat-card"><div class="stat-val" id="active-skills-count">0</div><div class="stat-label">Active</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">⚡ Non-Negotiables — Every Day</div>
+      <div style="display:flex;gap:5px">
+        <button class="card-action" id="nn-edit-btn" onclick="toggleNonNegEdit()">✏️ Edit</button>
+        <button class="card-action" id="nn-reset-btn" onclick="resetNonNeg()" style="display:none;color:#ef4444">↩ Reset</button>
+      </div>
+    </div>
+    <div id="nn-list"></div>
+    <div id="nn-add-row" style="display:none">
+      <div class="pending-input-row" style="margin-top:8px;padding-top:8px;border-top:1px dashed #e0e4f0">
+        <input class="pending-input" id="nn-input" placeholder="Add non-negotiable…" onkeydown="if(event.key==='Enter')addNonNeg()" />
+        <button class="btn-sm" onclick="addNonNeg()">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PENDINGS CARD -->
+  <div class="card" id="pendings-card">
+    <div class="card-header">
+      <div class="card-title">⏳ PENDINGS <span id="pending-badge" class="pending-count-badge">0</span></div>
+      <button class="card-action" onclick="clearDonePendings()" style="color:#22c55e">✓ Clear Done</button>
+    </div>
+    <div id="pending-list"></div>
+    <div class="pending-input-row">
+      <input class="pending-input" id="pending-input" placeholder="Add a pending task…" onkeydown="if(event.key==='Enter')addPending()" />
+      <button class="btn-sm" onclick="addPending()">+ Add</button>
+    </div>
+  </div>
+
+  <!-- PARK IDEAS -->
+  <div class="card" id="park-ideas-card">
+    <div class="card-header">
+      <div class="card-title">💡 PARK IDEAS — Quick Capture</div>
+      <button class="card-action" id="pi-toggle-btn" onclick="toggleParkIdeasForm()">+ Add Idea</button>
+    </div>
+    <div id="pi-form" style="display:none;margin-bottom:10px">
+      <div class="idea-tag-row" id="pi-tags">
+        <div class="idea-tag sel" data-tag="💡 Idea" onclick="selectIdeaTag(this)">💡 Idea</div>
+        <div class="idea-tag" data-tag="🔨 Build" onclick="selectIdeaTag(this)">🔨 Build</div>
+        <div class="idea-tag" data-tag="🔬 Research" onclick="selectIdeaTag(this)">🔬 Research</div>
+        <div class="idea-tag" data-tag="🎯 Job Hunt" onclick="selectIdeaTag(this)">🎯 Job Hunt</div>
+        <div class="idea-tag" data-tag="📚 Learning" onclick="selectIdeaTag(this)">📚 Learning</div>
+        <div class="idea-tag" data-tag="🌱 Personal" onclick="selectIdeaTag(this)">🌱 Personal</div>
+      </div>
+      <div class="mic-wrap"><textarea class="log-input" id="pi-text" placeholder="Capture idea — type or use mic. What excites you? What do you want to build, research or explore?…" style="min-height:75px"></textarea><button class="mic-btn" id="mic-btn-pi-text" onclick="startMic('pi-text')" title="Voice input">🎙️</button></div>
+      <label class="idea-file-btn" for="pi-file-input">📎 Attach file (image, doc, PDF, MD, JSON, HTML, Excel, XML, any format)<input type="file" id="pi-file-input" multiple accept="*/*" style="display:none" onchange="handleIdeaFiles(event)" /></label>
+      <div id="pi-file-preview" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px"></div>
+      <div style="margin-top:8px;display:flex;gap:6px">
+        <button class="btn-primary" onclick="saveParkIdea()" style="font-size:12px;padding:7px 16px">💾 Park It</button>
+        <button class="btn-sm-ghost" onclick="clearParkIdeaForm()">Clear</button>
+      </div>
+    </div>
+    <div id="pi-list"><div class="empty-msg">No ideas parked yet — tap + Add Idea to capture anything that excites you.</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">⚡ Quick Wins — Tap skill worked today (+5%)</div>
+      <div style="display:flex;gap:5px">
+        <button class="card-action" id="qw-edit-btn" onclick="toggleQWEdit()">✏️ Edit</button>
+        <button class="card-action" id="qw-restore-btn" onclick="restoreAllQW()" style="display:none;color:#22c55e">✚ Restore All</button>
+      </div>
+    </div>
+    <div class="qw-grid" id="qw-grid"></div>
+    <div class="qw-note">Tap chip = +5%. ↩0% resets skill to 0%. Edit = hide/show chips. Skill Avg auto-updates.</div>
+  </div>
+
+  <div class="focus-card">
+    <div class="card-title">TODAY'S FOCUS SKILL</div>
+    <div class="focus-name" id="focus-name"></div>
+    <div class="focus-sub" id="focus-sub"></div>
+  </div>
+
+  <!-- SCHEDULE CARD -->
+  <div class="card" id="schedule-card">
+    <div id="schedule-day-tabs"></div>
+    <div class="card-header">
+      <div class="card-title" id="schedule-title"></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="card-action" id="sched-edit-btn" onclick="toggleScheduleEdit()">✏️ Edit</button>
+        <button class="card-action" id="sched-reset-btn" onclick="resetSchedule()" style="display:none;color:#ef4444">↩ Reset</button>
+        <button class="card-action" onclick="exportToICS()" style="color:#22c55e">📅 Export</button>
+        <button class="card-action" onclick="exportToPDF()" style="color:#ef4444">📄 PDF</button>
+      </div>
+    </div>
+    <div id="schedule-list"></div>
+    <div id="quick-add-slot-btn" style="display:none;align-items:center;justify-content:center;padding:8px 0 2px">
+      <button onclick="toggleQuickAddSlot()" class="btn-add" style="width:100%;max-width:320px">➕ Add Slot</button>
+    </div>
+    <div id="add-sched-row" style="display:none">
+      <div class="add-sched-row">
+        <input class="sched-input sched-time-input" id="new-sched-time" placeholder="9:00 AM" />
+        <select class="sched-input sched-type-select" id="new-sched-type">
+          <option value="work">🔥 Work</option>
+          <option value="ritual">🌅 Ritual</option>
+          <option value="break">☕ Break</option>
+          <option value="habit">📤 Habit</option>
+          <option value="health">🏃 Health</option>
+          <option value="review">📚 Review</option>
+          <option value="plan">🗓️ Plan</option>
+          <option value="interrupt">⚡ Interrupt</option>
+          <option value="relaxation">😌 Relaxation</option>
+          <option value="screening">📞 Screening</option>
+          <option value="sleep">😴 Sleep</option>
+        </select>
+        <input class="sched-input sched-label-input" id="new-sched-label" placeholder="What are you doing?" />
+        <button class="btn-sm" onclick="addScheduleItem()">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOCUS MUSIC -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">🎵 FOCUS MUSIC</div>
+      <button class="card-action" onclick="toggleMusicEdit()">✏️ Set URL</button>
+    </div>
+    <div id="music-open-wrap"></div>
+    <div id="music-url-display" style="text-align:center;font-size:11px;color:#8892b0;margin-bottom:4px"></div>
+    <div id="music-edit-row" style="display:none" class="music-url-row">
+      <input class="sched-input" id="music-url-input" placeholder="Paste Spotify / YouTube playlist URL…" style="flex:1" />
+      <button class="btn-sm" onclick="saveMusicUrl()">Save</button>
+    </div>
+  </div>
+
+  <!-- DAY CONTEXT REFLECTION -->
+  <div class="card" id="day-context-card">
+    <div class="card-header">
+      <div class="card-title">📖 DAY CONTEXT — How Did Today Go?</div>
+      <div id="dc-today-label" style="font-size:10px;color:#8892b0"></div>
+    </div>
+    <div style="margin-bottom:8px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#8892b0;margin-bottom:6px">How was today overall?</div>
+      <div class="dc-day-rating">
+        <button class="dc-rating-btn" data-r="fire" onclick="setDCRating(this)" title="On fire — crushed it">🔥</button>
+        <button class="dc-rating-btn" data-r="good" onclick="setDCRating(this)" title="Good — solid progress">✅</button>
+        <button class="dc-rating-btn" data-r="normal" onclick="setDCRating(this)" title="Normal — average day">😐</button>
+        <button class="dc-rating-btn" data-r="diverted" onclick="setDCRating(this)" title="Diverted but productive">⚡</button>
+        <button class="dc-rating-btn" data-r="exhausted" onclick="setDCRating(this)" title="Exhausted — survived">😮</button>
+        <button class="dc-rating-btn" data-r="offtrack" onclick="setDCRating(this)" title="Off track">❌</button>
+      </div>
+    </div>
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#8892b0;margin-bottom:5px">Full context — wins, learnings, what went off track and why</div>
+    <div class="mic-wrap"><textarea class="log-input" id="dc-text" placeholder="Write freely — what went well? What did not happen as planned? Why were you diverted? Key learnings? What would you do differently? Unexpected wins or setbacks?…" style="min-height:110px;resize:vertical"></textarea><button class="mic-btn" id="mic-btn-dc-text" onclick="startMic('dc-text')" title="Voice input">🎙️</button></div>
+    <div style="margin-top:8px;display:flex;gap:6px;align-items:center">
+      <button class="btn-primary" onclick="saveDayContext()" style="font-size:12px;padding:7px 16px">💾 Save Today's Context</button>
+      <span id="dc-saved-status" style="font-size:11px;color:#22c55e;display:none">Saved ✓</span>
+    </div>
+    <div id="dc-history" style="margin-top:12px"></div>
+  </div>
+
+  <!-- BACKUP & RESTORE -->
+  <div class="card">
+    <div class="card-header"><div class="card-title">💾 BACKUP &amp; RESTORE</div></div>
+    <div class="backup-row">
+      <button class="btn-sm" onclick="exportData()" style="background:#22c55e">💾 Export All Data</button>
+      <label class="btn-sm" style="background:#3b82f6;cursor:pointer">📂 Import Data<input type="file" accept=".json" style="display:none" onchange="importData(event)"/></label>
+      <button class="btn-sm" onclick="exportJobsCSV()" style="background:#f59e0b">📊 Jobs CSV</button>
+    </div>
+    <div style="font-size:10px;color:#8892b0;margin-top:8px;line-height:1.5">Export saves ALL data as JSON. Import restores it. Use before clearing browser cache. ⚠️ Import replaces all current data.</div>
+  </div>
+
+</div>
+
+<!-- SKILLS TAB -->
+<div class="tab-content" id="tab-skills">
+  <div id="skills-container"></div>
+  <!-- ADD SKILL -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">＋ ADD YOUR OWN SKILL</div>
+    </div>
+    <div class="add-skill-section">
+      <div class="skill-form-row">
+        <label>Name</label>
+        <input class="form-input" id="new-skill-name" placeholder="e.g. Cypress Framework" />
+      </div>
+      <div class="skill-form-row">
+        <label>Note</label>
+        <input class="form-input" id="new-skill-note" placeholder="e.g. Migration from Selenium" />
+      </div>
+      <div class="skill-form-row">
+        <label>Tier</label>
+        <select class="form-select" id="new-skill-tier">
+          <option value="tier1">Tier 1 — Critical</option>
+          <option value="tier2">Tier 2 — High Value</option>
+          <option value="tier3">Tier 3 — Employability</option>
+          <option value="tier4">Tier 4 — Advanced</option>
+          <option value="tier5">Tier 5 — Edge</option>
+        </select>
+        <label style="margin-left:10px">Start %</label>
+        <input class="form-input" id="new-skill-pct" type="number" min="0" max="100" value="0" style="width:60px;flex:none" />
+      </div>
+      <div class="form-btns">
+        <button class="btn-sm" onclick="addCustomSkill()">＋ Add Skill</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WEEKLY TAB -->
+<div class="tab-content" id="tab-weekly">
+  <div class="card">
+    <div class="card-title">THIS WEEK — TAP DAY TO CYCLE TYPE</div>
+    <div class="week-grid" id="week-grid"></div>
+    <div class="week-hint">Tap any day to cycle: Full → Exhausted → Gap → Interview → Rest</div>
+  </div>
+  <div class="card">
+    <div class="card-title">WEEK SKILL PLAN</div>
+    <div id="week-plan-content"></div>
+  </div>
+
+  <div class="card" id="weekly-review-card"></div>
+  <div class="card" id="github-widget-card"></div>
+</div>
+
+<!-- NOTES TAB -->
+<div class="tab-content" id="tab-notes">
+  <!-- Add note form -->
+  <div class="note-add-form">
+    <div class="note-form-title">📌 Capture a note (recruiter, idea, follow-up, interrupt…)</div>
+    <div class="note-type-select-row" id="note-type-row"></div>
+    <div class="mic-wrap"><textarea class="note-area" id="note-input" placeholder="Write anything — recruiter name, concept to recall, action to retake, interrupt that happened…"></textarea><button class="mic-btn" id="mic-btn-note-input" onclick="startMic('note-input')" title="Voice input">🎙️</button></div>
+    <div id="followup-date-row" style="display:none;margin-top:6px;align-items:center;gap:8px" class="music-url-row">
+      <span style="font-size:11px;color:#8892b0;white-space:nowrap">Follow-up date:</span>
+      <input type="date" id="note-followup-date" class="sched-input" style="flex:1" />
+    </div>
+    <div class="form-btns" style="margin-top:8px">
+      <button class="btn-sm" onclick="saveNote()">📌 Save Note</button>
+      <button class="btn-sm-ghost" onclick="document.getElementById('note-input').value=''">Clear</button>
+    </div>
+  </div>
+  <!-- Filters + search -->
+  <div class="card">
+    <input class="note-search" id="note-search" placeholder="🔍 Search notes…" oninput="renderNotes()" />
+    <div class="note-type-filters" id="note-filters"></div>
+    <div id="notes-list"></div>
+  </div>
+</div>
+
+<!-- LOG TAB -->
+<div class="tab-content" id="tab-log">
+  <div class="card">
+    <div class="card-title">TODAY'S LOG ENTRY</div>
+    <div class="mic-wrap"><textarea class="log-input" id="log-input" placeholder="What did you work on? Concepts covered? Blockers? Wins? Interviews?"></textarea><button class="mic-btn" id="mic-btn-log-input" onclick="startMic('log-input')" title="Voice input">🎙️</button></div>
+    <div style="margin-top:8px"><button class="btn-primary" onclick="saveLog()">💾 Save Entry</button></div>
+  </div>
+  <div class="card">
+    <div class="card-title">LOG HISTORY (EDITABLE)</div>
+    <div id="log-history"></div>
+  </div>
+</div>
+
+<!-- JOBS TAB -->
+<div class="tab-content" id="tab-jobs">
+  <div class="job-add-form">
+    <div style="font-size:11px;font-weight:700;color:#8892b0;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">➕ Track New Application</div>
+    <div style="display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap">
+      <input class="sched-input" id="job-company" placeholder="Company name" style="flex:1;min-width:120px" />
+      <input class="sched-input" id="job-role" placeholder="Role / Position" style="flex:1;min-width:120px" />
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap">
+      <select class="sched-input" id="job-status-sel" style="flex:1">
+        <option value="applied">Applied</option>
+        <option value="screened">Phone Screened</option>
+        <option value="round1">Technical Round 1</option>
+        <option value="round2">Technical Round 2</option>
+        <option value="offer">Offer ✅</option>
+        <option value="rejected">Rejected</option>
+        <option value="withdrawn">Withdrawn</option>
+      </select>
+      <input class="sched-input" id="job-source" placeholder="Source (LinkedIn/Naukri/Referral)" style="flex:1;min-width:120px" />
+    </div>
+    <div class="mic-wrap"><textarea class="sched-input" id="job-notes-input" placeholder="Notes — salary, tech stack, interviewer, follow-up…" style="width:100%;min-height:55px;resize:vertical"></textarea><button class="mic-btn" id="mic-btn-job-notes-input" onclick="startMic('job-notes-input')" title="Voice input">🎙️</button></div>
+    <div style="margin-top:8px"><button class="btn-sm" onclick="addJob()">➕ Add Application</button></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📊 JOB PIPELINE</div>
+      <div id="job-stats-mini" style="font-size:10px;color:#8892b0"></div>
+    </div>
+    <div class="job-pipeline" id="job-stage-filters"></div>
+    <div id="job-list"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">⭐ STAR PREP BANK</div>
+      <button class="card-action" onclick="toggleStarForm()">➕ Add Answer</button>
+    </div>
+    <div id="star-add-form" style="display:none;margin-bottom:10px;border:1px dashed #e0e4f0;border-radius:10px;padding:12px">
+      <div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap">
+        <input class="sched-input" id="star-q" placeholder="Question / Scenario e.g. Tell me about a time you…" style="flex:1;min-width:200px" />
+        <select class="sched-input" id="star-cat" style="width:130px">
+          <option value="behavioral">Behavioral</option>
+          <option value="technical">Technical</option>
+          <option value="leadership">Leadership</option>
+          <option value="conflict">Conflict</option>
+          <option value="achievement">Achievement</option>
+        </select>
+      </div>
+      <div class="mic-wrap"><textarea class="sched-input" id="star-sit" placeholder="S+T: Situation + Task (context)" style="width:100%;min-height:50px;margin-bottom:5px;resize:vertical"></textarea><button class="mic-btn" id="mic-btn-star-sit" onclick="startMic('star-sit')" title="Voice input">🎙️</button></div>
+      <div class="mic-wrap"><textarea class="sched-input" id="star-act" placeholder="A: Action — exactly what YOU did" style="width:100%;min-height:50px;margin-bottom:5px;resize:vertical"></textarea><button class="mic-btn" id="mic-btn-star-act" onclick="startMic('star-act')" title="Voice input">🎙️</button></div>
+      <div class="mic-wrap"><textarea class="sched-input" id="star-res" placeholder="R: Result (quantify — improved by X%, reduced by Y hrs)" style="width:100%;min-height:45px;margin-bottom:7px;resize:vertical"></textarea><button class="mic-btn" id="mic-btn-star-res" onclick="startMic('star-res')" title="Voice input">🎙️</button></div>
+      <div style="display:flex;gap:6px">
+        <button class="btn-sm" onclick="addStarAnswer()">💾 Save Answer</button>
+        <button class="btn-sm-ghost" onclick="toggleStarForm()">Cancel</button>
+      </div>
+    </div>
+    <input class="note-search" id="star-search" placeholder="🔍 Search STAR answers…" oninput="renderStarBank()" style="margin-bottom:8px" />
+    <div id="star-list"></div>
+  </div>
+</div>
+
+<!-- HUNT TAB -->
+<div class="tab-content" id="tab-hunt">
+  <div id="hunt-day-banner" class="hunt-day-banner"></div>
+  <div class="card">
+    <div class="card-header" style="margin-bottom:8px"><div class="card-title">📞 FOLLOW-UPS DUE</div><div id="hunt-fu-count" style="font-size:10px;background:#fee2e2;padding:2px 8px;border-radius:10px;color:#dc2626;display:none"></div></div>
+    <div id="hunt-fu-list"><div class="empty-msg">No follow-ups due — all clear 🎉</div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">➕ LOG APPLICATION</div></div>
+    <div style="display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap"><input class="sched-input" id="hunt-company" placeholder="Company name" style="flex:1;min-width:120px" /><input class="sched-input" id="hunt-role" placeholder="Role / Position" style="flex:1;min-width:120px" /></div>
+    <div style="display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap"><input class="sched-input" id="hunt-location" placeholder="Location (BLR/HYD/Remote)" style="flex:1;min-width:120px" /><input class="sched-input" id="hunt-applied-date" type="date" style="flex:1" /></div>
+    <div style="display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap"><select class="sched-input" id="hunt-status-sel" style="flex:1"><option value="applied">Applied</option><option value="screening">Screening</option><option value="interview">Interview</option><option value="consideration">In Consideration</option><option value="close">Near Close</option><option value="stale">Stale</option><option value="rejected">Rejected</option><option value="closed">Closed</option></select><input class="sched-input" id="hunt-followup-date" type="date" style="flex:1" /></div>
+    <div style="display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap"><input class="sched-input" id="hunt-contact" placeholder="Contact name" style="flex:1;min-width:120px" /><input class="sched-input" id="hunt-channel" placeholder="Channel (LinkedIn/Email)" style="flex:1;min-width:120px" /></div>
+    <div style="display:flex;gap:6px;margin-bottom:7px;flex-wrap:wrap"><input class="sched-input" id="hunt-source" placeholder="Source (Indeed/LinkedIn/Naukri)" style="flex:1;min-width:120px" /><input class="sched-input" id="hunt-match" type="number" min="0" max="100" placeholder="Match %" style="width:90px;flex:none" /></div>
+    <textarea class="sched-input" id="hunt-notes-inp" placeholder="Notes — salary, stack, ATS link…" style="width:100%;min-height:55px;resize:vertical;margin-bottom:7px"></textarea>
+    <button class="btn-sm" onclick="addHuntApp()">➕ Log Application</button>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">📊 APPLICATION PIPELINE</div><div id="hunt-pipeline-stats" style="font-size:10px;color:#8892b0"></div></div>
+    <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px" id="hunt-filter-row"></div>
+    <div id="hunt-pipeline-list"><div class="empty-msg">No applications logged yet. Use the form above after each apply session.</div></div>
+  </div>
+</div>
+
+<!-- PDF MODAL -->
+<div id="pdf-modal">
+  <div class="pdf-toolbar">
+    <button class="pdf-print-btn" onclick="window.print()">🖨️ Save as PDF / Print</button>
+    <button class="pdf-close-btn" onclick="document.getElementById('pdf-modal').classList.remove('open')">✕ Close</button>
+  </div>
+  <div class="pdf-doc" id="pdf-doc-body"></div>
+</div>
+
+</div><!-- /app -->
+
+<script type="module" src="js/dashboard/dashboard.js"></script>
+</body>
+</html>

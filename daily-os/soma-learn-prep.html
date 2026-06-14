@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#6c47ff">
+<title>Soma — Learn & Prep</title>
+<style>
+:root{--p:#6c47ff;--p2:#4834d4;--g:#22c55e;--r:#ef4444;--o:#f59e0b;--b:#3b82f6;--bg:#eef0ff;--card:#fff;--border:#e0e4f0;--text:#1a1d2e;--sub:#8892b0;--light:#f8f9ff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(108,71,255,.3)}
+.hdr h1{font-size:16px;font-weight:800;letter-spacing:-.3px}
+.hdr-sub{font-size:10px;opacity:.75;margin-top:2px}
+.hdr-right{display:flex;gap:6px;align-items:center}
+/* TABS */
+.tabs{display:flex;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:52px;z-index:99;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{flex:1;min-width:55px;padding:10px 4px;background:none;border:none;cursor:pointer;font-size:10px;font-weight:700;color:var(--sub);transition:all .2s;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tab.active{color:var(--p);border-bottom-color:var(--p)}
+.tc{display:none;padding:12px 12px 0}
+.tc.active{display:block}
+/* CARDS */
+.card{background:var(--card);border-radius:12px;padding:14px;margin-bottom:11px;box-shadow:0 1px 8px rgba(0,0,0,.06);border:1px solid #e8ebf5}
+.card-title{font-size:10px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;color:var(--sub);margin-bottom:10px}
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-p{background:var(--p);color:#fff}.btn-p:hover{background:var(--p2)}
+.btn-g{background:var(--g);color:#fff}
+.btn-r{background:#fee2e2;color:var(--r)}
+.btn-o{background:#fef3c7;color:#92400e}
+.btn-sm{padding:4px 10px;border-radius:7px;border:none;font-size:11px;font-weight:700;cursor:pointer;background:var(--p);color:#fff}
+.btn-ghost{background:#fff;border:1px solid var(--border);color:var(--sub);padding:5px 12px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer}
+/* INPUTS */
+input,textarea,select{border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;font-family:inherit;width:100%;background:var(--light);color:var(--text);transition:border .15s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--p);background:#fff}
+textarea{resize:vertical;min-height:70px}
+.inp-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+.inp-row input,.inp-row select{flex:1;min-width:130px}
+label{font-size:11px;font-weight:700;color:var(--sub);display:block;margin-bottom:4px}
+/* CHIPS */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:10px;font-size:10px;font-weight:700}
+.chip-p{background:#ede9ff;color:var(--p)}
+.chip-g{background:#dcfce7;color:#16a34a}
+.chip-r{background:#fee2e2;color:var(--r)}
+.chip-o{background:#fef3c7;color:#d97706}
+.chip-b{background:#dbeafe;color:#1d4ed8}
+.chip-gray{background:#f3f4f6;color:#6b7280}
+/* SKILL PILLS */
+.skill-pills{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}
+.spill{padding:5px 11px;border-radius:14px;border:1.5px solid var(--border);background:#fff;font-size:11px;font-weight:700;cursor:pointer;color:var(--sub);transition:all .15s;user-select:none}
+.spill.sel{background:var(--p);color:#fff;border-color:var(--p)}
+.spill:hover{border-color:var(--p);color:var(--p)}
+/* SESSION CARD */
+.sess-card{background:#fff;border-radius:12px;border:1px solid #e8ebf5;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.sess-hdr{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:8px;cursor:pointer;user-select:none}
+.sess-hdr:hover{background:var(--light)}
+.sess-date{font-size:10px;color:var(--sub);font-weight:700;margin-bottom:3px}
+.sess-heading{font-size:14px;font-weight:800;color:var(--text);line-height:1.3}
+.sess-concepts{font-size:11px;color:var(--sub);margin-top:4px}
+.sess-body{padding:14px;display:none}
+.sess-body.open{display:block}
+.sess-skill-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.sst{padding:5px 12px;border-radius:12px;border:1.5px solid var(--border);background:#fff;font-size:11px;font-weight:700;cursor:pointer;color:var(--sub);transition:all .15s}
+.sst.active{background:var(--p);color:#fff;border-color:var(--p)}
+.sst:hover:not(.active){background:var(--light);border-color:var(--p);color:var(--p)}
+.qa-panel{display:none}.qa-panel.active{display:block}
+.qa-item{background:var(--light);border-radius:10px;padding:12px;margin-bottom:10px;border:1px solid var(--border)}
+.qa-q{font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.4}
+.qa-a{font-size:12px;color:#374151;line-height:1.6;margin-bottom:8px}
+.qa-a.hidden{display:none}
+.qa-toggle{font-size:11px;color:var(--p);cursor:pointer;font-weight:600;border:none;background:none;padding:0;margin-bottom:6px}
+/* SPEAK OUT LOUD */
+.sol-box{background:#fff;border:2px solid var(--border);border-radius:10px;padding:10px;margin-top:8px}
+.sol-box textarea{min-height:55px;font-size:12px;margin-bottom:6px}
+.sol-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.mic-btn{border:none;background:none;cursor:pointer;font-size:18px;padding:4px 7px;border-radius:50%;transition:all .2s;opacity:.5}
+.mic-btn:hover{opacity:1;background:#f0ebff}
+.mic-btn.active{opacity:1;background:#fee2e2;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)}50%{box-shadow:0 0 0 6px rgba(239,68,68,0)}}
+.saved-answers{margin-top:8px}
+.saved-ans{background:var(--light);border-radius:8px;padding:8px 10px;margin-bottom:5px;font-size:11px;color:#374151;border-left:3px solid var(--p);line-height:1.5;position:relative}
+.del-ans{position:absolute;top:5px;right:7px;border:none;background:none;cursor:pointer;font-size:12px;opacity:.4}
+.del-ans:hover{opacity:1}
+/* INTERVIEW PREP */
+.co-card{background:#fff;border-radius:12px;border:1px solid #e8ebf5;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.co-hdr{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;border-bottom:1px solid transparent}
+.co-hdr.open{border-bottom-color:var(--border)}
+.co-hdr:hover{background:var(--light)}
+.co-name{font-size:14px;font-weight:800}
+.co-role{font-size:11px;color:var(--sub);margin-top:2px}
+.co-body{padding:14px;display:none}
+.co-body.open{display:block}
+.prep-type-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.ptt{padding:6px 12px;border-radius:12px;border:1.5px solid var(--border);font-size:11px;font-weight:700;cursor:pointer;color:var(--sub);transition:all .15s;background:#fff}
+.ptt.active{background:var(--p);color:#fff;border-color:var(--p)}
+.ptt:hover:not(.active){border-color:var(--p);color:var(--p)}
+.prep-panel{display:none}.prep-panel.active{display:block}
+.prep-qa-item{background:var(--light);border-radius:10px;padding:12px;margin-bottom:10px;border:1px solid var(--border)}
+/* Q&A BANK */
+.qb-skill-filter{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.qbf{padding:5px 11px;border-radius:12px;border:1.5px solid var(--border);background:#fff;font-size:11px;font-weight:700;cursor:pointer;color:var(--sub);transition:all .15s}
+.qbf.active{background:var(--p);color:#fff;border-color:var(--p)}
+.qb-item{background:var(--light);border-radius:10px;padding:12px;margin-bottom:8px;border:1px solid var(--border)}
+.qb-skill-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--p);margin-bottom:5px}
+/* EMPTY */
+.empty{color:var(--sub);font-size:12px;padding:20px 0;text-align:center;font-style:italic}
+/* FORM PANEL */
+.form-panel{background:var(--light);border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid var(--border)}
+.form-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--sub);margin-bottom:10px}
+/* SEPARATOR */
+hr{border:none;border-top:1px dashed var(--border);margin:12px 0}
+/* DARK */
+[data-theme=dark] body{background:#0a0b12;color:#c0c4d8}
+[data-theme=dark] .hdr{background:linear-gradient(135deg,#3726b3,#2a1d8f)}
+[data-theme=dark] .tabs,.card,.form-panel,.sess-card,.co-card,.qa-item,.prep-qa-item,.qb-item,.sol-box,.saved-ans,[data-theme=dark] .sess-body{background:#14162a!important;border-color:#2a2d3e!important}
+[data-theme=dark] .tabs{background:#12131e}
+[data-theme=dark] .tab{color:#5a6080}
+[data-theme=dark] .tab.active{color:#8b6fff;border-color:#8b6fff}
+[data-theme=dark] input,[data-theme=dark] textarea,[data-theme=dark] select{background:#0f1019;color:#c0c4d8;border-color:#3a3d52}
+[data-theme=dark] .spill,[data-theme=dark] .sst,[data-theme=dark] .ptt,[data-theme=dark] .qbf,[data-theme=dark] .btn-ghost{background:#14162a;border-color:#2a2d3e;color:#8892b0}
+[data-theme=dark] .spill.sel,[data-theme=dark] .sst.active,[data-theme=dark] .ptt.active,[data-theme=dark] .qbf.active{background:var(--p);color:#fff;border-color:var(--p)}
+[data-theme=dark] .sess-hdr:hover,[data-theme=dark] .co-hdr:hover{background:#1e2035}
+[data-theme=dark] .qa-a,[data-theme=dark] .saved-ans{color:#c0c4d8}
+[data-theme=dark] .sess-date,[data-theme=dark] .co-role,[data-theme=dark] .sess-concepts{color:#5a6080}
+/* RESPONSIVE */
+@media(max-width:480px){
+  .hdr h1{font-size:14px}
+  .inp-row{flex-direction:column}
+  .inp-row input,.inp-row select{min-width:unset}
+  .btn{padding:10px 14px;font-size:13px;width:100%}
+  .prep-type-tabs,.sess-skill-tabs,.skill-pills,.qb-skill-filter{gap:4px}
+}
+/* SCORE BADGE */
+.score-badge{display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+.score-1{background:#fee2e2;color:var(--r)}
+.score-2{background:#fef3c7;color:#d97706}
+.score-3{background:#dcfce7;color:#16a34a}
+/* PRACTICE CARDS */
+.practice-card{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border-radius:14px;padding:16px;margin-bottom:12px}
+.practice-card .q-num{font-size:10px;opacity:.7;margin-bottom:4px}
+.practice-card .q-text{font-size:15px;font-weight:700;line-height:1.4;margin-bottom:12px}
+.practice-card textarea{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:9px 11px;font-size:12px;width:100%}
+.practice-card textarea::placeholder{color:rgba(255,255,255,.5)}
+.practice-card textarea:focus{outline:none;background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.6)}
+/* STICKY ADD BTN */
+.fab{position:fixed;bottom:18px;right:16px;background:var(--p);color:#fff;border:none;border-radius:50%;width:52px;height:52px;font-size:22px;cursor:pointer;box-shadow:0 4px 20px rgba(108,71,255,.4);z-index:200;transition:all .2s}
+.fab:hover{background:var(--p2);transform:scale(1.08)}
+/* NOTIFICATION */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1d2e;color:#fff;padding:9px 18px;border-radius:10px;font-size:12px;font-weight:600;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+/* SYNC BANNER */
+.sync-bar{background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--sub)}
+[data-theme=dark] .sync-bar{background:#14162a;border-color:#2a2d3e}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <h1>⚡ Soma — Learn &amp; Prep</h1>
+    <div class="hdr-sub" id="hdr-sub">Learning Dashboard · Interview Prep</div>
+  </div>
+  <div class="hdr-right">
+    <button onclick="toggleDark()" id="dark-btn" style="background:rgba(255,255,255,.15);border:none;border-radius:8px;padding:3px 8px;font-size:15px;cursor:pointer;color:#fff">🌙</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('sessions')">📚 Sessions</button>
+  <button class="tab" onclick="showTab('interview')">🎯 Interview Prep</button>
+  <button class="tab" onclick="showTab('qabank')">📋 Q&amp;A Bank</button>
+  <button class="tab" onclick="showTab('practice')">🎤 Practice</button>
+  <button class="tab" onclick="showTab('settings')">⚙️ Settings</button>
+</div>
+
+<!-- ═══════════════════════════════════════ SESSIONS TAB ══ -->
+<div class="tc active" id="tc-sessions">
+
+  <div class="sync-bar">
+    <span>📅 <strong id="sess-count">0</strong> sessions · <strong id="qa-total">0</strong> Q&amp;As</span>
+    <button class="btn-sm" onclick="toggleAddSession()" style="margin-left:auto">+ Add Session</button>
+  </div>
+
+  <!-- ADD SESSION FORM -->
+  <div class="form-panel" id="add-session-form" style="display:none">
+    <div class="form-title">📚 New Learning Session</div>
+    <div class="inp-row">
+      <div style="flex:1;min-width:130px"><label>Date</label><input type="date" id="s-date" /></div>
+      <div style="flex:2;min-width:200px"><label>Session Heading</label><input type="text" id="s-heading" placeholder="e.g. Playwright POM + Fixtures deep dive" /></div>
+    </div>
+    <div style="margin-bottom:8px"><label>Concepts Covered (comma separated)</label><input type="text" id="s-concepts" placeholder="e.g. Page Object Model, fixtures, test isolation" /></div>
+    <div style="margin-bottom:8px"><label>Topics Touched</label><input type="text" id="s-topics" placeholder="e.g. beforeEach, data-testid, expect.soft" /></div>
+    <div style="margin-bottom:8px"><label>Skills Involved (select all that apply)</label>
+      <div class="skill-pills" id="s-skills">
+        <div class="spill" data-skill="playwright">Playwright</div>
+        <div class="spill" data-skill="typescript">TypeScript</div>
+        <div class="spill" data-skill="javascript">JavaScript</div>
+        <div class="spill" data-skill="api">API Testing</div>
+        <div class="spill" data-skill="cicd">CI/CD</div>
+        <div class="spill" data-skill="selenium">Selenium</div>
+        <div class="spill" data-skill="python">Python</div>
+        <div class="spill" data-skill="docker">Docker</div>
+        <div class="spill" data-skill="sql">SQL</div>
+        <div class="spill" data-skill="jira">Jira</div>
+        <div class="spill" data-skill="azure">Azure</div>
+        <div class="spill" data-skill="git">Git/GitHub</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--sub);margin-bottom:10px">💡 Q&amp;As auto-generated per skill based on your topics. You can edit them after adding.</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap">
+      <button class="btn btn-p" onclick="addSession()">📌 Add Session</button>
+      <button class="btn btn-ghost" onclick="toggleAddSession()">Cancel</button>
+    </div>
+  </div>
+
+  <div id="sessions-list"><div class="empty">No sessions yet. Tap + Add Session to log your first learning session.</div></div>
+</div>
+
+<!-- ═══════════════════════════════════════ INTERVIEW PREP TAB ══ -->
+<div class="tc" id="tc-interview">
+
+  <div class="sync-bar">
+    <span>🏢 <strong id="co-count">0</strong> companies tracked</span>
+    <button class="btn-sm" onclick="toggleAddCompany()" style="margin-left:auto">+ Add Company</button>
+  </div>
+
+  <div class="form-panel" id="add-company-form" style="display:none">
+    <div class="form-title">🏢 Add Interview Company</div>
+    <div class="inp-row">
+      <div style="flex:2"><label>Company Name</label><input type="text" id="co-name" placeholder="e.g. HackerRank" /></div>
+      <div style="flex:2"><label>Role Applied</label><input type="text" id="co-role" placeholder="e.g. SDET I" /></div>
+    </div>
+    <div class="inp-row">
+      <div style="flex:1"><label>Interview Date (if scheduled)</label><input type="date" id="co-date" /></div>
+      <div style="flex:2"><label>Round / Stage</label><input type="text" id="co-stage" placeholder="e.g. HR Screening, Technical Round 1" /></div>
+    </div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:4px">
+      <button class="btn btn-p" onclick="addCompany()">Add Company</button>
+      <button class="btn btn-ghost" onclick="toggleAddCompany()">Cancel</button>
+    </div>
+  </div>
+
+  <div id="companies-list"><div class="empty">No companies added yet. Add a company to start interview prep.</div></div>
+</div>
+
+<!-- ═══════════════════════════════════════ Q&A BANK TAB ══ -->
+<div class="tc" id="tc-qabank">
+  <div class="card">
+    <div class="card-title">ALL Q&amp;A — SKILL FILTER</div>
+    <div class="qb-skill-filter" id="qb-filter">
+      <div class="qbf active" data-skill="all" onclick="filterQB(this,'all')">All</div>
+      <div class="qbf" data-skill="playwright" onclick="filterQB(this,'playwright')">Playwright</div>
+      <div class="qbf" data-skill="typescript" onclick="filterQB(this,'typescript')">TypeScript</div>
+      <div class="qbf" data-skill="javascript" onclick="filterQB(this,'javascript')">JavaScript</div>
+      <div class="qbf" data-skill="api" onclick="filterQB(this,'api')">API Testing</div>
+      <div class="qbf" data-skill="cicd" onclick="filterQB(this,'cicd')">CI/CD</div>
+      <div class="qbf" data-skill="selenium" onclick="filterQB(this,'selenium')">Selenium</div>
+      <div class="qbf" data-skill="python" onclick="filterQB(this,'python')">Python</div>
+      <div class="qbf" data-skill="docker" onclick="filterQB(this,'docker')">Docker</div>
+      <div class="qbf" data-skill="sql" onclick="filterQB(this,'sql')">SQL</div>
+      <div class="qbf" data-skill="jira" onclick="filterQB(this,'jira')">Jira</div>
+      <div class="qbf" data-skill="general" onclick="filterQB(this,'general')">General/HR</div>
+    </div>
+    <div id="qb-list"><div class="empty">No Q&amp;As yet. Add sessions with skills to populate the bank.</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ PRACTICE TAB ══ -->
+<div class="tc" id="tc-practice">
+  <div class="card" style="margin-bottom:11px">
+    <div class="card-title">🎤 FLASHCARD PRACTICE MODE</div>
+    <div class="inp-row" style="margin-bottom:8px">
+      <div>
+        <label>Skill / Category</label>
+        <select id="prac-skill" onchange="loadPracticeQ()">
+          <option value="all">All Skills</option>
+          <option value="playwright">Playwright</option>
+          <option value="typescript">TypeScript</option>
+          <option value="javascript">JavaScript</option>
+          <option value="api">API Testing</option>
+          <option value="cicd">CI/CD</option>
+          <option value="selenium">Selenium</option>
+          <option value="python">Python</option>
+          <option value="docker">Docker</option>
+          <option value="sql">SQL</option>
+          <option value="general">General/HR</option>
+        </select>
+      </div>
+      <div>
+        <label>Mode</label>
+        <select id="prac-mode">
+          <option value="all">All Questions</option>
+          <option value="technical">Technical Only</option>
+          <option value="behavioral">Behavioral Only</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-p" style="width:100%" onclick="startPractice()">▶ Start Practice Session</button>
+  </div>
+  <div id="practice-area"></div>
+</div>
+
+<!-- ═══════════════════════════════════════ SETTINGS TAB ══ -->
+<div class="tc" id="tc-settings">
+  <div class="card">
+    <div class="card-title">📱 MOBILE ACCESS GUIDE</div>
+    <div style="font-size:13px;line-height:1.7;color:#374151">
+      <p style="font-weight:700;color:var(--p);margin-bottom:8px">How to use on mobile:</p>
+      <ol style="padding-left:18px;margin-bottom:12px">
+        <li>Open this HTML file in <strong>Chrome</strong> on your phone</li>
+        <li>Tap ⋮ (3 dots menu) → <strong>"Add to Home Screen"</strong></li>
+        <li>It installs like an app — no Play Store needed</li>
+        <li>All data saved in browser storage (offline works!)</li>
+      </ol>
+      <p style="font-weight:700;color:var(--p);margin-bottom:8px">Cross-device sync (phone ↔ desktop):</p>
+      <p style="margin-bottom:12px">Export JSON below → send file to phone via WhatsApp/email → Import on phone browser. Done.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">💾 BACKUP &amp; SYNC</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px">
+      <button class="btn btn-g" onclick="exportAll()" style="flex:1">💾 Export All Data (JSON)</button>
+      <label class="btn btn-p" style="flex:1;text-align:center;cursor:pointer">📂 Import Data<input type="file" accept=".json" style="display:none" onchange="importAll(event)" /></label>
+    </div>
+    <div style="font-size:10px;color:var(--sub);line-height:1.5">Export = saves all sessions, Q&amp;As, interview preps. Import = restores everything. Use to sync between devices.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">📝 POST-INTERVIEW Q LOG</div>
+    <div style="font-size:12px;color:var(--sub);margin-bottom:10px;line-height:1.5">Paste questions from a real interview below. Save them here. Use "Interview Prep" tab to add answers later.</div>
+    <div style="margin-bottom:8px"><label>Company / Interview</label><input type="text" id="piq-co" placeholder="e.g. Experian SDET Round 1 — June 4" /></div>
+    <div style="margin-bottom:8px"><label>Questions (one per line)</label><textarea id="piq-qs" placeholder="1. Explain POM pattern you used&#10;2. How did you handle flaky tests?&#10;3. What is fixture in Playwright?" style="min-height:120px"></textarea></div>
+    <button class="btn btn-p" onclick="savePostInterviewQ()">Save Interview Questions</button>
+    <div id="piq-list" style="margin-top:12px"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">⚠️ DANGER ZONE</div>
+    <button class="btn btn-r" onclick="clearAll()" style="width:100%">🗑 Clear ALL Data</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══ KEYS ═══
+const SK='slp_sessions', CK='slp_companies', PIK='slp_postinterview';
+
+// ═══ SKILL CONFIG ═══
+const SKILLS={
+  playwright:{label:'Playwright',color:'#6c47ff'},
+  typescript:{label:'TypeScript',color:'#3b82f6'},
+  javascript:{label:'JavaScript',color:'#f59e0b'},
+  api:{label:'API Testing',color:'#22c55e'},
+  cicd:{label:'CI/CD',color:'#ef4444'},
+  selenium:{label:'Selenium',color:'#06b6d4'},
+  python:{label:'Python',color:'#8b5cf6'},
+  docker:{label:'Docker',color:'#0ea5e9'},
+  sql:{label:'SQL',color:'#d97706'},
+  jira:{label:'Jira',color:'#1d4ed8'},
+  azure:{label:'Azure',color:'#0284c7'},
+  git:{label:'Git/GitHub',color:'#374151'},
+  general:{label:'General/HR',color:'#6b7280'}
+};
+
+const PREP_TYPES=[
+  {id:'selfintro',label:'👤 Self Intro'},
+  {id:'hr',label:'💼 HR Behavioral'},
+  {id:'technical',label:'🔧 Technical'},
+  {id:'experience',label:'📖 Experience Based'},
+  {id:'project',label:'🏗 Project Based'},
+  {id:'hypothetical',label:'🤔 Hypothetical'},
+  {id:'salary',label:'💰 Salary / Offer'}
+];
+
+// ═══ DEFAULT Q&A PER SKILL ═══
+const DEFAULT_QA={
+  playwright:[
+    {q:'What is Playwright and why use it over Selenium?',a:'Playwright is a modern browser automation library by Microsoft. Supports Chromium, Firefox, WebKit with a single API. Faster than Selenium, built-in auto-wait, supports async/await natively, no WebDriver needed. Better TypeScript integration.'},
+    {q:'Explain Page Object Model (POM) in Playwright.',a:'POM separates page UI elements and actions from test logic. Each page has its own class with locators and methods. Tests call page methods instead of raw locators. Makes tests readable, maintainable, reusable. In Playwright: extend BasePage class, define locators in constructor, expose action methods.'},
+    {q:'How do you handle flaky tests in Playwright?',a:'Use stable locators (data-testid over CSS/XPath), avoid hard waits (page.waitForTimeout), use expect with timeout, leverage retries in playwright.config.ts, use test.fixme for known flaky tests, isolate test state with fixtures, clear cookies/storage between tests.'},
+    {q:'What are fixtures in Playwright and how do you use them?',a:'Fixtures set up and tear down test dependencies. Built-in: page, browser, context. Custom: define with test.extend(). Run before/after each test automatically. Enable shared state (e.g. authenticated page) across tests without repeating setup code.'},
+    {q:'How do you run Playwright tests in CI/CD?',a:'Add playwright to package.json. In GitHub Actions: install Node, run npm ci, run npx playwright install --with-deps, then npx playwright test. Use --reporter=html for reports. Upload test-results as artifact. Can use sharding for parallel execution across workers.'},
+    {q:'Explain Playwright APIRequestContext for API testing.',a:'Playwright can test APIs directly via request fixture. request.get/post/put/delete return APIResponse. Check response.status(), response.json(). Useful for seeding test data before UI tests or validating backend calls. Same auth context as browser if needed.'},
+  ],
+  typescript:[
+    {q:'What is TypeScript and why use it for test automation?',a:'TypeScript is JavaScript with static types. For automation: catches type errors at compile time, better IDE autocomplete, self-documenting code, easier refactoring. Playwright has first-class TypeScript support — no extra setup needed.'},
+    {q:'What are interfaces vs types in TypeScript?',a:'Interfaces: define shape of objects, extendable with extends, can be merged (declaration merging). Types: more flexible, support unions/intersections, cannot be merged. For test data models use interfaces. For union types (status:"pass"|"fail") use type aliases.'},
+    {q:'What is async/await and why is it important in Playwright?',a:'async/await handles Promises (async operations) synchronously-looking. await pauses execution until Promise resolves. Critical in Playwright because all browser actions are async. Without await: tests proceed before elements load, causing failures. Always await page.click(), page.fill(), expect() etc.'},
+    {q:'What are generics in TypeScript?',a:'Generics create reusable components that work with any type. Example: function getValue<T>(arr: T[]): T returns typed value. In test helpers: createTestData<UserProfile>() returns properly typed object. Avoids any type while keeping flexibility.'},
+  ],
+  javascript:[
+    {q:'What is the difference between var, let, and const?',a:'var: function-scoped, hoisted, can re-declare. let: block-scoped, not hoisted, cannot re-declare. const: block-scoped, must initialize, cannot reassign (but object properties can change). Use const by default, let when reassignment needed, avoid var.'},
+    {q:'Explain Promises and async/await.',a:'Promise: object representing eventual completion/failure of async operation. States: pending, fulfilled, rejected. .then()/.catch() chains. async/await: syntactic sugar over Promises. await pauses function until Promise resolves. Makes async code look synchronous. try/catch handles errors.'},
+    {q:'What is closure in JavaScript?',a:'Closure: function that remembers variables from its outer scope even after outer function returns. Example: counter function returns inner function that increments count variable. Inner function closes over count. Common in callbacks, module pattern, memoization.'},
+  ],
+  api:[
+    {q:'What HTTP methods do you use in API testing?',a:'GET: retrieve data. POST: create resource. PUT: replace resource. PATCH: partial update. DELETE: remove resource. HEAD: like GET but no body. Test all methods for a resource. Verify correct status codes: 200 OK, 201 Created, 400 Bad Request, 401 Unauthorized, 404 Not Found, 500 Server Error.'},
+    {q:'What is API contract testing?',a:'Verifying API response matches agreed schema/contract between provider and consumer. Tools: Pact (consumer-driven), JSON Schema validation. Catches breaking changes before deployment. In Playwright: validate response shape with zod or ajv schema validation.'},
+    {q:'How do you test authentication in APIs?',a:'Test: valid token returns 200, expired token returns 401, no token returns 401, wrong role returns 403. For OAuth: test token refresh flow. For API keys: rotate and verify old key rejected. In Playwright: pass Authorization header in request context, store token in fixture for reuse.'},
+    {q:'What do you check in an API test response?',a:'Status code correctness, response time (performance), response body schema, specific field values, headers (Content-Type, Cache-Control), error messages for bad requests, empty vs null fields, pagination correctness, idempotency for PUT/DELETE.'},
+  ],
+  cicd:[
+    {q:'What is CI/CD and why does QA care about it?',a:'CI: merge code frequently, run automated tests on every commit. CD: automatically deploy passing builds. QA role: tests must run in pipeline, failures block deployment, test results visible to team. Fast feedback loop catches bugs early, reduces manual testing need.'},
+    {q:'How do you configure Playwright in GitHub Actions?',a:'Create .github/workflows/playwright.yml. Steps: checkout code, setup-node, npm ci, npx playwright install --with-deps, npx playwright test. Set env vars as secrets. Upload test-results/ and playwright-report/ as artifacts. Use matrix strategy for parallel test runs across browsers.'},
+    {q:'What is test sharding in Playwright CI?',a:'Splits test suite across multiple machines/workers for faster execution. --shard=1/4 runs first quarter of tests. Combine with GitHub Actions matrix. Use playwright merge-reports to combine sharded results. Reduces CI time from 20min to 5min for large suites.'},
+  ],
+  selenium:[
+    {q:'What is the difference between Selenium and Playwright?',a:'Selenium: WebDriver protocol, external browser drivers, older, wide language support, slower, manual waits needed. Playwright: direct browser protocol, no external drivers, faster, built-in auto-wait, TypeScript-first, better parallel support. Playwright preferred for new projects.'},
+    {q:'How do you handle waits in Selenium?',a:'Implicit wait: global timeout for all element finds. Explicit wait: WebDriverWait for specific condition (element visible, clickable). Fluent wait: custom polling. Avoid Thread.sleep() — brittle. Best: explicit waits with ExpectedConditions. Similar to Playwright\'s waitForSelector but manual.'},
+  ],
+  python:[
+    {q:'Why use Python for test automation?',a:'Readable syntax, large library ecosystem (pytest, requests, selenium). pytest: powerful fixtures, plugins (pytest-html, allure), parametrize for data-driven tests. requests: clean HTTP API testing. Slower than Node for Playwright but excellent for backend/API testing and data scripts.'},
+    {q:'What is pytest and what are its key features?',a:'pytest: Python testing framework. Features: fixture system (dependency injection), parametrize decorator (data-driven), marks (skip, xfail), plugins ecosystem, detailed failure reports, test discovery. Run: pytest tests/ -v --html=report.html. Conftest.py for shared fixtures.'},
+  ],
+  docker:[
+    {q:'How does Docker help in QA?',a:'Consistent test environment across local/CI. Run Playwright in Docker: mcr.microsoft.com/playwright image has all browsers pre-installed. No "works on my machine" issues. Spin up test databases in containers. Run Selenium Grid in Docker for parallel cross-browser testing.'},
+  ],
+  sql:[
+    {q:'What SQL queries do you write for QA?',a:'Verify test data: SELECT * FROM orders WHERE user_id=123. Check state after action: SELECT status FROM payments WHERE transaction_id=\'xyz\'. Data setup: INSERT INTO test_users VALUES(...). Cleanup: DELETE FROM test_orders WHERE created_at > \'2026-01-01\'. JOIN for cross-table verification.'},
+    {q:'What is a JOIN and what types exist?',a:'JOIN combines rows from two tables. INNER JOIN: only matching rows. LEFT JOIN: all from left + matching right. RIGHT JOIN: all from right + matching left. FULL OUTER JOIN: all rows from both. In QA: JOIN orders o ON o.user_id = u.id to verify order-user relationship.'},
+  ],
+  jira:[
+    {q:'How do you use Jira in your QA workflow?',a:'Track test execution in sprints. Create bugs with steps to reproduce, expected vs actual, severity, screenshot, environment. Link bugs to user stories. Use test cycles in Zephyr/Xray plugin. Update test case status (Pass/Fail/Blocked). Query with JQL: project=PROJ AND issuetype=Bug AND status!=Done.'},
+  ],
+  azure:[
+    {q:'What Azure services have you used in testing?',a:'Azure DevOps Pipelines for CI/CD. Azure Test Plans for manual test cases. Azure Repos for Git. Azure Boards for work items. In pipelines: YAML-based, stages for build/test/deploy, publish test results task, download artifacts between stages.'},
+  ],
+  general:[
+    {q:'Tell me about yourself.',a:'I\'m Soma Sai Dinesh Cheviti, an SDET with 1 year 7 months experience at Echno Technologies in Bengaluru. I built end-to-end Playwright+TypeScript automation for fintech payment flows across 10+ merchant sites. I specialize in API testing, CI/CD pipelines with GitHub Actions, and I\'m passionate about Agentic QA using Playwright MCP + Claude. I\'m an immediate joiner looking for SDET roles in product companies.'},
+    {q:'Why are you leaving your current company?',a:'I completed my engagement at Echno Technologies and I\'m now seeking a role where I can work with a larger product team, contribute to scalable test infrastructure, and grow into more complex automation challenges. I want to apply my Playwright and TypeScript skills in a long-term product company setting.'},
+    {q:'What is your expected salary?',a:'Based on my experience and the market for SDET roles with Playwright+TypeScript expertise, I\'m targeting 8.5 to 9.5 LPA depending on the company profile. I\'m an immediate joiner so there\'s no cost from notice period.'},
+    {q:'Where do you see yourself in 3 years?',a:'In 3 years I see myself leading test automation strategy for a product — designing the framework from scratch, mentoring junior SDETs, integrating AI-assisted testing into the pipeline, and contributing to shift-left quality practices from day one of development.'},
+    {q:'Describe a challenging bug you found.',a:'At Echno, I found a race condition in payment confirmation flow — UI showed "Payment Successful" but backend hadn\'t confirmed. Root cause: optimistic UI update without waiting for API response. Found it by writing API-level Playwright tests that validated backend state after each UI action. Logged detailed steps, added synchronous assertion fix.'},
+    {q:'How do you handle pressure and deadlines?',a:'I prioritize ruthlessly — identify which tests cover highest-risk areas, automate those first. Communicate early if timeline is at risk. I\'ve delivered sprint releases by focusing automation on critical payment flows first and logging manual edge cases as tech debt for next sprint. I stay calm under pressure by breaking big tasks into small checkboxes.'},
+  ]
+};
+
+// ═══ STATE ═══
+let sessions=load(SK), companies=load(CK), postInterviews=load(PIK)||[];
+let activeTab='sessions', activeSessSkill={}, activeCoPrep={}, qbFilter='all', pracQs=[], pracIdx=0;
+let selectedSkills=new Set();
+
+function load(k){try{return JSON.parse(localStorage.getItem(k)||'[]');}catch(e){return[];}}
+function save(k,d){localStorage.setItem(k,JSON.stringify(d));}
+
+// ═══ TABS ═══
+function showTab(name){
+  document.querySelectorAll('.tc').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tc-'+name).classList.add('active');
+  document.querySelectorAll('.tab')[['sessions','interview','qabank','practice','settings'].indexOf(name)].classList.add('active');
+  activeTab=name;
+  if(name==='sessions')renderSessions();
+  if(name==='interview')renderCompanies();
+  if(name==='qabank')renderQABank();
+  if(name==='practice')renderPracticeSetup();
+  if(name==='settings')renderPostInterviews();
+}
+
+// ═══ SKILL PILLS ═══
+document.querySelectorAll('#s-skills .spill').forEach(el=>{
+  el.addEventListener('click',function(){
+    const sk=this.dataset.skill;
+    if(selectedSkills.has(sk)){selectedSkills.delete(sk);this.classList.remove('sel');}
+    else{selectedSkills.add(sk);this.classList.add('sel');}
+  });
+});
+
+// ═══ ADD SESSION ═══
+function toggleAddSession(){
+  const f=document.getElementById('add-session-form');
+  f.style.display=f.style.display==='none'?'block':'none';
+  if(f.style.display==='block'){
+    document.getElementById('s-date').value=new Date().toISOString().split('T')[0];
+  }
+}
+
+function addSession(){
+  const date=document.getElementById('s-date').value;
+  const heading=document.getElementById('s-heading').value.trim();
+  const concepts=document.getElementById('s-concepts').value.trim();
+  const topics=document.getElementById('s-topics').value.trim();
+  if(!heading){toast('Enter a session heading');return;}
+  const skills=[...selectedSkills];
+  // Build skill Q&A from defaults
+  const skillQA={};
+  skills.forEach(sk=>{
+    skillQA[sk]=(DEFAULT_QA[sk]||[]).map((item,i)=>({
+      id:'qa_'+Date.now()+'_'+i, q:item.q, a:item.a,
+      myAnswers:[], score:null
+    }));
+  });
+  const sess={
+    id:'sess_'+Date.now(), date, heading, concepts, topics,
+    skills, skillQA, createdAt:new Date().toISOString()
+  };
+  sessions.unshift(sess);
+  save(SK,sessions);
+  selectedSkills.clear();
+  document.querySelectorAll('#s-skills .spill').forEach(el=>el.classList.remove('sel'));
+  document.getElementById('s-heading').value='';
+  document.getElementById('s-concepts').value='';
+  document.getElementById('s-topics').value='';
+  toggleAddSession();
+  renderSessions();
+  toast('✅ Session added!');
+}
+
+// ═══ RENDER SESSIONS ═══
+function renderSessions(){
+  const el=document.getElementById('sessions-list');
+  document.getElementById('sess-count').textContent=sessions.length;
+  // count total QAs
+  let total=0;
+  sessions.forEach(s=>Object.values(s.skillQA||{}).forEach(qs=>total+=qs.length));
+  document.getElementById('qa-total').textContent=total;
+
+  if(!sessions.length){el.innerHTML='<div class="empty">No sessions yet. Tap + Add Session.</div>';return;}
+  el.innerHTML=sessions.map(s=>{
+    const skillTabs=s.skills.map(sk=>`<div class="sst${activeSessSkill[s.id]===sk?' active':''}" onclick="showSessSkill('${s.id}','${sk}')">${SKILLS[sk]?.label||sk}</div>`).join('');
+    const qaPanels=s.skills.map(sk=>{
+      const qs=s.skillQA[sk]||[];
+      return`<div class="qa-panel${activeSessSkill[s.id]===sk?' active':''}" id="qap-${s.id}-${sk}">
+        ${qs.length?qs.map((qa,qi)=>qaItemHTML(s.id,sk,qi,qa)).join('')
+        :'<div class="empty">No Q&As for this skill. Click Edit to add.</div>'}
+        <button class="btn-sm" onclick="addQAToSkill('${s.id}','${sk}')" style="margin-top:6px;background:#f0ebff;color:var(--p)">+ Add Q&amp;A</button>
+      </div>`;
+    }).join('');
+    return`<div class="sess-card">
+      <div class="sess-hdr" onclick="toggleSess('${s.id}')">
+        <div style="flex:1">
+          <div class="sess-date">${s.date}</div>
+          <div class="sess-heading">${esc(s.heading)}</div>
+          ${s.concepts?`<div class="sess-concepts">📌 ${esc(s.concepts)}</div>`:''}
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px">
+            ${s.skills.map(sk=>`<span class="chip" style="background:${SKILLS[sk]?.color||'#6b7280'}22;color:${SKILLS[sk]?.color||'#6b7280'}">${SKILLS[sk]?.label||sk}</span>`).join('')}
+          </div>
+        </div>
+        <div style="display:flex;gap:5px;align-items:flex-start">
+          <button class="btn-sm" onclick="event.stopPropagation();deleteSess('${s.id}')" style="background:#fee2e2;color:var(--r)">🗑</button>
+          <span style="font-size:18px;color:var(--sub)">${document.getElementById('sb-'+s.id)?'▲':'▼'}</span>
+        </div>
+      </div>
+      <div class="sess-body${(activeSessSkill[s.id]?true:false)?' open':''}" id="sb-${s.id}">
+        ${s.topics?`<div style="font-size:11px;color:var(--sub);margin-bottom:10px">🎯 Topics: ${esc(s.topics)}</div>`:''}
+        ${s.skills.length?`<div class="sess-skill-tabs">${skillTabs}</div>${qaPanels}`:'<div class="empty">No skills tagged. Edit session to add skills.</div>'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleSess(id){
+  const el=document.getElementById('sb-'+id);
+  if(!el)return;
+  const open=el.classList.contains('open');
+  el.classList.toggle('open');
+  if(!open&&!activeSessSkill[id]){
+    const sess=sessions.find(s=>s.id===id);
+    if(sess&&sess.skills.length)showSessSkill(id,sess.skills[0]);
+  }
+}
+
+function showSessSkill(sessId,skill){
+  activeSessSkill[sessId]=skill;
+  // make sure body open
+  const body=document.getElementById('sb-'+sessId);
+  if(body)body.classList.add('open');
+  renderSessions();
+  setTimeout(()=>{
+    const el=document.getElementById('qap-'+sessId+'-'+skill);
+    if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },50);
+}
+
+function qaItemHTML(sessId,skill,qi,qa){
+  return`<div class="qa-item" id="qa-${sessId}-${skill}-${qi}">
+    <div class="qa-q">${qi+1}. ${esc(qa.q)}</div>
+    <button class="qa-toggle" onclick="toggleAns('${sessId}','${skill}','${qi}')">👁 Show Answer</button>
+    <div class="qa-a hidden" id="ans-${sessId}-${skill}-${qi}">${esc(qa.a)}</div>
+    <div class="sol-box">
+      <div style="font-size:10px;font-weight:700;color:var(--sub);margin-bottom:5px">🎤 YOUR ANSWER — Speak or Type</div>
+      <div style="display:flex;gap:6px;align-items:flex-start">
+        <textarea id="sol-${sessId}-${skill}-${qi}" placeholder="Type your answer or tap mic to speak out loud…" style="min-height:55px;font-size:12px"></textarea>
+        <button class="mic-btn" id="mic-${sessId}-${skill}-${qi}" onclick="toggleMic('sol-${sessId}-${skill}-${qi}','mic-${sessId}-${skill}-${qi}')">🎙️</button>
+      </div>
+      <div class="sol-row" style="margin-top:5px">
+        <button class="btn-sm" onclick="saveMyAnswer('${sessId}','${skill}','${qi}')" style="background:var(--g)">💾 Save Answer</button>
+        <button class="btn-sm" onclick="addQAToSkill('${sessId}','${skill}')" style="background:#f0ebff;color:var(--p)">✏️ Edit Q</button>
+      </div>
+      <div id="saved-${sessId}-${skill}-${qi}" class="saved-answers"></div>
+    </div>
+  </div>`;
+}
+
+function toggleAns(sessId,skill,qi){
+  const el=document.getElementById('ans-'+sessId+'-'+skill+'-'+qi);
+  if(!el)return;
+  el.classList.toggle('hidden');
+}
+
+function saveMyAnswer(sessId,skill,qi){
+  const ta=document.getElementById('sol-'+sessId+'-'+skill+'-'+qi);
+  if(!ta||!ta.value.trim()){toast('Type an answer first');return;}
+  const sess=sessions.find(s=>s.id===sessId);
+  if(!sess)return;
+  const qa=sess.skillQA[skill]?.[qi];
+  if(!qa)return;
+  if(!qa.myAnswers)qa.myAnswers=[];
+  qa.myAnswers.push({text:ta.value.trim(),date:new Date().toLocaleDateString('en-IN')});
+  save(SK,sessions);
+  ta.value='';
+  toast('✅ Answer saved!');
+  renderSavedAnswers(sessId,skill,qi,qa.myAnswers);
+}
+
+function renderSavedAnswers(sessId,skill,qi,answers){
+  const el=document.getElementById('saved-'+sessId+'-'+skill+'-'+qi);
+  if(!el)return;
+  if(!answers||!answers.length){el.innerHTML='';return;}
+  el.innerHTML='<div style="font-size:10px;font-weight:700;color:var(--sub);margin-top:6px;margin-bottom:4px">MY SAVED ANSWERS:</div>'+
+    answers.map((a,ai)=>`<div class="saved-ans">${esc(a.text)}<span style="display:block;font-size:9px;opacity:.6;margin-top:3px">${a.date}</span><button class="del-ans" onclick="delMyAnswer('${sessId}','${skill}','${qi}',${ai})">✕</button></div>`).join('');
+}
+
+function delMyAnswer(sessId,skill,qi,ai){
+  const sess=sessions.find(s=>s.id===sessId);
+  if(!sess)return;
+  sess.skillQA[skill][qi].myAnswers.splice(ai,1);
+  save(SK,sessions);
+  renderSessions();
+}
+
+function addQAToSkill(sessId,skill){
+  const q=prompt('Enter question:');if(!q)return;
+  const a=prompt('Enter model answer (can leave blank and fill later):');
+  const sess=sessions.find(s=>s.id===sessId);
+  if(!sess)return;
+  if(!sess.skillQA[skill])sess.skillQA[skill]=[];
+  sess.skillQA[skill].push({id:'qa_'+Date.now(),q,a:a||'',myAnswers:[],score:null});
+  save(SK,sessions);
+  renderSessions();
+  toast('Q&A added!');
+}
+
+function deleteSess(id){
+  if(!confirm('Delete this session and all its Q&As?'))return;
+  sessions=sessions.filter(s=>s.id!==id);
+  delete activeSessSkill[id];
+  save(SK,sessions);
+  renderSessions();
+  toast('Session deleted');
+}
+
+// ═══ COMPANIES / INTERVIEW PREP ═══
+function toggleAddCompany(){
+  const f=document.getElementById('add-company-form');
+  f.style.display=f.style.display==='none'?'block':'none';
+  if(f.style.display==='block')document.getElementById('co-date').value=new Date().toISOString().split('T')[0];
+}
+
+function addCompany(){
+  const name=document.getElementById('co-name').value.trim();
+  const role=document.getElementById('co-role').value.trim();
+  if(!name){toast('Enter company name');return;}
+  const co={
+    id:'co_'+Date.now(),
+    name, role,
+    date:document.getElementById('co-date').value,
+    stage:document.getElementById('co-stage').value.trim(),
+    preps:{},
+    createdAt:new Date().toISOString()
+  };
+  // pre-populate each prep type with default questions
+  PREP_TYPES.forEach(pt=>{co.preps[pt.id]=prepTypeDefaults(pt.id,name,role);});
+  companies.unshift(co);
+  save(CK,companies);
+  document.getElementById('co-name').value='';
+  document.getElementById('co-role').value='';
+  document.getElementById('co-stage').value='';
+  toggleAddCompany();
+  renderCompanies();
+  toast('✅ Company added — prep questions ready!');
+}
+
+function prepTypeDefaults(type,company,role){
+  const defaults={
+    selfintro:[
+      {q:`Give your self introduction for ${company}.`,a:`Hi, I'm Soma Sai Dinesh Cheviti. I have 1 year 7 months of experience as an SDET at Echno Technologies in Bengaluru, where I built Playwright+TypeScript automation for fintech payment flows across 10+ merchant sites. I'm skilled in API testing, CI/CD with GitHub Actions, and Agentic QA using Playwright MCP + Claude. I'm excited about the ${role} opportunity at ${company} because [customize: company mission/tech stack].`,myAnswers:[]},
+    ],
+    hr:[
+      {q:'Why do you want to join '+company+'?',a:'Research the company and mention: product domain, tech stack alignment, growth stage, engineering culture. Connect to your fintech/automation background.',myAnswers:[]},
+      {q:'Where do you see yourself in 3 years?',a:'Leading test automation strategy, designing frameworks, mentoring SDETs, integrating AI-assisted testing into the pipeline.',myAnswers:[]},
+      {q:'What is your biggest strength?',a:'Building robust test frameworks from scratch. At Echno I designed POM-based Playwright framework covering 10+ merchant payment flows, reducing regression time by X%.',myAnswers:[]},
+      {q:'What is your biggest weakness?',a:'I sometimes go too deep into automation coverage when a manual check would suffice. I\'ve learned to balance automation ROI vs quick manual validation for low-frequency scenarios.',myAnswers:[]},
+    ],
+    technical:[
+      {q:'Walk me through your Playwright framework at Echno.',a:'POM structure with TypeScript. BasePage class with common methods. Page classes extend BasePage. Fixtures for auth state. Tests in /tests directory, pages in /pages. GitHub Actions runs on PR. HTML reporter for results.',myAnswers:[]},
+      {q:'How did you handle payment flow testing?',a:'End-to-end: navigate to merchant site → select product → checkout → payment method → confirm. API validation at each step. Parallel test execution across 10+ merchant configs. Data-driven with different card numbers and amounts.',myAnswers:[]},
+      {q:'Explain your API testing approach.',a:'Playwright APIRequestContext for API-level assertions. Postman for exploratory. Schema validation with zod. Test auth tokens, error codes, response time SLAs. Chain API calls to set up test state before UI flows.',myAnswers:[]},
+    ],
+    experience:[
+      {q:'Tell me about a complex automation problem you solved.',a:'Payment race condition: UI showed success before backend confirmed. Identified using API-level Playwright assertions comparing UI state vs backend state. Fixed by adding explicit waitForResponse to payment confirmation step.',myAnswers:[]},
+      {q:'Describe your CI/CD experience.',a:'GitHub Actions: YAML workflows, run tests on PR and main branch push. npm ci → playwright install → playwright test → publish HTML report as artifact. Failed tests block merge via branch protection rules.',myAnswers:[]},
+    ],
+    project:[
+      {q:'Describe your SDET portfolio project.',a:'github.com/somasaic/sdet-stlc-portfolio — Playwright+TypeScript framework demonstrating full STLC: test planning, POM framework, API testing, CI/CD with GitHub Actions, HTML reports, and Agentic QA using Playwright MCP + Claude Desktop.',myAnswers:[]},
+    ],
+    hypothetical:[
+      {q:'How would you test a payment gateway from scratch?',a:'1. Understand requirements and payment flows. 2. Identify test scenarios: happy path, card declined, network timeout, duplicate transaction, refund. 3. Design POM for checkout pages. 4. Write API tests for payment endpoints. 5. Mock payment provider for unit tests. 6. End-to-end tests with sandbox credentials. 7. CI pipeline for regression.',myAnswers:[]},
+      {q:'What would you do if 40% of tests are flaky in CI?',a:'1. Categorize flaky tests. 2. Find root causes: timing issues, shared state, environment instability, non-deterministic data. 3. Fix top offenders first — stable locators, proper waits, isolated state. 4. Add retry logic for known external dependencies. 5. Track flakiness rate as a metric.',myAnswers:[]},
+    ],
+    salary:[
+      {q:'What is your expected salary?',a:`For the ${role} role at ${company}, I'm targeting [use salary table: IT services 7L, mid product 8.5L, big product 9-10L, remote 9.5L]. I'm an immediate joiner with strong Playwright+TypeScript fintech background. Open to discuss based on total compensation.`,myAnswers:[]},
+    ],
+  };
+  return defaults[type]||[];
+}
+
+function renderCompanies(){
+  const el=document.getElementById('companies-list');
+  document.getElementById('co-count').textContent=companies.length;
+  if(!companies.length){el.innerHTML='<div class="empty">No companies added. Add your first interview company.</div>';return;}
+  el.innerHTML=companies.map(co=>{
+    const prepTabs=PREP_TYPES.map(pt=>`<div class="ptt${activeCoPrep[co.id]===pt.id?' active':''}" onclick="showCoPrep('${co.id}','${pt.id}')">${pt.label}</div>`).join('');
+    const prepPanels=PREP_TYPES.map(pt=>{
+      const qs=co.preps[pt.id]||[];
+      return`<div class="prep-panel${activeCoPrep[co.id]===pt.id?' active':''}" id="pp-${co.id}-${pt.id}">
+        ${qs.map((qa,qi)=>coPrepItemHTML(co.id,pt.id,qi,qa)).join('')}
+        <button class="btn-sm" onclick="addPrepQ('${co.id}','${pt.id}')" style="margin-top:6px;background:#f0ebff;color:var(--p)">+ Add Question</button>
+      </div>`;
+    }).join('');
+    return`<div class="co-card">
+      <div class="co-hdr${activeCoPrep[co.id]?' open':''}" onclick="toggleCo('${co.id}')">
+        <div>
+          <div class="co-name">${esc(co.name)}</div>
+          <div class="co-role">${co.role?esc(co.role)+' · ':''}<span class="chip chip-gray">${co.stage||'Pending'}</span>${co.date?' · '+co.date:''}</div>
+        </div>
+        <div style="display:flex;gap:5px">
+          <button class="btn-sm" onclick="event.stopPropagation();deleteCo('${co.id}')" style="background:#fee2e2;color:var(--r)">🗑</button>
+        </div>
+      </div>
+      <div class="co-body${activeCoPrep[co.id]?' open':''}" id="cb-${co.id}">
+        <div class="prep-type-tabs">${prepTabs}</div>
+        ${prepPanels}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCo(id){
+  const el=document.getElementById('cb-'+id);
+  if(!el)return;
+  const open=el.classList.contains('open');
+  el.classList.toggle('open');
+  if(!open&&!activeCoPrep[id])showCoPrep(id,'selfintro');
+}
+
+function showCoPrep(coId,prepType){
+  activeCoPrep[coId]=prepType;
+  const body=document.getElementById('cb-'+coId);
+  if(body)body.classList.add('open');
+  renderCompanies();
+}
+
+function coPrepItemHTML(coId,prepType,qi,qa){
+  return`<div class="prep-qa-item">
+    <div class="qa-q">${qi+1}. ${esc(qa.q)}</div>
+    <button class="qa-toggle" onclick="toggleCoAns('${coId}','${prepType}','${qi}')">👁 Model Answer</button>
+    <div class="qa-a hidden" id="coa-${coId}-${prepType}-${qi}">${esc(qa.a)}</div>
+    <div class="sol-box">
+      <div style="font-size:10px;font-weight:700;color:var(--sub);margin-bottom:5px">🎤 PRACTICE YOUR ANSWER</div>
+      <div style="display:flex;gap:6px;align-items:flex-start">
+        <textarea id="cosol-${coId}-${prepType}-${qi}" placeholder="Practice your answer here or speak it…" style="min-height:55px;font-size:12px"></textarea>
+        <button class="mic-btn" id="comic-${coId}-${prepType}-${qi}" onclick="toggleMic('cosol-${coId}-${prepType}-${qi}','comic-${coId}-${prepType}-${qi}')">🎙️</button>
+      </div>
+      <div class="sol-row" style="margin-top:5px">
+        <button class="btn-sm" onclick="saveCoAnswer('${coId}','${prepType}','${qi}')" style="background:var(--g)">💾 Save</button>
+      </div>
+      <div id="cosaved-${coId}-${prepType}-${qi}" class="saved-answers"></div>
+    </div>
+  </div>`;
+}
+
+function toggleCoAns(coId,prepType,qi){
+  const el=document.getElementById('coa-'+coId+'-'+prepType+'-'+qi);
+  if(el)el.classList.toggle('hidden');
+}
+
+function saveCoAnswer(coId,prepType,qi){
+  const ta=document.getElementById('cosol-'+coId+'-'+prepType+'-'+qi);
+  if(!ta||!ta.value.trim()){toast('Type an answer first');return;}
+  const co=companies.find(c=>c.id===coId);
+  if(!co)return;
+  const qa=co.preps[prepType]?.[qi];
+  if(!qa)return;
+  if(!qa.myAnswers)qa.myAnswers=[];
+  qa.myAnswers.push({text:ta.value.trim(),date:new Date().toLocaleDateString('en-IN')});
+  save(CK,companies);
+  ta.value='';
+  toast('✅ Answer saved!');
+  renderCompanies();
+}
+
+function addPrepQ(coId,prepType){
+  const q=prompt('Enter question:');if(!q)return;
+  const a=prompt('Enter model answer (optional):');
+  const co=companies.find(c=>c.id===coId);
+  if(!co)return;
+  if(!co.preps[prepType])co.preps[prepType]=[];
+  co.preps[prepType].push({q,a:a||'',myAnswers:[]});
+  save(CK,companies);
+  renderCompanies();
+  toast('Question added!');
+}
+
+function deleteCo(id){
+  if(!confirm('Delete this company and all prep answers?'))return;
+  companies=companies.filter(c=>c.id!==id);
+  delete activeCoPrep[id];
+  save(CK,companies);
+  renderCompanies();
+  toast('Company deleted');
+}
+
+// ═══ Q&A BANK ═══
+let qbActiveSkill='all';
+function filterQB(el,skill){
+  document.querySelectorAll('.qbf').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+  qbActiveSkill=skill;
+  renderQABank();
+}
+
+function renderQABank(){
+  const el=document.getElementById('qb-list');
+  // collect all QAs from sessions
+  const all=[];
+  sessions.forEach(s=>{
+    Object.entries(s.skillQA||{}).forEach(([sk,qs])=>{
+      qs.forEach(qa=>{all.push({skill:sk,q:qa.q,a:qa.a,date:s.date,heading:s.heading});});
+    });
+  });
+  // also add defaults not in sessions
+  if(!all.length&&qbActiveSkill==='all'){
+    Object.entries(DEFAULT_QA).forEach(([sk,qs])=>{
+      qs.forEach(qa=>{all.push({skill:sk,q:qa.q,a:qa.a,date:'Default',heading:'Built-in'});});
+    });
+  }
+  const filtered=qbActiveSkill==='all'?all:all.filter(q=>q.skill===qbActiveSkill);
+  if(!filtered.length){el.innerHTML='<div class="empty">No Q&As for this skill yet. Add sessions with this skill tag.</div>';return;}
+  el.innerHTML=filtered.map((qa,i)=>`<div class="qb-item">
+    <div class="qb-skill-tag">${SKILLS[qa.skill]?.label||qa.skill} · ${qa.date}</div>
+    <div class="qa-q">${esc(qa.q)}</div>
+    <button class="qa-toggle" onclick="toggleQBans(${i})">👁 Show Answer</button>
+    <div class="qa-a hidden" id="qba-${i}">${esc(qa.a)}</div>
+  </div>`).join('');
+}
+
+function toggleQBans(i){
+  const el=document.getElementById('qba-'+i);
+  if(el)el.classList.toggle('hidden');
+}
+
+// ═══ PRACTICE MODE ═══
+function renderPracticeSetup(){
+  document.getElementById('practice-area').innerHTML='<div class="empty">Select skill + mode above, then tap Start Practice.</div>';
+}
+
+function startPractice(){
+  const skill=document.getElementById('prac-skill').value;
+  // gather all QAs
+  let qs=[];
+  sessions.forEach(s=>{
+    Object.entries(s.skillQA||{}).forEach(([sk,qas])=>{
+      if(skill==='all'||sk===skill){
+        qas.forEach(qa=>qs.push({skill:sk,q:qa.q,a:qa.a}));
+      }
+    });
+  });
+  // add defaults if no sessions
+  if(!qs.length){
+    const pool=skill==='all'?Object.entries(DEFAULT_QA):[[skill,DEFAULT_QA[skill]||[]]];
+    pool.forEach(([sk,qas])=>qas.forEach(qa=>qs.push({skill:sk,q:qa.q,a:qa.a})));
+  }
+  if(!qs.length){
+    document.getElementById('practice-area').innerHTML='<div class="empty">No questions found for this filter.</div>';
+    return;
+  }
+  // shuffle
+  qs.sort(()=>Math.random()-.5);
+  pracQs=qs; pracIdx=0;
+  renderPracticeCard();
+}
+
+function renderPracticeCard(){
+  const area=document.getElementById('practice-area');
+  if(pracIdx>=pracQs.length){
+    area.innerHTML=`<div class="card" style="text-align:center;padding:24px">
+      <div style="font-size:40px;margin-bottom:10px">🎉</div>
+      <div style="font-size:16px;font-weight:800;margin-bottom:6px">Practice Complete!</div>
+      <div style="font-size:13px;color:var(--sub);margin-bottom:14px">${pracQs.length} questions covered</div>
+      <button class="btn btn-p" style="width:100%" onclick="startPractice()">Practice Again (Reshuffled)</button>
+    </div>`;
+    return;
+  }
+  const qa=pracQs[pracIdx];
+  area.innerHTML=`<div class="practice-card">
+    <div class="q-num">Question ${pracIdx+1} of ${pracQs.length} · <span style="opacity:.8">${SKILLS[qa.skill]?.label||qa.skill}</span></div>
+    <div class="q-text">${esc(qa.q)}</div>
+    <textarea id="prac-answer" placeholder="Speak out loud or type your answer here…" style="min-height:80px;margin-bottom:8px"></textarea>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+      <button class="mic-btn" id="prac-mic" onclick="toggleMic('prac-answer','prac-mic')" style="background:rgba(255,255,255,.2);opacity:.8;border-radius:8px;padding:6px 10px;font-size:16px">🎙️</button>
+      <button class="btn" onclick="showPracAns()" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3);flex:1">👁 Show Answer</button>
+    </div>
+  </div>
+  <div id="prac-ans-box" style="display:none" class="card">
+    <div style="font-size:11px;font-weight:700;color:var(--p);margin-bottom:6px">MODEL ANSWER:</div>
+    <div style="font-size:13px;color:#374151;line-height:1.6">${esc(qa.a)}</div>
+    <hr>
+    <div style="font-size:11px;font-weight:700;color:var(--sub);margin-bottom:6px">HOW DID YOU DO?</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="btn btn-r" onclick="nextQ()" style="flex:1">😕 Needs Work</button>
+      <button class="btn btn-o" onclick="nextQ()" style="flex:1">😐 Getting There</button>
+      <button class="btn btn-g" onclick="nextQ()" style="flex:1">😄 Nailed It</button>
+    </div>
+  </div>`;
+}
+
+function showPracAns(){
+  const box=document.getElementById('prac-ans-box');
+  if(box)box.style.display='block';
+}
+
+function nextQ(){
+  pracIdx++;
+  renderPracticeCard();
+}
+
+// ═══ POST INTERVIEW QUESTIONS ═══
+function savePostInterviewQ(){
+  const co=document.getElementById('piq-co').value.trim();
+  const qs=document.getElementById('piq-qs').value.trim();
+  if(!co||!qs){toast('Enter company name and questions');return;}
+  postInterviews.unshift({id:'pi_'+Date.now(),company:co,questions:qs,date:new Date().toISOString().split('T')[0]});
+  save(PIK,postInterviews);
+  document.getElementById('piq-co').value='';
+  document.getElementById('piq-qs').value='';
+  renderPostInterviews();
+  toast('✅ Interview questions saved!');
+}
+
+function renderPostInterviews(){
+  const el=document.getElementById('piq-list');
+  if(!el)return;
+  if(!postInterviews.length){el.innerHTML='<div class="empty">No interview questions logged yet.</div>';return;}
+  el.innerHTML=postInterviews.map(pi=>`<div class="card" style="margin-bottom:8px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+      <div><div style="font-size:13px;font-weight:700">${esc(pi.company)}</div><div style="font-size:10px;color:var(--sub)">${pi.date}</div></div>
+      <button class="btn-sm" onclick="deletePIQ('${pi.id}')" style="background:#fee2e2;color:var(--r)">🗑</button>
+    </div>
+    <div style="font-size:12px;color:#374151;white-space:pre-wrap;line-height:1.6;background:var(--light);border-radius:8px;padding:10px">${esc(pi.questions)}</div>
+  </div>`).join('');
+}
+
+function deletePIQ(id){
+  postInterviews=postInterviews.filter(p=>p.id!==id);
+  save(PIK,postInterviews);
+  renderPostInterviews();
+}
+
+// ═══ MIC ═══
+let _micRec=null,_micTarget=null,_micBtn=null,_micCommit={};
+function toggleMic(targetId,btnId){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){toast('Voice needs Chrome browser');return;}
+  const ta=document.getElementById(targetId);
+  const btn=document.getElementById(btnId);
+  if(_micRec&&_micTarget===targetId){
+    _micRec.stop();_micRec=null;_micTarget=null;
+    if(btn){btn.textContent='🎙️';btn.classList.remove('active');}
+    delete _micCommit[targetId];
+    return;
+  }
+  if(_micRec){_micRec.stop();_micRec=null;if(_micBtn){_micBtn.textContent='🎙️';_micBtn.classList.remove('active');}}
+  _micTarget=targetId;_micBtn=btn;
+  if(_micCommit[targetId]===undefined)_micCommit[targetId]=ta?ta.value:'';
+  const r=new SR();r.lang='en-IN';r.interimResults=true;r.continuous=true;_micRec=r;
+  if(btn){btn.textContent='⏹️';btn.classList.add('active');}
+  r.onresult=e=>{
+    let interim='',final='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal)final+=e.results[i][0].transcript+' ';
+      else interim+=e.results[i][0].transcript;
+    }
+    if(final){const sep=_micCommit[targetId].trimEnd().length>0?' ':'';_micCommit[targetId]=_micCommit[targetId].trimEnd()+sep+final.trimEnd();}
+    const t=document.getElementById(targetId);
+    if(t){const sep=_micCommit[targetId].length>0&&interim.length>0?' ':'';t.value=_micCommit[targetId]+sep+interim;}
+  };
+  r.onend=()=>{if(_micRec===r&&_micTarget===targetId){const t=document.getElementById(targetId);if(t&&t.value.trim())_micCommit[targetId]=t.value;try{r.start();}catch(e){if(btn){btn.textContent='🎙️';btn.classList.remove('active');}}}};
+  r.onerror=e=>{if(e.error!=='no-speech'&&btn){btn.textContent='🎙️';btn.classList.remove('active');}_micRec=null;};
+  navigator.mediaDevices&&navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{s.getTracks().forEach(t=>t.stop());r.start();}).catch(()=>{toast('🚫 Mic blocked — allow mic in browser');if(btn){btn.textContent='🎙️';btn.classList.remove('active');}});
+}
+
+// ═══ EXPORT / IMPORT ═══
+function exportAll(){
+  const data={sessions,companies,postInterviews,exportedAt:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='soma-learn-prep-'+new Date().toISOString().split('T')[0]+'.json';a.click();
+  toast('✅ Data exported!');
+}
+
+function importAll(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      if(d.sessions)sessions=d.sessions;
+      if(d.companies)companies=d.companies;
+      if(d.postInterviews)postInterviews=d.postInterviews;
+      save(SK,sessions);save(CK,companies);save(PIK,postInterviews);
+      toast('✅ Data imported! Refreshing…');
+      setTimeout(()=>location.reload(),800);
+    }catch{toast('❌ Invalid file');}
+  };
+  reader.readAsText(file);
+}
+
+function clearAll(){
+  if(!confirm('Delete ALL data? This cannot be undone.'))return;
+  sessions=[];companies=[];postInterviews=[];
+  save(SK,sessions);save(CK,companies);save(PIK,postInterviews);
+  renderSessions();renderCompanies();
+  toast('All data cleared');
+}
+
+// ═══ DARK MODE ═══
+function toggleDark(){
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme',isDark?'':'dark');
+  localStorage.setItem('slp_dark',isDark?'':'dark');
+  document.getElementById('dark-btn').textContent=isDark?'🌙':'☀️';
+}
+function initDark(){
+  const d=localStorage.getItem('slp_dark');
+  if(d==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('dark-btn').textContent='☀️';}
+}
+
+// ═══ TOAST ═══
+function toast(msg,dur=2200){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),dur);
+}
+
+// ═══ ESC ═══
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ═══ INIT ═══
+initDark();
+renderSessions();
+renderPostInterviews();
+</script>
+</body>
+</html>
