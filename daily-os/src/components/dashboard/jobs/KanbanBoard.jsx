@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
   DndContext, closestCorners, DragOverlay,
-  PointerSensor, useSensor, useSensors,
+  PointerSensor, useSensor, useSensors, useDroppable,
 } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useDashboard } from '../../../store/DashboardContext'
@@ -28,14 +28,13 @@ export default function KanbanBoard({ toast }) {
     if (!over) return
 
     const jobId = active.id
-    // over could be a column id or another job id
     let newStatus = over.id
 
-    // If dropped over another job, find that job's column
+    // If dropped over another job card, use that job's column
     const overJob = jobs.find(j => j.id === over.id)
     if (overJob) newStatus = overJob.status
 
-    // Verify it's a valid column
+    // Only dispatch if target is a valid column
     if (KANBAN_COLUMNS.find(c => c.id === newStatus)) {
       const job = jobs.find(j => j.id === jobId)
       if (job && job.status !== newStatus) {
@@ -78,8 +77,11 @@ export default function KanbanBoard({ toast }) {
 }
 
 function KanbanColumn({ column, jobs, toast }) {
+  // Register column as a droppable so empty columns accept cards
+  const { setNodeRef, isOver } = useDroppable({ id: column.id })
+
   return (
-    <div className="kanban-col" data-status={column.id} id={column.id}>
+    <div className="kanban-col" data-status={column.id}>
       <div className="kanban-col-header">
         <span className="kanban-col-title" style={{ color: column.color }}>
           {column.label}
@@ -89,7 +91,11 @@ function KanbanColumn({ column, jobs, toast }) {
         </span>
       </div>
       <SortableContext items={jobs.map(j => j.id)} strategy={verticalListSortingStrategy}>
-        <div className="kanban-cards" id={column.id}>
+        <div
+          className="kanban-cards"
+          ref={setNodeRef}
+          style={isOver ? { background: column.color + '11', borderRadius: 8 } : {}}
+        >
           {jobs.length === 0 ? (
             <div className="kanban-empty">Drop here</div>
           ) : (

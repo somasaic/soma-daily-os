@@ -101,11 +101,16 @@
 .idea-file-chip:hover { color:var(--p); border-color:var(--p); }
 
 /* ── QUICK WINS ──────────────────────────── */
-.qw-grid { display:flex; flex-wrap:wrap; gap:5px; }
-.qw-chip { padding:5px 10px; border-radius:14px; border:1.5px solid var(--border); background:var(--card); font-size:11px; font-weight:600; cursor:pointer; color:var(--text); transition:all .15s; display:flex; align-items:center; gap:4px; }
+.qw-grid { display:flex; flex-wrap:wrap; gap:6px; }
+.qw-chip-wrap { display:inline-flex; align-items:center; gap:2px; }
+.qw-chip { padding:5px 10px; border-radius:14px; border:1.5px solid var(--border); background:var(--card); font-size:11px; font-weight:600; cursor:pointer; color:var(--text); transition:all .15s; display:flex; align-items:center; gap:5px; }
 .qw-chip:hover { transform:translateY(-1px); box-shadow:0 2px 6px var(--shadow); }
 .qw-chip.tapped { color:white; border-color:transparent; }
-.tap-count { background:rgba(255,255,255,0.3); border-radius:7px; padding:1px 5px; font-size:10px; }
+.tap-count { background:rgba(255,255,255,0.3); border-radius:7px; padding:1px 6px; font-size:10px; cursor:pointer; }
+.tap-count:hover { background:rgba(255,255,255,0.5); }
+.qw-del-btn { border:none; background:none; cursor:pointer; font-size:12px; color:var(--sub); opacity:0; padding:2px 4px; transition:opacity .15s; line-height:1; border-radius:50%; }
+.qw-chip-wrap:hover .qw-del-btn { opacity:0.6; }
+.qw-del-btn:hover { opacity:1 !important; color:var(--r); }
 .qw-note { font-size:10px; color:var(--sub); margin-top:7px; font-style:italic; }
 
 /* ── FOCUS CARD ──────────────────────────── */
@@ -115,8 +120,9 @@
 .focus-sub { font-size:12px; opacity:.8; margin-top:4px; line-height:1.4; }
 
 /* ── SCHEDULE ────────────────────────────── */
-.schedule-item { display:flex; gap:8px; padding:8px 0; border-bottom:1px solid var(--border); align-items:flex-start; }
-.schedule-item:last-child { border-bottom:none; }
+.sched-slot-wrap { border-bottom:1px solid var(--border); padding:6px 0 10px; margin-bottom:2px; }
+.sched-slot-wrap:last-child { border-bottom:none; margin-bottom:0; }
+.schedule-item { display:flex; gap:10px; padding:8px 0 4px; align-items:flex-start; }
 .schedule-time { font-size:11px; font-weight:700; color:var(--sub); min-width:65px; padding-top:2px; }
 .schedule-dot { width:8px; height:8px; border-radius:50%; margin-top:4px; flex-shrink:0; }
 .schedule-label { font-size:13px; color:var(--text); flex:1; line-height:1.4; }
@@ -143,7 +149,7 @@
 .day-tab-btn.dtab-mode-active { background:var(--g); color:white; border-color:var(--g); }
 
 /* ── SLOT TIMERS ─────────────────────────── */
-.slot-timer-row { display:flex; align-items:center; gap:5px; padding:5px 0 3px; flex-wrap:wrap; border-top:1px dashed var(--border); margin-top:4px; }
+.slot-timer-row { display:flex; align-items:center; gap:7px; padding:6px 0 4px; flex-wrap:wrap; }
 .slot-timer-display { font-size:13px; font-weight:800; color:var(--p); min-width:58px; font-family:monospace; letter-spacing:1px; }
 .slot-timer-display.st-running { color:var(--g); animation:st-blink 1s step-end infinite; }
 .slot-timer-display.st-done { color:var(--r); }
@@ -180,7 +186,7 @@
 [data-theme=dark] .dc-rating-btn.dc-sel { background:#2a2035; border-color:#8b6fff; }
 .dc-entry { padding:10px 12px; border-radius:10px; background:var(--light); border:1px solid var(--border); margin-bottom:8px; }
 .dc-entry:last-child { margin-bottom:0; }
-.dc-entry-date { font-size:11px; font-weight:700; color:var(--p); margin-bottom:5px; display:flex; align-items:center; gap:6px; }
+.dc-entry-date { font-size:11px; font-weight:700; color:var(--p); margin-bottom:5px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 [data-theme=dark] .dc-entry-date { color:#8b6fff; }
 .dc-entry-text { font-size:12px; color:var(--text); line-height:1.5; white-space:pre-wrap; opacity:0.9; }
 
@@ -203,7 +209,7 @@
 .skill-controls { display:flex; gap:4px; flex-wrap:wrap; }
 .skill-btn { padding:4px 9px; border-radius:11px; border:1px solid var(--border); background:var(--card); font-size:11px; font-weight:600; cursor:pointer; color:var(--text); transition:all .15s; }
 .skill-btn:hover { background:var(--light); }
-.skill-btn.btn-active{background:var(--p);color:white;border-color:var(--p)}.skill-btn.btn-done{background:var(--g);color:white;border-color:var(--g)}.skill-btn.btn-pause{background:var(--o);color:white;border-color:var(--o)}
+.skill-btn.btn-active{background:var(--p);color:white;border-color:var(--p)}.skill-btn.btn-done{background:var(--g);color:white;border-color:var(--g)}.skill-btn.btn-pause,.skill-btn.btn-paused{background:var(--o);color:white;border-color:var(--o)}
 .timer-row { display:flex; align-items:center; gap:6px; margin-top:5px; flex-wrap:wrap; }
 .tbtn { padding:3px 9px; border-radius:10px; border:1px solid var(--border); background:var(--card); font-size:11px; font-weight:700; cursor:pointer; color:var(--text); transition:all .15s; }
 .tbtn.trun { background:var(--r); color:white; border-color:var(--r); }

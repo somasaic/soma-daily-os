@@ -35,6 +35,7 @@ function getInitialState() {
     ideas: [],
     skills: buildDefaultSkills(),
     qwExcluded: [],
+    qwCustomChips: [],
     schedule: {},
     scheduleTimers: {},
     scheduleDone: {},
@@ -155,6 +156,14 @@ function reducer(state, action) {
         : [...state.qwExcluded, action.id]
       return { ...state, qwExcluded }
     }
+    case 'ADD_QW_CHIP': {
+      const chip = { id: 'qw_' + uid(), label: action.payload }
+      return { ...state, qwCustomChips: [...(state.qwCustomChips || []), chip] }
+    }
+    case 'DELETE_QW_CHIP': {
+      const qwCustomChips = (state.qwCustomChips || []).filter(c => c.id !== action.id)
+      return { ...state, qwCustomChips }
+    }
 
     // SCHEDULE
     case 'UPDATE_SCHEDULE': {
@@ -267,6 +276,16 @@ function reducer(state, action) {
     case 'SAVE_REFLECTION': {
       const day = todayStr()
       const reflections = { ...state.reflections, [day]: action.payload }
+      return { ...state, reflections }
+    }
+    case 'UPDATE_REFLECTION': {
+      const { date, text, rating } = action.payload
+      const reflections = { ...state.reflections, [date]: { ...state.reflections[date], text, rating } }
+      return { ...state, reflections }
+    }
+    case 'DELETE_REFLECTION': {
+      const reflections = { ...state.reflections }
+      delete reflections[action.date]
       return { ...state, reflections }
     }
 

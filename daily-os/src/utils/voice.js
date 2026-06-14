@@ -14,13 +14,35 @@ function getRecognition() {
   return recognition
 }
 
-export function toggleVoiceInput(targetEl, btnEl, onToast) {
+// Unwrap React refs ({ current: el }) or pass-through plain DOM elements
+function unwrap(x) {
+  return (x && typeof x === 'object' && 'current' in x) ? x.current : x
+}
+
+// Use native property setter so React's synthetic onChange fires correctly
+function setNativeValue(el, value) {
+  if (!el) return
+  const isTA = el.tagName === 'TEXTAREA'
+  const proto = isTA ? window.HTMLTextAreaElement.prototype : window.HTMLInputElement.prototype
+  const setter = Object.getOwnPropertyDescriptor(proto, 'value')?.set
+  if (setter) setter.call(el, value)
+  else el.value = value
+  el.dispatchEvent(new Event('input', { bubbles: true }))
+}
+
+export function toggleVoiceInput(targetOrRef, btnOrRef, onToast) {
   const rec = getRecognition()
   if (!rec) {
-    if (onToast) onToast('Voice input not supported in this browser. Use Chrome.')
+    if (onToast) onToast('Voice input not supported. Use Chrome.')
     return
   }
 
+  const targetEl = unwrap(targetOrRef)
+  const btnEl = unwrap(btnOrRef)
+
+  if (!targetEl) return
+
+  // Toggle off if same target
   if (activeTarget === targetEl) {
     rec.stop()
     if (btnEl) btnEl.classList.remove('mic-active')
@@ -29,6 +51,7 @@ export function toggleVoiceInput(targetEl, btnEl, onToast) {
     return
   }
 
+  // Stop previous
   if (activeTarget) {
     rec.stop()
     if (activeBtn) activeBtn.classList.remove('mic-active')
@@ -37,23 +60,22 @@ export function toggleVoiceInput(targetEl, btnEl, onToast) {
   activeTarget = targetEl
   activeBtn = btnEl
 
-  let interim = ''
   const base = targetEl.value || ''
+  let accumulated = ''
 
   rec.onresult = (e) => {
-    let final = ''
-    interim = ''
+    let interim = ''
+    accumulated = ''
     for (let i = e.resultIndex; i < e.results.length; i++) {
-      if (e.results[i].isFinal) final += e.results[i][0].transcript
+      if (e.results[i].isFinal) accumulated += e.results[i][0].transcript
       else interim += e.results[i][0].transcript
     }
-    targetEl.value = base + final + interim
-    targetEl.dispatchEvent(new Event('input', { bubbles: true }))
+    setNativeValue(targetEl, base + accumulated + interim)
   }
 
   rec.onerror = (e) => {
     if (e.error === 'not-allowed') {
-      if (onToast) onToast('Mic blocked. Click the 🔒 icon in Chrome address bar → Allow microphone.')
+      if (onToast) onToast('Mic blocked. Click 🔒 in Chrome address bar → Allow microphone.')
     } else if (e.error !== 'aborted') {
       if (onToast) onToast('Mic error: ' + e.error)
     }

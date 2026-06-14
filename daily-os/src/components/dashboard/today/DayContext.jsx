@@ -1,8 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useDashboard } from '../../../store/DashboardContext'
 import { todayStr } from '../../../utils/utils'
 import { toggleVoiceInput } from '../../../utils/voice'
-import { useRef } from 'react'
 
 const RATINGS = ['😫','😔','😐','😊','🤩']
 
@@ -11,10 +10,13 @@ export default function DayContext({ toast }) {
   const { reflections } = state
   const [text, setText] = useState('')
   const [rating, setRating] = useState(null)
+  const [editDate, setEditDate] = useState(null)
+  const [editText, setEditText] = useState('')
+  const [editRating, setEditRating] = useState(null)
   const textRef = useRef(null)
+  const editRef = useRef(null)
 
   const today = todayStr()
-  const todayReflection = reflections[today]
 
   function save() {
     if (!text.trim() && rating === null) return
@@ -25,6 +27,27 @@ export default function DayContext({ toast }) {
     setText('')
     setRating(null)
     toast?.('Reflection saved!')
+  }
+
+  function startEdit(date, ref) {
+    setEditDate(date)
+    setEditText(ref.text || '')
+    setEditRating(ref.rating || null)
+  }
+
+  function saveEdit() {
+    if (!editText.trim() && editRating === null) return
+    dispatch({
+      type: 'UPDATE_REFLECTION',
+      payload: { date: editDate, text: editText.trim(), rating: editRating },
+    })
+    setEditDate(null)
+    toast?.('Reflection updated!')
+  }
+
+  function deleteReflection(date) {
+    if (!window.confirm('Delete this reflection?')) return
+    dispatch({ type: 'DELETE_REFLECTION', date })
   }
 
   const recent = Object.entries(reflections)
@@ -61,7 +84,7 @@ export default function DayContext({ toast }) {
         />
         <button
           className="mic-btn"
-          onClick={e => toggleVoiceInput(textRef, { current: e.currentTarget }, toast)}
+          onClick={e => toggleVoiceInput(textRef, e.currentTarget, toast)}
         >🎤</button>
       </div>
 
@@ -69,12 +92,49 @@ export default function DayContext({ toast }) {
 
       {recent.map(([date, ref]) => (
         <div key={date} className="dc-entry">
-          <div className="dc-entry-date">
-            {date === today ? '📅 Today' : date}
-            {ref.rating && <span>{RATINGS[ref.rating - 1]}</span>}
-            {ref.savedAt && <span style={{ fontWeight: 400, fontSize: 10, opacity: .7 }}>{ref.savedAt}</span>}
-          </div>
-          {ref.text && <div className="dc-entry-text">{ref.text}</div>}
+          {editDate === date ? (
+            <div>
+              <div className="dc-day-rating" style={{ marginBottom: 8 }}>
+                {RATINGS.map((r, i) => (
+                  <button
+                    key={i}
+                    className={`dc-rating-btn${editRating === i + 1 ? ' dc-sel' : ''}`}
+                    onClick={() => setEditRating(i + 1)}
+                  >
+                    {r}
+                  </button>
+                ))}
+              </div>
+              <div className="mic-wrap" style={{ marginBottom: 7 }}>
+                <textarea
+                  ref={editRef}
+                  className="note-area"
+                  rows={3}
+                  value={editText}
+                  autoFocus
+                  onChange={e => setEditText(e.target.value)}
+                />
+                <button className="mic-btn" onClick={e => toggleVoiceInput(editRef, e.currentTarget, toast)}>🎤</button>
+              </div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                <button className="btn-sm" onClick={saveEdit}>Save</button>
+                <button className="btn-sm-ghost" onClick={() => setEditDate(null)}>Cancel</button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="dc-entry-date">
+                <span>{date === today ? '📅 Today' : date}</span>
+                {ref.rating && <span>{RATINGS[ref.rating - 1]}</span>}
+                {ref.savedAt && <span style={{ fontWeight: 400, fontSize: 10, opacity: .7 }}>{ref.savedAt}</span>}
+                <div style={{ marginLeft: 'auto', display: 'flex', gap: 3 }}>
+                  <button className="icon-btn" onClick={() => startEdit(date, ref)} title="Edit">✏️</button>
+                  <button className="icon-btn" onClick={() => deleteReflection(date)} title="Delete">🗑️</button>
+                </div>
+              </div>
+              {ref.text && <div className="dc-entry-text">{ref.text}</div>}
+            </>
+          )}
         </div>
       ))}
     </div>

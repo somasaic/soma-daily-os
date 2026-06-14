@@ -6,6 +6,7 @@ export default function Pendings({ toast }) {
   const { state, dispatch } = useDashboard()
   const { pendings } = state
   const [newText, setNewText] = useState('')
+  const pendingInputRef = { current: null }
   const [showDone, setShowDone] = useState(false)
   const [editId, setEditId] = useState(null)
   const [editText, setEditText] = useState('')
@@ -108,10 +109,11 @@ export default function Pendings({ toast }) {
             value={newText}
             onChange={e => setNewText(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && add()}
+            ref={el => { pendingInputRef.current = el }}
           />
           <button
             className="mic-btn"
-            onClick={e => toggleVoiceInput({ current: e.currentTarget.previousSibling }, { current: e.currentTarget }, toast)}
+            onClick={e => toggleVoiceInput(pendingInputRef, e.currentTarget, toast)}
           >🎤</button>
         </div>
         <button className="btn-sm" onClick={add}>Add</button>

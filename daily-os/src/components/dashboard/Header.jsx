@@ -63,7 +63,7 @@ export default function Header({ onStreakClick }) {
         >
           🔥 {streakCount}{planBadge}
         </div>
-        {journeyDay && (
+        {journeyDay > 0 && (
           <div className="journey-day" style={{ fontSize: 10, opacity: .7, textAlign: 'right' }}>
             Journey day {journeyDay}
           </div>

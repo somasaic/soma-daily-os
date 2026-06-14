@@ -8,7 +8,7 @@ export default function NonNegotiables({ toast }) {
   const [newText, setNewText] = useState('')
   const [editId, setEditId] = useState(null)
   const [editText, setEditText] = useState('')
-  const micRef = { current: null }
+  const inputRef = { current: null }
 
   const done = nonNeg.filter(n => n.done).length
   const total = nonNeg.length
@@ -81,11 +81,11 @@ export default function NonNegotiables({ toast }) {
             value={newText}
             onChange={e => setNewText(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && add()}
+            ref={el => { inputRef.current = el }}
           />
           <button
             className="mic-btn"
-            ref={micRef}
-            onClick={e => toggleVoiceInput({ current: e.currentTarget.previousSibling }, { current: e.currentTarget }, toast)}
+            onClick={e => toggleVoiceInput(inputRef, e.currentTarget, toast)}
           >🎤</button>
         </div>
         <button className="btn-sm" onClick={add}>Add</button>

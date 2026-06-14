@@ -1,13 +1,17 @@
 import { useRef } from 'react'
 import { useDashboard } from '../../../store/DashboardContext'
-import { exportAllData } from '../../../utils/storage'
+import { loadLearnPrep } from '../../../utils/storage'
 
 export default function BackupRestore({ toast }) {
   const { state, dispatch } = useDashboard()
   const fileRef = useRef(null)
 
   function exportJSON() {
-    const data = exportAllData()
+    const data = {
+      dashboard: state,
+      learnPrep: loadLearnPrep(),
+      exported: new Date().toISOString(),
+    }
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -27,8 +31,10 @@ export default function BackupRestore({ toast }) {
         const data = JSON.parse(ev.target.result)
         if (data.dashboard) {
           dispatch({ type: 'IMPORT', payload: data.dashboard })
+          toast?.('✅ Data restored!')
+        } else {
+          toast?.('❌ No dashboard data found in backup')
         }
-        toast?.('✅ Data restored!')
       } catch {
         toast?.('❌ Invalid backup file')
       }

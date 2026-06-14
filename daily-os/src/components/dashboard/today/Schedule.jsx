@@ -214,7 +214,7 @@ export default function Schedule({ toast }) {
         const isEditing = editingIdx === idx
 
         return (
-          <div key={idx}>
+          <div key={idx} className="sched-slot-wrap">
             {isEditing ? (
               <div className="sched-edit-row">
                 <input
