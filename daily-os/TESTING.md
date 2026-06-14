@@ -193,6 +193,14 @@ Findings:
 - Multi-sentence input is not supported
 - **Defect raised:** D-015 (voice continuity — speech replaces instead of appending)
 
+**Session 10 — Hunt Tab Edit Re-Test Charter (Post-Fix)**
+*"Click the edit button on every Hunt Tab application entry — from the Action Required section AND from pipeline rows. Verify edit form appears immediately without requiring scroll."*
+
+Findings:
+- Clicking ✏️ in the "Action Required" section: `editId` was set but no visible change appeared — edit form was rendering inside the pipeline section below, requiring scroll to find
+- Clicking ✏️ on a row inside a collapsed pipeline group: edit form was hidden inside the collapsed group — completely invisible
+- **Defect raised:** D-016 (Hunt Tab edit invisible from follow-up section and collapsed groups)
+
 ---
 
 #### 5B — Functional Testing
@@ -260,7 +268,8 @@ After every individual bug fix, a regression pass was run across the related fea
 |---|---|---|
 | Schedule checkbox, time, label, and timer all cramped in one row | D-005 | ✅ Slot wrapper with clear visual separation added |
 | Pause button on Skills tab shows no visual state change | D-009 | ✅ CSS class `btn-paused` added |
-| Hunt Tab edit form appears at page top, invisible when scrolled down | D-014 | ✅ Edit form now inline per row |
+| Hunt Tab edit form appears at page top, invisible when scrolled down | D-014 | ✅ Edit form moved inline per row |
+| Hunt Tab edit invisible from follow-up section and collapsed groups | D-016 | ✅ Single edit panel above pipeline — always visible |
 | `0` renders as visible text below streak badge | D-001 | ✅ Guarded with `journeyDay > 0` |
 | No way to delete a reflection once saved | D-008 | ✅ Delete button added with confirm dialog |
 
@@ -333,6 +342,7 @@ All 15 defects found were formally documented with:
 | D-013 | Kanban — drag to empty | High | `useDroppable` not registered on column container | ✅ Fixed |
 | D-014 | Hunt Tab — edit UX | High | Edit form at page top, not inline — invisible at scroll position | ✅ Fixed |
 | D-015 | Voice — continuity | High | `e.resultIndex` loop + stale `base` on session restart | ✅ Fixed |
+| D-016 | Hunt Tab — edit UX | High | Inline edit inside collapsed group invisible; edit from follow-up section shows nothing at scroll pos | ✅ Fixed |
 
 **Root cause classification:**
 
@@ -343,7 +353,7 @@ All 15 defects found were formally documented with:
 | CSS naming mismatch | 1 | D-009 |
 | Library API misuse (dnd-kit) | 1 | D-013 |
 | Data/logic bug | 2 | D-012, D-015 |
-| UX/layout issue | 2 | D-005, D-014 |
+| UX/layout issue | 3 | D-005, D-014, D-016 |
 
 ---
 

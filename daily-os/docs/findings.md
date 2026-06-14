@@ -92,5 +92,16 @@ When generating CSS classes dynamically from state values (`btn-${status}`), ens
 ### 8. dnd-kit Empty Drop Targets
 When all cards are dragged out of a Kanban column, the column has no sortable items. `closestCorners` can't find any target inside it. Register the column container with `useDroppable` so the column itself is always a valid drop target regardless of how many cards it has.
 
-### 9. Hunt Tab Inline Edit UX
-Rendering an edit form at the top of a page (above a long list) creates invisible edits — the user scrolls down, clicks edit, and the form appears far out of view. Always render edit forms inline, adjacent to the item being edited.
+### 9. Hunt Tab Edit Panel Placement (Updated)
+Two iterations needed to get this right:
+
+**v1 (wrong):** Edit form rendered at page top — user scrolled down, clicked edit, form appeared out of view. Fixed by moving it inline per row.
+
+**v2 (still wrong):** Inline edit inside pipeline rows created two new invisible-edit cases:
+1. Clicking ✏️ from the "Action Required" follow-up alerts section at the top — `editId` was set but form only rendered in the pipeline section below, requiring scroll.
+2. Clicking ✏️ on a row inside a collapsed pipeline group — form was inside the hidden collapsed group.
+
+**v3 (correct):** Single dedicated edit panel rendered **above the pipeline section**, conditionally shown when `editId !== null`. Any ✏️ click from anywhere on the page opens this panel immediately — no scroll, no collapse issue. Rule: when an edit form must be accessible from multiple trigger points across a long scrollable page, render it once at a fixed, always-visible location above the content it edits.
+
+### 10. Edit Forms in Multi-Section Pages
+If an edit button exists in more than one section of a page (e.g., "Action Required" alerts + pipeline rows), the edit form must render at a location that is guaranteed to be visible from any scroll position. Inline-per-row only works when the trigger and form are always co-located in the same viewport region.

@@ -524,7 +524,7 @@ Full application follow-up tracker, separate from the Kanban Jobs tab.
 - CLOSED group: Rejected · Closed
 - Each group collapsible
 - Count badge per group
-- Inline edit per row (edit form renders below the row, not at page top)
+- Edit panel renders above the pipeline whenever any ✏️ is clicked — visible from any scroll position, not affected by group collapse state
 - Delete per application
 
 Pre-seeded with sample applications on first run (HUNT_SEED data).
@@ -657,7 +657,8 @@ localStorage limit: ~5MB. File attachment names stored but not file contents (no
 | Export JSON incomplete | `exportAllData()` called with no args — both params undefined, JSON.stringify omits undefined | Build export object directly in BackupRestore using context state |
 | Kanban drop to empty column broken | Plain `id=` on div is not a dnd-kit droppable; needed `useDroppable({id})` | Added `useDroppable` to KanbanColumn |
 | Skills Pause button not highlighted | Status value is `'paused'` → class `btn-paused`; CSS only had `.btn-pause` | Added `.btn-paused` to CSS rule |
-| Hunt Tab edit invisible | Edit form rendered at page top, far from the clicked row | Moved edit form inline per row |
+| Hunt Tab edit invisible (D-014) | Edit form rendered at page top, far from clicked row | Moved inline per row |
+| Hunt Tab edit still invisible (D-016) | Inline form hidden in collapsed groups; unreachable from follow-up section | Single edit panel above pipeline — always visible |
 | QuickWins no reset/add/delete | Feature not implemented | Added tap-count reset, custom chip add/delete, new reducer cases |
 | ParkIdeas no edit | Feature not implemented | Added inline edit per idea |
 | DayContext no edit/delete | Feature not implemented | Added inline edit + delete per reflection, new reducer cases |

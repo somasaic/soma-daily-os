@@ -64,6 +64,8 @@ All 14 reported bugs fixed and pushed in commit `827f513`.
 | 12 | Export | JSON only shows `{ "exported": "..." }` | ✅ Fixed |
 | 13 | Job Tracker | Drag-drop not working to empty columns | ✅ Fixed |
 | 14 | Hunt Tab | Edit form not visible (rendered off-screen) | ✅ Fixed |
+| 15 | Voice Input | Second sentence replaces first after pause | ✅ Fixed |
+| 16 | Hunt Tab | Edit still invisible — inline form hidden in collapsed group / unreachable from follow-up section | ✅ Fixed |
 
 ---
 
