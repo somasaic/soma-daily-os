@@ -60,17 +60,20 @@ export function toggleVoiceInput(targetOrRef, btnOrRef, onToast) {
   activeTarget = targetEl
   activeBtn = btnEl
 
-  const base = targetEl.value || ''
-  let accumulated = ''
+  // base = text already in the field when mic was activated (or updated on each restart)
+  // sessionFinals = finals accumulated in the current recognition session
+  let base = targetEl.value || ''
+  let sessionFinals = ''
 
   rec.onresult = (e) => {
     let interim = ''
-    accumulated = ''
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      if (e.results[i].isFinal) accumulated += e.results[i][0].transcript
+    sessionFinals = ''
+    // Iterate from 0 (not e.resultIndex) to capture ALL finals from this session
+    for (let i = 0; i < e.results.length; i++) {
+      if (e.results[i].isFinal) sessionFinals += e.results[i][0].transcript
       else interim += e.results[i][0].transcript
     }
-    setNativeValue(targetEl, base + accumulated + interim)
+    setNativeValue(targetEl, base + sessionFinals + interim)
   }
 
   rec.onerror = (e) => {
@@ -86,6 +89,10 @@ export function toggleVoiceInput(targetOrRef, btnOrRef, onToast) {
 
   rec.onend = () => {
     if (activeTarget === targetEl) {
+      // Carry confirmed finals into base before restarting so the next session
+      // builds on top of everything already spoken rather than starting fresh
+      base += sessionFinals
+      sessionFinals = ''
       try { rec.start() } catch {}
     }
   }
