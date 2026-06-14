@@ -1,5 +1,40 @@
 # Progress Log — Soma Daily OS
 
+## 2026-06-14 — Day 2 (continued): Voice Continuity Fix
+
+### ✅ Fix: Mic replaces first sentence when user pauses before speaking second (commit `31f6657`)
+
+**Observed behaviour:** Speaking sentence 1 → pause 2–3 seconds → speak sentence 2 → sentence 1 disappears, textarea only shows sentence 2.
+
+**Root cause — Bug 1 (within-session drops):**
+`onresult` loop started at `e.resultIndex` (the index of only the newest result). When sentence 1 finalized at index 0 and sentence 2 fired a new event at index 1, the loop only processed index 1 — sentence 1 was silently dropped every time.
+
+**Root cause — Bug 2 (cross-session restart drops):**
+Chrome auto-stops `SpeechRecognition` after silence and fires `onend`. The code restarts via `rec.start()`, but a new session has a fresh empty `e.results`. `base` was captured once at mic-on and never updated, so when sentence 2 arrived in the new session: `base ("") + sessionFinals ("sentence 2")` — sentence 1 gone.
+
+**Fix — `src/utils/voice.js`:**
+- Changed loop to start at `i = 0` instead of `e.resultIndex` — always reconstructs full finals for the current session.
+- Added `sessionFinals` variable to track finals across the session.
+- In `onend`: `base += sessionFinals; sessionFinals = ''` before restarting — each new session builds on top of everything already spoken.
+
+**Result:** Any number of sentences with any gap between them all accumulate correctly in the textarea.
+
+---
+
+## 2026-06-14 — Day 2 (continued): Running Correct React v2 App
+
+### ✅ Fix: User was running old vanilla JS app instead of React v2
+
+**Observed behaviour:** App showed old interface — no Kanban drag-drop, no bug fixes visible.
+
+**Root cause:** Command used was `npx live-server "...\daily-os\app"`. The `app` folder contains the **original vanilla JS v1** (index.html, css/, js/). The React v2 app lives at `daily-os/` root with `src/`, `dist/`, `package.json`.
+
+**Fix — Correct commands to run React v2:**
+- Dev mode: `npm run dev` from `daily-os/` → http://localhost:5173
+- Production build: `npm run build` then `npx live-server "...\daily-os\dist"`
+
+---
+
 ## 2026-06-14 — Day 2: 14 Bug Fixes
 
 ### ✅ All 14 reported bugs fixed and pushed (commit `827f513`)
